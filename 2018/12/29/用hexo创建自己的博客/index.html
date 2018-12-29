@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      test | 齐健的博客
+      用 hexo 创建自己的博客 | 齐健的博客
     
   </title>
   <meta name="author" content="MiracleQi">
@@ -114,7 +114,7 @@
 				<!-- Page title -->
 				<p>
 					
-						当前文章&nbsp;:&nbsp;《test》
+						当前文章&nbsp;:&nbsp;《用 hexo 创建自己的博客》
 					
 				</p>
 				<!-- Progress bar -->
@@ -230,7 +230,7 @@
 	
 		
 			<li>
-				<a href="http://github.com/" title="Github" target="_blank">
+				<a href="https://github.com/miracleqi" title="Github" target="_blank">
 					<i class="fa fa-github"></i>
 				</a>
 			</li>
@@ -244,7 +244,7 @@
 		
 		
 			<li>
-				<a href="mailto:http://github.com/" title="Email" target="_blank">
+				<a href="mailto:290557551@qq.com" title="Email" target="_blank">
 					<i class="fa fa-envelope-o"></i>
 				</a>
 			</li>
@@ -252,7 +252,7 @@
 
 		
 			<li>
-				<a href="http://github.com/" title="QQ" target="_blank">
+				<a href="http://290557551" title="QQ" target="_blank">
 					<i class="fa fa-qq"></i>
 				</a>
 			</li>
@@ -277,8 +277,8 @@
 	
 	<div class="article-title">
 		
-	<a href="/2018/12/28/test/" itemprop="url">
-		test
+	<a href="/2018/12/29/用hexo创建自己的博客/" itemprop="url">
+		用 hexo 创建自己的博客
 	</a>
 
 	</div>
@@ -287,17 +287,17 @@
 		<span>
 			
 	发布于
-	<a href="/2018/12/28/test/" itemprop="url">
-		<time datetime="2018-12-28T07:39:14.000Z" itemprop="datePublished">
-	  		2018-12-28
+	<a href="/2018/12/29/用hexo创建自己的博客/" itemprop="url">
+		<time datetime="2018-12-29T08:41:00.000Z" itemprop="datePublished">
+	  		2018-12-29
 	  </time>
 	</a> 
 
 	/
 	更新于
-	<a href="/2018/12/28/test/" itemprop="url">
-		<time datetime="2018-12-28T07:39:14.000Z" itemprop="dateUpdated">
-	  		2018-12-28
+	<a href="/2018/12/29/用hexo创建自己的博客/" itemprop="url">
+		<time datetime="2018-12-29T08:41:00.000Z" itemprop="dateUpdated">
+	  		2018-12-29
 	  </time>
 	</a> 	
 
@@ -305,12 +305,18 @@
 		/
 		<span>
 			<i class="fa fa-tags"></i>
-					
+			
+	
+		<a href="/tags/hexo/" class=" ">
+			hexo
+		</a>
+	
+		
 		</span>
 		/
 		
 
-    <span class="leancloud_visitors" id="/2018/12/28/test/_visitors" data-url="/2018/12/28/test/" data-title="test">
+    <span class="leancloud_visitors" id="/2018/12/29/用hexo创建自己的博客/_visitors" data-url="/2018/12/29/用hexo创建自己的博客/" data-title="用 hexo 创建自己的博客">
         热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
     </span>
@@ -319,7 +325,7 @@
 
 
 
-    <span class="leancloud_likes" id="/2018/12/28/test/_likes" data-url="/2018/12/28/test/" data-title="test" rel="unlike">
+    <span class="leancloud_likes" id="/2018/12/29/用hexo创建自己的博客/_likes" data-url="/2018/12/29/用hexo创建自己的博客/" data-title="用 hexo 创建自己的博客" rel="unlike">
         喜欢
         <i class="fa fa-heart"></i>
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -328,10 +334,80 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-			
+		<p>用 hexo 创建属于自己的博客  </p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>想要创建自己的博客由来已久。之前偶尔写点东西，记录在了新浪和w3cschool。<br>随着需要记录的文章越来越多，下定决心搭建一个属于自己的博客。现在大家用 hexo 比较多，也比较方便，并且能使用的主题也很多，所以魔君在这里记录 hexo 的搭建历程。<br>PS：魔君对前端（甚至html）都是一窍不通的。。。</p>
+<p>本篇为从零开始的基础篇，感谢<a href="http://visugar.com/2017/05/04/20170504SetUpHexoBlog/" target="_blank" rel="noopener">visugar</a>的分享</p>
+<h3 id="1-安装-Git-Bash"><a href="#1-安装-Git-Bash" class="headerlink" title="1. 安装 Git Bash"></a>1. 安装 Git Bash</h3><p>Git Bash 并不是必要的，但不太喜欢在cmd中操作各种命令，所以挑了这个比较好使的Git Bash, 我的是windows环境，所以下载<a href="https://git-for-windows.github.io/" target="_blank" rel="noopener">windows版本</a>并安装就可以了。</p>
+<p>安装步骤：双击下载好的 exe 文件，一路 next 就好啦</p>
+<p>安装好后，打开 gitbash，查看版本：</p>
+<pre><code>$ git version
+git version 2.20.1.windows.1
+</code></pre><p>然后你就可以在这里发挥你的聪明才智了</p>
+<h3 id="2-安装-NodeJs"><a href="#2-安装-NodeJs" class="headerlink" title="2. 安装 NodeJs"></a>2. 安装 NodeJs</h3><p>Hexo 是基于 <a href="https://nodejs.org/en/" target="_blank" rel="noopener">nodeJS</a> 环境的静态博客，里面的 npm 工具很有用啊，所以还是老老实实把这玩意儿装了吧。</p>
+<p>安装步骤：反正下载好 msi 文件后，双击打开安装，也是一路  next，不过在Custom Setup 这一步记得选 Add to PATH ,这样你就不用自己去配置电脑上环境变量了，装完在按 win + r 快捷键调出运行，然后输入 cmd 确定，在 cmd 中输入 path 可以看到你的 node 是否配置在里面（环境变量），没有的话你就自由发挥吧。</p>
+<p>查看版本：</p>
+<pre><code>$ node -v
+v8.11.3
+</code></pre><p>又到自由发挥的时候了</p>
+<h3 id="3-安装-Hexo"><a href="#3-安装-Hexo" class="headerlink" title="3. 安装 Hexo"></a>3. 安装 Hexo</h3><p>看到这么多安装，千万不要紧张，一定要稳住，别怕，因为后面的东西都是在 gitbash 中用 npm 工具安装就好了。</p>
+<p>先创建一个文件夹（用来存放所有blog的东西），然后 cd 到该文件夹下。</p>
+<p>安装 hexo:</p>
+<pre><code>$ npm i -g hexo
+</code></pre><p>hexo 初始化:</p>
+<pre><code>$ hexo init
+</code></pre><p>初始化完成之后打开所在的文件夹可以看到以下文件：</p>
+<p><img src="/images/pasted-0.png" alt="upload successful"><br>解释一下：</p>
+<p>node_modules：是依赖包<br>public：存放的是生成的页面<br>scaffolds：命令生成文章等的模板<br>source：用命令创建的各种文章<br>themes：主题<br>_config.yml：整个博客的配置<br>db.json：source解析所得到的<br>package.json：项目所需模块项目的配置信息  </p>
+<p>做好这些前置工作之后接下来的就是各种配配配置了。</p>
+<h3 id="4-生成-SSH-并添加到-github"><a href="#4-生成-SSH-并添加到-github" class="headerlink" title="4. 生成 SSH 并添加到 github"></a>4. 生成 SSH 并添加到 github</h3><p>将博客部署在自己的服务器（如ECS），可跳过此步骤。这里我将博客部署在 github pages。没账号的创建 github 账号，有账号的看下面。</p>
+<p>创建一个 repo，名称为 yourname.github.io, 其中 yourname 是你的 github 名称，按照这个规则创建才有用，如下：<br><img src="/images/pasted-1.png" alt="upload successful"><br>如我的名称为 miracleqi，创建的 repo 为 miracle.github.io</p>
+<p>回到 gitbash 中，配置 github 账户信息（YourName 和 YourEail 都替换成你自己的）：</p>
+<pre><code>$ git config --global user.name &quot;username&quot;
+$ git config --global user.email &quot;email&quot;
+</code></pre><p>查看刚刚配置的账户信息是否正确</p>
+<pre><code>$ git config user.name
+$ git config user.email
+</code></pre><p>创建SSH</p>
+<pre><code>$ ssh-keygen -t rsa -C &quot;youremail@example.com
+$ cd ~/.ssh
+</code></pre><p>将 .ssh 目录下的 id_rsa.pub 文件内容添加至 github 中<br><img src="/images/pasted-2.png" alt="upload successful"><br>在gitbash中验证是否添加成功：</p>
+<pre><code>$ ssh -T git@github.com
+Hi miracleqi! You&#39;ve successfully authenticated, but GitHub does not provide shell access.
+</code></pre><p>完成下一步你就成功啦！</p>
+<h3 id="5-部署项目"><a href="#5-部署项目" class="headerlink" title="5. 部署项目"></a>5. 部署项目</h3><p>用编辑器打开你的 blog 项目，修改_config.yml 文件的一些配置(冒号之后都是有一个半角空格的)：</p>
+<pre><code>deploy:
+  type: git
+  repo: https://github.com/YourgithubName/YourgithubName.github.io.git
+  branch: master
+</code></pre><p>第一次启动服务需要安装 hexo-server</p>
+<pre><code>npm i hexo-server
+</code></pre><p>进入你的blog目录后，分别执行以下命令：</p>
+<pre><code>$ hexo clean
+$ hexo generate
+$ hexo server
+</code></pre><p>打开浏览器输入：<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a><br>接着你就可以遇见天使的微笑了~</p>
+<h3 id="6-上传到-Github"><a href="#6-上传到-Github" class="headerlink" title="6. 上传到 Github"></a>6. 上传到 Github</h3><p>先安装一波：hexo-deployer-git，这样才能将你写好的文章部署到 github 服务器上并让别人浏览到</p>
+<pre><code>npm install hexo-deployer-git --save
+</code></pre><p>执行命令(建议每次都按照如下步骤部署)：</p>
+<pre><code>hexo clean
+hexo generate
+hexo deploy
+</code></pre><p>注意deploy的过程中要输入你的 username 及 passward (不是每次都需输入)</p>
+<p>在浏览器中输入 <a href="https://yourgithubname.github.io" target="_blank" rel="noopener">https://yourgithubname.github.io</a> 就可以看到你的个人博客啦，是不是很兴奋！</p>
+<p>欢迎查看我的博客 <a href="https://miracleqi.github.io" target="_blank" rel="noopener">https://miracleqi.github.io</a></p>
+<p>感觉 gitbash 中东西太多的时候输入 clear 命令清空。</p>
+<h3 id="7-绑定个人域名"><a href="#7-绑定个人域名" class="headerlink" title="7. 绑定个人域名"></a>7. 绑定个人域名</h3><p>不想绑定的自行忽略</p>
+<p>第一步购买域名：随便在哪个网站买一个就好了，魔君是在阿里云购买的ffamily.cn。</p>
+<p>第二步添加 CNAME：在项目的source文件夹下新建一个名为 CNAME 的文件，在里面添加你购买的域名，比如我添加的是<a href="http://www.ffamily.cn，只能添加一个地址。" target="_blank" rel="noopener">www.ffamily.cn，只能添加一个地址。</a><br><img src="/images/pasted-3.png" alt="upload successful"><br>第三步：到DNS中添加一条记录：<br><img src="/images/pasted-4.png" alt="upload successful"><br>记录类型为 CNAME，记录值为 github pages 域名</p>
+<p>接着再次部署一次</p>
+<pre><code>hexo clean
+hexo generate
+hexo deploy
+</code></pre><p>用你购买的域名打开，就可以看到你的博客啦~<br>PS：DNS 变更可能要10分钟以上，耐心等待</p>
+	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+	<div id="current-post-cover" data-scr="/img/post-cover/0.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -344,10 +420,6 @@
 				
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
-		
-			<a href="/2018/12/28/try/" title="try" rel="prev">
-				&laquo;上一篇
-			</a>
 		
 		
 			<a href="/2018/12/27/hello-world/" title="Hello World" rel="next">
@@ -368,23 +440,6 @@
 		
 				<li>
 					<div>
-						<a href="/2018/12/28/try/" title="try">
-							try
-						</a>
-						<p>
-							hahahahah
-
-						</p>
-					</div>
-
-					<a href="/2018/12/28/try/" title="try">				
-						<img src="/img/cart_cover.jpg" class="relateImg" alt="try">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
 						<a href="/2018/12/27/hello-world/" title="Hello World">
 							Hello World
 						</a>
@@ -394,7 +449,7 @@
 					</div>
 
 					<a href="/2018/12/27/hello-world/" title="Hello World">				
-						<img src="/img/cart_cover.jpg" class="relateImg" alt="Hello World">
+						<img src="/img/post-cover/2.jpg" class="relateImg" alt="Hello World">
 					</a>
 				</li>											
 		
@@ -510,8 +565,8 @@
 
 
 	<script>
-		var appid = 'dX--',
-            appkey = 'dx--';	  
+		var appid = 'flQVrCRla4H5iIfSkVBHzKbn-gzGzoHsz',
+            appkey = 'KjVRLD07OiS38ChDcQ2QPfcs';	  
         AnnieLeancloud(appid, appkey);         
 	</script>
     
@@ -554,6 +609,13 @@
 		插件作者：KELEN
 		插件来源: https://github.com/KELEN/katelog
 -->
+
+		
+
+		<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
 	
 		</main>
 		
@@ -564,7 +626,7 @@
 	
 		
 			<li>
-				<a href="http://github.com/" title="Github" target="_blank">
+				<a href="https://github.com/miracleqi" title="Github" target="_blank">
 					<i class="fa fa-github"></i>
 				</a>
 			</li>
@@ -578,7 +640,7 @@
 		
 		
 			<li>
-				<a href="mailto:http://github.com/" title="Email" target="_blank">
+				<a href="mailto:290557551@qq.com" title="Email" target="_blank">
 					<i class="fa fa-envelope-o"></i>
 				</a>
 			</li>
@@ -586,7 +648,7 @@
 
 		
 			<li>
-				<a href="http://github.com/" title="QQ" target="_blank">
+				<a href="http://290557551" title="QQ" target="_blank">
 					<i class="fa fa-qq"></i>
 				</a>
 			</li>
@@ -605,7 +667,7 @@
 	<div class="copyright">
 		<p>
 			 
-				&copy;2017 - 2018, content by MiracleQi. All Rights Reserved.
+				&copy;2018, content by MiracleQi. All Rights Reserved.
 			
 			
 			
@@ -668,8 +730,8 @@
 	<div id="topN"></div>
 	
     <script>
-        var appid = 'dX--',
-            appkey = 'dx--',
+        var appid = 'flQVrCRla4H5iIfSkVBHzKbn-gzGzoHsz',
+            appkey = 'KjVRLD07OiS38ChDcQ2QPfcs',
             limitCount = 10;
         if( $('#topN').length ){
             AV.initialize(appid, appkey);
@@ -724,5 +786,5 @@
 <script src="/js/vibrant.js"></script>
 <script src="/js/chinese.js"></script>
 <script src="/js/main.js"></script>
-	</body>
+	<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"superSample":2,"width":85,"height":170,"position":"left","hOffset":0,"vOffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2}});</script></body>
 	</html>
