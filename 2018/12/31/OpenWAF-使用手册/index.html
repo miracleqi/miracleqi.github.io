@@ -1,0 +1,2778 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+	<!DOCTYPE html>
+	<html class="scrollbar">
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      OpenWAF 使用手册 | 齐健的博客
+    
+  </title>
+  <meta name="author" content="MiracleQi-温柔魔君">
+  <meta name="keywords" content="openwaf,nginx,openresty,程序员,极客,开源,IT,Geek">
+  <meta name="description" content="温柔魔君">
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+    <!-- jquery -->
+	<script src="/js/jquery-2.1.1.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="transition">
+					<div class="three-bounce1"></div>
+					<div class="three-bounce2"></div>
+					<div class="three-bounce3"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="110" data-random-src="/img/background/">
+	<div class="mask">
+		<div class="h-header">
+			<div id="logo-S">
+				
+					<a href="/">
+						<img src="/img/logo.png" alt="Logo">
+					</a>
+				
+			</div>
+			<!-- Navigation in header(id="navigation-S") -->
+			<div id="navigation-S">
+				<ul>
+					
+						<li class="menu-home">
+							<a href="/" class="menu-item-home">主页</a>
+						</li>
+					
+						<li class="menu-archive">
+							<a href="/archives" class="menu-item-archive">归档</a>
+						</li>
+					
+						<li class="menu-categories">
+							<a href="/categories" class="menu-item-categories">分类</a>
+						</li>
+					
+						<li class="menu-tags">
+							<a href="/tags" class="menu-item-tags">标签</a>
+						</li>
+					
+						<li class="menu-about">
+							<a href="/about" class="menu-item-about">关于</a>
+						</li>
+					
+						<li class="menu-gallery">
+							<a href="/gallery" class="menu-item-gallery">相册</a>
+						</li>
+					
+
+					
+						<li class="menu-search">
+							<a href="javascript:;" class="popup-trigger" title="Search">搜索</a>
+						</li>
+					
+				</ul>			
+			</div>				
+		</div>
+
+		<div class="h-body">	
+			<!-- motto -->
+			
+				<div id="page-motto">
+					<p class="motto">
+						
+					</p>
+				</div>
+			
+
+			<div id="navigation-H">
+				<!-- Page title -->
+				<p>
+					
+						当前文章&nbsp;:&nbsp;《OpenWAF 使用手册》
+					
+				</p>
+				<!-- Progress bar -->
+				<div id="progress-bar"></div>
+
+				<!-- Progress percent -->
+				<div id="progress-percentage">
+					<h1>0.0%</h1>
+				</div>
+			</div>
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<ul>
+				<li>
+					<a><i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>切换背景</a>
+				</li>
+				<li>
+					<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down"></i>继续阅读</a>
+				</li>
+				<li>
+					<a href="https://github.com/Sariay/hexo-theme-Annie" target="_blank"><i class="fa fa-download"></i>克隆主题</a>
+				</li>
+			</ul>
+		</div>
+		
+		<!-- This is only a demo, please go to "https://time.is" to set your city time! -->
+<style type="text/css">
+	.header-date {
+		position: absolute;
+		left: 40px;
+		bottom: 30px;
+		writing-mode: tb-rl;
+		font-size: 36px;
+	}	
+	.header-date a {
+		border-bottom: none;
+	}
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			position: absolute;
+			left: 40px;
+			bottom: 30px;
+			writing-mode: tb-rl;
+			font-size: 20px;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow"></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+</div></header>
+
+<!-- Navigation in div(id="navigation-H") -->
+<a class="nav-trigger">
+	<span></span>
+</a>
+
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+			
+				<li class="menu-home">
+					<a href="/" class="menu-item-home">主页</a>
+				</li>
+			
+				<li class="menu-archive">
+					<a href="/archives" class="menu-item-archive">归档</a>
+				</li>
+			
+				<li class="menu-categories">
+					<a href="/categories" class="menu-item-categories">分类</a>
+				</li>
+			
+				<li class="menu-tags">
+					<a href="/tags" class="menu-item-tags">标签</a>
+				</li>
+			
+				<li class="menu-about">
+					<a href="/about" class="menu-item-about">关于</a>
+				</li>
+			
+				<li class="menu-gallery">
+					<a href="/gallery" class="menu-item-gallery">相册</a>
+				</li>
+			
+
+			
+				<li class="menu-search">
+					<a href="javascript:;" class="popup-trigger" title="Search">搜索</a>
+				</li>
+			
+		</ul>
+	</div>
+
+	<div class="nav-footer">
+		<ul>
+	
+		
+			<li>
+				<a href="https://github.com/miracleqi" title="Github" target="_blank">
+					<i class="fa fa-github"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="http://github.com/" title="Weibo" target="_blank">
+					<i class="fa fa-weibo"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="mailto:290557551@qq.com" title="Email" target="_blank">
+					<i class="fa fa-envelope-o"></i>
+				</a>
+			</li>
+		
+
+		
+			<li>
+				<a href="http://290557551" title="QQ" target="_blank">
+					<i class="fa fa-qq"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="http://github.com/" title="Twitter" target="_blank">
+					<i class="fa fa-twitter"></i>
+				</a>
+			</li>
+		
+	 
+</ul>
+	</div>
+</nav>
+
+		
+		<!--main-->
+		<main>
+			<div class="layout-post">
+	
+	
+	<div class="article-title">
+		
+	<a href="/2018/12/31/OpenWAF-使用手册/" itemprop="url">
+		OpenWAF 使用手册
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			
+	发布于
+	<a href="/2018/12/31/OpenWAF-使用手册/" itemprop="url">
+		<time datetime="2018-12-30T19:12:00.000Z" itemprop="datePublished">
+	  		2018-12-31
+	  </time>
+	</a> 
+
+	/
+	更新于
+	<a href="/2018/12/31/OpenWAF-使用手册/" itemprop="url">
+		<time datetime="2018-12-30T19:12:00.000Z" itemprop="dateUpdated">
+	  		2018-12-31
+	  </time>
+	</a> 	
+
+		</span>
+		/
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/OpenWAF/" class=" ">
+			OpenWAF
+		</a>
+	
+		
+		</span>
+		/
+		
+
+    <span class="leancloud_visitors" id="/2018/12/31/OpenWAF-使用手册/_visitors" data-url="/2018/12/31/OpenWAF-使用手册/" data-title="OpenWAF 使用手册">
+        热度
+        <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
+    </span>
+    
+    /
+
+
+
+    <span class="leancloud_likes" id="/2018/12/31/OpenWAF-使用手册/_likes" data-url="/2018/12/31/OpenWAF-使用手册/" data-title="OpenWAF 使用手册" rel="unlike">
+        喜欢
+        <i class="fa fa-heart"></i>
+        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+    </span>
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h1 id="Name"><a href="#Name" class="headerlink" title="Name"></a>Name</h1><p>OpenWAF</p>
+<p>第一个全方位开源的Web应用防护系统（WAF），更全面的防护功能，更多样的防护策略</p>
+<h1 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h1><ul>
+<li><a href="#name">Name</a></li>
+<li><a href="#version">Version</a></li>
+<li><a href="#synopsis">Synopsis</a></li>
+<li><a href="#description">Description</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#community">Community</a><ul>
+<li><a href="#english-mailing-list">English Mailing List</a></li>
+<li><a href="#chinese-mailing-list">Chinese Mailing List</a></li>
+<li><a href="#personal-qq-mail">Personal QQ Mail</a></li>
+</ul>
+</li>
+<li><a href="#bugs-and-patches">Bugs and Patches</a></li>
+<li><a href="#todo">TODO</a></li>
+<li><a href="#changes">Changes</a></li>
+<li><a href="#copyright-and-license">Copyright and License</a></li>
+<li><a href="#modules-configuration-directives">Modules Configuration Directives</a></li>
+<li><a href="#nginx-variables">Nginx Variables</a></li>
+<li><a href="#secrules">SecRules</a><ul>
+<li><a href="#variables">Variables</a></li>
+<li><a href="#transformation-functions">Transformation Functions</a></li>
+<li><a href="#operators">Operators</a></li>
+<li><a href="#others">Others</a></li>
+</ul>
+</li>
+<li><a href="#donation">Donation</a></li>
+</ul>
+<h1 id="Version"><a href="#Version" class="headerlink" title="Version"></a>Version</h1><p>This document describes OpenWAF v0.0.6 released on 26 Dec 2017.</p>
+<p>Docker Version  </p>
+<ol>
+<li>titansec/openwaf:0.0.1.161130_beta<br>&emsp;&emsp;SHA: 596dee9d2b9ce44d59dc445141f72b3607f9fbe6<br>&emsp;&emsp;<a href="https://github.com/titansec/OpenWAF/tree/596dee9d2b9ce44d59dc445141f72b3607f9fbe6" target="_blank" rel="noopener">https://github.com/titansec/OpenWAF/tree/596dee9d2b9ce44d59dc445141f72b3607f9fbe6</a>  </li>
+<li>titansec/openwaf:0.0.3.170103_beta<br>&emsp;&emsp;SHA: 28ce1556250301f26f31b46d9cd9dde5a3b3f03f<br>&emsp;&emsp;<a href="https://github.com/titansec/OpenWAF/tree/28ce1556250301f26f31b46d9cd9dde5a3b3f03f" target="_blank" rel="noopener">https://github.com/titansec/OpenWAF/tree/28ce1556250301f26f31b46d9cd9dde5a3b3f03f</a>  </li>
+<li>titansec/openwaf:v0.0.4<br>&emsp;&emsp;SHA: cdef1e0eac4f12c374feb6ac3c3c465610daaf6c<br>&emsp;&emsp;<a href="https://github.com/titansec/OpenWAF/tree/cdef1e0eac4f12c374feb6ac3c3c465610daaf6c" target="_blank" rel="noopener">https://github.com/titansec/OpenWAF/tree/cdef1e0eac4f12c374feb6ac3c3c465610daaf6c</a>  </li>
+<li>titansec/openwaf:v0.0.5(titansec/openwaf:latest)<br>&emsp;&emsp;<a href="https://github.com/titansec/OpenWAF/tree/f9a3a6cfb8b75b1f4af9f44477a5b64337a7da47" target="_blank" rel="noopener">https://github.com/titansec/OpenWAF/tree/f9a3a6cfb8b75b1f4af9f44477a5b64337a7da47</a>  </li>
+<li>titansec/openwaf:v0.0.6(titansec/openwaf:latest)<br>&emsp;&emsp;<a href="https://github.com/titansec/OpenWAF/tree/7c86321c69e2423cacc432e7f41cf37ec4b42c6b" target="_blank" rel="noopener">https://github.com/titansec/OpenWAF/tree/7c86321c69e2423cacc432e7f41cf37ec4b42c6b</a>  </li>
+</ol>
+<h1 id="Synopsis"><a href="#Synopsis" class="headerlink" title="Synopsis"></a>Synopsis</h1><pre class="line-numbers language-nginx"><code class="language-nginx">    <span class="token comment" spellcheck="true">#nginx.conf</span>
+    lua_package_path <span class="token string">'/twaf/?.lua;;'</span><span class="token punctuation">;</span>
+
+    init_by_lua_file <span class="token operator">/</span>twaf<span class="token operator">/</span>app<span class="token operator">/</span>twaf_init<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+
+    lua_shared_dict twaf_shm 50m<span class="token punctuation">;</span>
+
+    <span class="token keyword">upstream</span> test <span class="token punctuation">{</span>
+        <span class="token keyword">server</span> <span class="token number">0.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">#just an invalid address as a place holder</span>
+        balancer_by_lua_file twaf_balancer<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">server</span> <span class="token punctuation">{</span>
+        <span class="token keyword">listen</span> <span class="token number">443</span> <span class="token keyword">ssl</span><span class="token punctuation">;</span>
+        <span class="token keyword">server_name</span> _<span class="token punctuation">;</span>
+
+        ssl_certificate_by_lua_file  twaf_ssl_cert<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+        rewrite_by_lua_file          <span class="token operator">/</span>twaf<span class="token operator">/</span>app<span class="token operator">/</span>twaf_rewrite<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+        access_by_lua_file           <span class="token operator">/</span>twaf<span class="token operator">/</span>app<span class="token operator">/</span>twaf_access<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+        header_filter_by_lua_file    <span class="token operator">/</span>twaf<span class="token operator">/</span>app<span class="token operator">/</span>twaf_header_filter<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+        body_filter_by_lua_file      <span class="token operator">/</span>twaf<span class="token operator">/</span>app<span class="token operator">/</span>twaf_body_filter<span class="token punctuation">.</span>lua
+        log_by_lua_file              <span class="token operator">/</span>twaf<span class="token operator">/</span>app<span class="token operator">/</span>twaf_log<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+
+        <span class="token keyword">set</span> <span class="token variable">$twaf_https</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">set</span> <span class="token variable">$twaf_upstream_server</span> <span class="token string">""</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">ssl_certificate</span> nginx<span class="token punctuation">.</span>crt<span class="token punctuation">;</span>
+        <span class="token keyword">ssl_certificate_key</span> nginx<span class="token punctuation">.</span>key<span class="token punctuation">;</span>
+
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+            lua_need_request_body on<span class="token punctuation">;</span>
+            <span class="token keyword">proxy_pass</span> <span class="token variable">$twaf_upstream_server</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">server</span> <span class="token punctuation">{</span>
+        <span class="token keyword">listen</span>      <span class="token number">80</span><span class="token punctuation">;</span>
+        <span class="token keyword">server_name</span>  _<span class="token punctuation">;</span>
+
+        rewrite_by_lua_file       <span class="token operator">/</span>twaf<span class="token operator">/</span>app<span class="token operator">/</span>twaf_rewrite<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+        access_by_lua_file        <span class="token operator">/</span>twaf<span class="token operator">/</span>app<span class="token operator">/</span>twaf_access<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+        header_filter_by_lua_file <span class="token operator">/</span>twaf<span class="token operator">/</span>app<span class="token operator">/</span>twaf_header_filter<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+        body_filter_by_lua_file   <span class="token operator">/</span>twaf<span class="token operator">/</span>app<span class="token operator">/</span>twaf_body_filter<span class="token punctuation">.</span>lua
+        log_by_lua_file           <span class="token operator">/</span>twaf<span class="token operator">/</span>app<span class="token operator">/</span>twaf_log<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+
+        <span class="token keyword">set</span> <span class="token variable">$twaf_upstream_server</span> <span class="token string">""</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+            lua_need_request_body on<span class="token punctuation">;</span>
+            <span class="token keyword">proxy_pass</span> <span class="token variable">$twaf_upstream_server</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-json"><code class="language-json">    #default_config-json
+
+    #main_safe_policy-json
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h1 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h1><p>OpenWAF是第一个全方位开源的Web应用防护系统（WAF），他基于nginx_lua API分析HTTP请求信息。OpenWAF由行为分析引擎和规则引擎两大功能引擎构成。其中规则引擎主要对单个请求进行分析，行为分析引擎主要负责跨请求信息追踪。</p>
+<p>规则引擎的启发来自<a href="https://github.com/SpiderLabs/ModSecurity/wiki/Reference-Manual" target="_blank" rel="noopener">modsecurity</a>及<a href="https://github.com/p0pr0ck5/lua-resty-waf" target="_blank" rel="noopener">freewaf(lua-resty-waf)</a>，将ModSecurity的规则机制用lua实现。基于规则引擎可以进行协议规范，自动工具，注入攻击，跨站攻击，信息泄露，异常请求等安全防护，支持动态添加规则，及时修补漏洞。</p>
+<p>行为分析引擎包含基于频率的模糊识别，防恶意爬虫，人机识别等防探测模块，防CSRF，防CC，防提权，文件上传防护等防攻击模块，cookie防篡改，防盗链，自定义响应头，攻击响应页面等防信息泄露模块。</p>
+<p>除了两大引擎之外，还包含统计，日志，攻击响应页面，接入规则等基础模块。除了已有的功能模块，OpenWAF还支持动态修改配置，<br>动态添加第三方模块，使得在不重启引擎中断业务的条件下，升级防护。</p>
+<p>OpenWAF支持将上述功能封装为策略，不同的web application应用不同的策略来防护。将来还会打造云平台，策略还可分享供他人参考。</p>
+<p>基础模块如下:</p>
+<ul>
+<li><a href="https://github.com/titansec/openwaf_conf" target="_blank" rel="noopener">静态配置管理器 openwaf_conf</a></li>
+<li><a href="https://github.com/titansec/openwaf_log" target="_blank" rel="noopener">日志 openwaf_log</a></li>
+<li><a href="https://github.com/titansec/openwaf_reqstat" target="_blank" rel="noopener">统计 openwaf_reqstat</a></li>
+<li><a href="https://github.com/titansec/openwaf_core" target="_blank" rel="noopener">核心层 openwaf_core</a></li>
+<li><a href="https://github.com/titansec/openwaf_access_rule" target="_blank" rel="noopener">接入规则 openwaf_access_rule</a></li>
+</ul>
+<p>功能模块如下:</p>
+<ul>
+<li><a href="https://github.com/titansec/openwaf_rule_engine" target="_blank" rel="noopener">规则引擎 openwaf_rule_engine</a></li>
+<li><a href="https://github.com/titansec/openwaf_attack_response" target="_blank" rel="noopener">攻击响应页面 openwaf_attack_response</a></li>
+<li><a href="https://github.com/titansec/openwaf_api" target="_blank" rel="noopener">API openwaf_api</a></li>
+<li><a href="https://github.com/titansec/openwaf_anti_mal_crawler" target="_blank" rel="noopener">防恶意爬虫 openwaf_anti_mal_crawler</a></li>
+<li><a href="https://github.com/titansec/openwaf_anti_cc" target="_blank" rel="noopener">防CC openwaf_anti_cc</a></li>
+</ul>
+<p>详细配置文档及示例请看上述各模块文档</p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h1 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h1><p><a href="https://github.com/titansec/OpenWAF/blob/master/doc/%E8%BD%BB%E6%9D%BE%E7%8E%A9%E8%BD%ACOpenWAF%E4%B9%8B%E5%AE%89%E8%A3%85%E7%AF%87.md" target="_blank" rel="noopener">请看 OpenWAF 安装文档</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h1 id="Community"><a href="#Community" class="headerlink" title="Community"></a>Community</h1><h2 id="English-Mailing-List"><a href="#English-Mailing-List" class="headerlink" title="English Mailing List"></a>English Mailing List</h2><p>The <a href="https://groups.google.com/group/openwaf-en" target="_blank" rel="noopener">OpenWAF-en</a> mailing list is for English speakers.</p>
+<h2 id="Chinese-Mailing-List"><a href="#Chinese-Mailing-List" class="headerlink" title="Chinese Mailing List"></a>Chinese Mailing List</h2><p>The <a href="https://groups.google.com/group/openwaf-cn" target="_blank" rel="noopener">OpenWAF-cn</a> mailing list is for Chinese speakers.</p>
+<h2 id="Personal-QQ-Mail"><a href="#Personal-QQ-Mail" class="headerlink" title="Personal QQ Mail"></a>Personal QQ Mail</h2><p><a href="mailto:290557551@qq.com" target="_blank" rel="noopener">290557551@qq.com</a></p>
+<h2 id="QQ-Group"><a href="#QQ-Group" class="headerlink" title="QQ Group"></a>QQ Group</h2><p>579790127</p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h1 id="Bugs-and-Patches"><a href="#Bugs-and-Patches" class="headerlink" title="Bugs and Patches"></a>Bugs and Patches</h1><p>Please submit bug reports, wishlists, or patches by</p>
+<ol>
+<li>creating a ticket on the <a href="https://github.com/titansec/OpenWAF/issues" target="_blank" rel="noopener">GitHub Issue Tracker</a>,</li>
+<li>or posting to the <a href="#community">OpenWAF community</a>.</li>
+</ol>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h1 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h1><ul>
+<li><ol>
+<li>上传人机识别模块</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>上传防盗链模块</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>上传cookie防篡改模块</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>上传基于频率的模糊识别防探测模块</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>上传WebShell上传防护模块</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>上传防CSRF模块</li>
+</ol>
+</li>
+<li><ol start="7">
+<li>放开动态配置规则引擎API</li>
+</ol>
+</li>
+<li><ol start="8">
+<li>放开动态配置行为分析引擎API</li>
+</ol>
+</li>
+</ul>
+<p><a href="https://github.com/miracleqi/OpenWAF_TODO" target="_blank" rel="noopener">MORE</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h1 id="Changes"><a href="#Changes" class="headerlink" title="Changes"></a>Changes</h1><p>Time: 2017/03/20<br>Version: v0.0.4<br>&emsp;&emsp;1. New Module - twaf_anti_cc<br>&emsp;&emsp;&emsp;&emsp;Anti http flood  </p>
+<p>Time: 2017/01/03<br>Version: v0.0.3.170103_beta<br>&emsp;&emsp;1. New Module - twaf_anti_mal_crawler<br>&emsp;&emsp;&emsp;&emsp;Distinguish malicious crawler and some scan tools  </p>
+<p>Time: 2016/12/05<br>Version: v0.0.2.161205_beta<br>&emsp;&emsp;1. New Module - twaf_attack_response<br>&emsp;&emsp;&emsp;&emsp;Return custom response page When the request is rejected by OpenWAF<br>&emsp;&emsp;2. Api - api/stat[/policy_uuid]<br>&emsp;&emsp;&emsp;&emsp;Show statistical infomation  </p>
+<p>Time: 2016/12/05<br>Version: v0.0.1.161130_beta<br>&emsp;&emsp;1. Docker<br>&emsp;&emsp;&emsp;&emsp;build OpenWAF with docker  </p>
+<p>Time: 2016/12/05<br>Version: v0.0.1.161012_beta<br>&emsp;&emsp;1. log module<br>&emsp;&emsp;&emsp;&emsp;Send tcp/udp log<br>&emsp;&emsp;2. reqstat module<br>&emsp;&emsp;&emsp;&emsp;Statistics of request infomation<br>&emsp;&emsp;3. access rule<br>&emsp;&emsp;&emsp;&emsp;Publish applications<br>&emsp;&emsp;4. rule engine<br>&emsp;&emsp;&emsp;&emsp;Access Control  </p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h1 id="Copyright-and-License"><a href="#Copyright-and-License" class="headerlink" title="Copyright and License"></a>Copyright and License</h1><p>This module is licensed under the BSD license.</p>
+<p>Copyright (C) 2016-2016, by Jian “Miracle” Qi (齐健) <a href="mailto:&#109;&#105;&#x72;&#97;&#x63;&#108;&#x65;&#113;&#105;&#50;&#53;&#64;&#103;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#109;&#105;&#x72;&#97;&#x63;&#108;&#x65;&#113;&#105;&#50;&#53;&#64;&#103;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a>, Titan Co.Ltd.</p>
+<p>All rights reserved.</p>
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
+<ul>
+<li><p>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</p>
+</li>
+<li><p>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</p>
+</li>
+</ul>
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h1 id="Modules-Configuration-Directives"><a href="#Modules-Configuration-Directives" class="headerlink" title="Modules Configuration Directives"></a>Modules Configuration Directives</h1><ul>
+<li><a href="#twaf_access_rule">twaf_access_rule</a></li>
+<li><a href="#twaf_anti_hotlink">twaf_anti_hotlink</a></li>
+<li><a href="#twaf_anti_mal_crawler">twaf_anti_mal_crawler</a></li>
+<li><a href="#twaf_reqstat">twaf_reqstat</a></li>
+<li><a href="#twaf_log">twaf_log</a></li>
+<li><a href="#twaf_secrules">twaf_secrules</a></li>
+<li><a href="#twaf_anti_cc">twaf_anti_cc</a></li>
+</ul>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="twaf-access-rule"><a href="#twaf-access-rule" class="headerlink" title="twaf_access_rule"></a>twaf_access_rule</h2><pre class="line-numbers language-txt"><code class="language-txt">{
+    "twaf_access_rule": {
+        "rules": [                                 -- 注意先后顺序
+            {                                      
+                "client_ssl": false,               -- 客户端认证的开关，与ngx_ssl组成双向认证
+                "client_ssl_cert": "path",         -- 客户端认证所需PEM证书地址
+                "ngx_ssl": false,                  -- nginx认证的开关
+                "ngx_ssl_cert": "path",            -- nginx认证所需PEM证书地址
+                "ngx_ssl_key": "path",             -- nginx认证所需PEM私钥地址
+                "host": "^1\\.1\\.1\\.1$",         -- 域名，正则匹配
+                "port": 80,                        -- 端口号（缺省80）
+                "path": "\/",                      -- 路径，正则匹配
+                "server_ssl": false,               -- 后端服务器ssl开关
+                "forward": "server_5",             -- 后端服务器upstream名称
+                "forward_addr": "1.1.1.2",         -- 后端服务器ip地址
+                "forward_port": "8080",            -- 后端服务器端口号（缺省80）
+                "uuid": "access_567b067ff2060",    -- 用来标记此规则的uuid
+                "policy": "policy_uuid"            -- 安全策略ID
+            }
+        ]
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="rules"><a href="#rules" class="headerlink" title="rules"></a>rules</h2><p><strong>syntax:</strong> <em>“rules”: table</em></p>
+<p><strong>default:</strong> <em>none</em></p>
+<p><strong>context:</strong> <em>twaf_access_rule</em></p>
+<p>table类型，接入规则，顺序匹配</p>
+<h2 id="client-ssl"><a href="#client-ssl" class="headerlink" title="client_ssl"></a>client_ssl</h2><p><strong>syntax:</strong> <em>“client_ssl”: true|false</em></p>
+<p><strong>default:</strong> <em>false</em></p>
+<p><strong>context:</strong> <em>twaf_access_rule</em></p>
+<p>客户端认证开关，与ngx_ssl组成双向认证，默认false<br>PS: 当前客户端认证不生效  </p>
+<h2 id="client-ssl-cert"><a href="#client-ssl-cert" class="headerlink" title="client_ssl_cert"></a>client_ssl_cert</h2><p><strong>syntax:</strong> <em>“client_ssl_cert”: “path”</em></p>
+<p><strong>default:</strong> <em>none</em></p>
+<p><strong>context:</strong> <em>twaf_access_rule</em></p>
+<p>string类型，客户端认证所需PEM证书地址，目前仅支持绝对地址</p>
+<h2 id="ngx-ssl"><a href="#ngx-ssl" class="headerlink" title="ngx_ssl"></a>ngx_ssl</h2><p><strong>syntax:</strong> <em>“ngx_ssl”: true|false</em></p>
+<p><strong>default:</strong> <em>false</em></p>
+<p><strong>context:</strong> <em>twaf_access_rule</em></p>
+<p>boolean类型，服务器端(nginx)认证开关，与client_ssl组成双向认证，默认关闭</p>
+<h2 id="ngx-ssl-cert"><a href="#ngx-ssl-cert" class="headerlink" title="ngx_ssl_cert"></a>ngx_ssl_cert</h2><p><strong>syntax:</strong> <em>“ngx_ssl_cert”: “path”</em></p>
+<p><strong>default:</strong> <em>none</em></p>
+<p><strong>context:</strong> <em>twaf_access_rule</em></p>
+<p>string类型，服务器端(nginx)认证所需PEM证书地址，目前仅支持绝对地址</p>
+<h2 id="ngx-ssl-key"><a href="#ngx-ssl-key" class="headerlink" title="ngx_ssl_key"></a>ngx_ssl_key</h2><p><strong>syntax:</strong> <em>“ngx_ssl_key”: “path”</em></p>
+<p><strong>default:</strong> <em>none</em></p>
+<p><strong>context:</strong> <em>twaf_access_rule</em></p>
+<p>string类型，服务器端(nginx)认证所需PEM私钥地址，目前仅支持绝对地址</p>
+<h2 id="host"><a href="#host" class="headerlink" title="host"></a>host</h2><p><strong>syntax:</strong> <em>“host”: “ip|domain name regex”</em></p>
+<p><strong>default:</strong> <em>none</em></p>
+<p><strong>context:</strong> <em>twaf_access_rule</em></p>
+<p>string类型，域名，正则匹配(匹配时，忽略大小写)</p>
+<p>例如:</p>
+<pre><code>    &quot;host&quot;: &quot;^1\\.1\\.1\\.1$&quot;
+    &quot;host&quot;: &quot;test\\.com&quot;
+    &quot;host&quot;: &quot;^.*\\.com$&quot;
+    &quot;host&quot;: &quot;www.baidu.com&quot;
+</code></pre><h2 id="port"><a href="#port" class="headerlink" title="port"></a>port</h2><p><strong>syntax:</strong> <em>“port”: number</em></p>
+<p><strong>default:</strong> <em>80</em></p>
+<p><strong>context:</strong> <em>twaf_access_rule</em></p>
+<p>number类型，端口号</p>
+<h2 id="path"><a href="#path" class="headerlink" title="path"></a>path</h2><p><strong>syntax:</strong> <em>“path”: “regex”</em></p>
+<p><strong>default:</strong> <em>none</em></p>
+<p><strong>context:</strong> <em>twaf_access_rule</em></p>
+<p>string类型，路径，正则匹配</p>
+<p>例如:</p>
+<pre><code>    &quot;path&quot;: &quot;/&quot;
+    &quot;path&quot;: &quot;/images&quot;
+    &quot;path&quot;: &quot;/[a|b]test&quot;
+</code></pre><h2 id="server-ssl"><a href="#server-ssl" class="headerlink" title="server_ssl"></a>server_ssl</h2><p><strong>syntax:</strong> <em>“server_ssl”: true|false</em></p>
+<p><strong>default:</strong> <em>false</em></p>
+<p><strong>context:</strong> <em>twaf_access_rule</em></p>
+<p>boolean类型，OpenWAF向后端服务器连接的ssl开关</p>
+<p>例如:</p>
+<pre><code>    upstream test {
+        server 1.1.1.1;
+    }
+
+    http {
+        server {
+            listen 80;
+            server_name _;
+
+            location / {
+                #server_ssl为true，相当于proxy_pass后为https
+                proxy_pass https://test;
+                #server_ssl为false，相当于proxy_pass后为http
+                #proxy_pass http://test;
+            }
+        }
+    }
+</code></pre><h2 id="forward"><a href="#forward" class="headerlink" title="forward"></a>forward</h2><p><strong>syntax:</strong> <em>“forward”: “upstream_uuid”</em></p>
+<p><strong>default:</strong> <em>none</em></p>
+<p><strong>context:</strong> <em>twaf_access_rule</em></p>
+<p>string类型，forward表示后端服务器的uuid，即upstream的名称</p>
+<pre><code>    #如：forward值为test
+    upstream test {
+        server 1.1.1.1;
+    }
+</code></pre><h2 id="forward-addr"><a href="#forward-addr" class="headerlink" title="forward_addr"></a>forward_addr</h2><p><strong>syntax:</strong> <em>“forward_addr”: “ip”</em></p>
+<p><strong>default:</strong> <em>none</em></p>
+<p><strong>context:</strong> <em>twaf_access_rule</em></p>
+<p>string类型，forward_addr表示后端服务器的ip地址（TODO：支持域名）</p>
+<pre><code>    upstream test {
+        #如：forward_addr值为1.1.1.1
+        server 1.1.1.1;
+    }
+</code></pre><h2 id="forward-port"><a href="#forward-port" class="headerlink" title="forward_port"></a>forward_port</h2><p><strong>syntax:</strong> <em>“forward_port”: port</em></p>
+<p><strong>default:</strong> <em>80</em></p>
+<p><strong>context:</strong> <em>twaf_access_rule</em></p>
+<p>number类型，forward_port表示后端服务器端口号，默认80</p>
+<pre><code>    upstream test {
+        #如：forward_port值为50001
+        server 1.1.1.1:50001;
+    }
+</code></pre><h2 id="uuid"><a href="#uuid" class="headerlink" title="uuid"></a>uuid</h2><p><strong>syntax:</strong> <em>“uuid”: “string”</em></p>
+<p><strong>default:</strong> <em>none</em></p>
+<p><strong>context:</strong> <em>twaf_access_rule</em></p>
+<p>string类型，接入规则的唯一标识</p>
+<h2 id="policy"><a href="#policy" class="headerlink" title="policy"></a>policy</h2><p><strong>syntax:</strong> <em>“policy”: “policy_uuid”</em></p>
+<p><strong>default:</strong> <em>none</em></p>
+<p><strong>context:</strong> <em>twaf_access_rule</em></p>
+<p>string类型，满足此接入规则的请求，所使用安全策略的uuid</p>
+<p><a href="#twaf_access_rule">Back to twaf_access_rule</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="twaf-anti-hotlink"><a href="#twaf-anti-hotlink" class="headerlink" title="twaf_anti_hotlink"></a>twaf_anti_hotlink</h2><pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"twaf_anti_hotlink"</span><span class="token operator">:</span><span class="token punctuation">{</span>
+        <span class="token property">"state"</span><span class="token operator">:</span><span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"log_state"</span><span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"event_id"</span><span class="token operator">:</span><span class="token string">"110001"</span><span class="token punctuation">,</span>
+        <span class="token property">"event_severity"</span><span class="token operator">:</span><span class="token string">"medium"</span><span class="token punctuation">,</span>
+        <span class="token property">"ct_state"</span><span class="token operator">:</span><span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"action_meta"</span><span class="token operator">:</span><span class="token number">403</span><span class="token punctuation">,</span>
+        <span class="token property">"action"</span><span class="token operator">:</span><span class="token string">"DENY"</span><span class="token punctuation">,</span>
+        <span class="token property">"mode"</span><span class="token operator">:</span><span class="token string">"referer"</span><span class="token punctuation">,</span>
+        <span class="token property">"allow_noreferer"</span><span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"cookie_name"</span><span class="token operator">:</span><span class="token string">"TWAF_AH"</span><span class="token punctuation">,</span>
+        <span class="token property">"uri_ext"</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token string">"javascript"</span><span class="token punctuation">,</span> <span class="token string">"css"</span><span class="token punctuation">,</span> <span class="token string">"html"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="state"><a href="#state" class="headerlink" title="state"></a>state</h2><p><strong>syntax:</strong> <em>“state”: true|false|”$dynamic_state”</em></p>
+<p><strong>default:</strong> <em>false</em></p>
+<p><strong>context:</strong> <em>twaf_anti_hotlink</em></p>
+<p>当前模块暂未开源</p>
+<h2 id="log-state"><a href="#log-state" class="headerlink" title="log_state"></a>log_state</h2><p><strong>syntax:</strong> <em>“log_state”: true|false|”$dynamic_state”</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_anti_hotlink</em></p>
+<h2 id="ct-state"><a href="#ct-state" class="headerlink" title="ct_state"></a>ct_state</h2><p><strong>syntax:</strong> <em>“ct_state”: true|false|”$dynamic_state”</em></p>
+<p><strong>default:</strong> <em>false</em></p>
+<p><strong>context:</strong> <em>twaf_anti_hotlink</em></p>
+<h2 id="event-id"><a href="#event-id" class="headerlink" title="event_id"></a>event_id</h2><p><strong>syntax:</strong> <em>“event_id”: “string”</em></p>
+<p><strong>default:</strong> <em>“110001”</em></p>
+<p><strong>context:</strong> <em>twaf_anti_hotlink</em></p>
+<h2 id="event-severity"><a href="#event-severity" class="headerlink" title="event_severity"></a>event_severity</h2><p><strong>syntax:</strong> <em>“event_severity”: “string”</em></p>
+<p><strong>default:</strong> <em>“medium”</em></p>
+<p><strong>context:</strong> <em>twaf_anti_hotlink</em></p>
+<h2 id="action"><a href="#action" class="headerlink" title="action"></a>action</h2><p><strong>syntax:</strong> <em>“action”: “string”</em></p>
+<p><strong>default:</strong> <em>“DENY”</em></p>
+<p><strong>context:</strong> <em>twaf_anti_hotlink</em></p>
+<h2 id="action-meta"><a href="#action-meta" class="headerlink" title="action_meta"></a>action_meta</h2><p><strong>syntax:</strong> <em>“action_meta”: “string”|number</em></p>
+<p><strong>default:</strong> <em>403</em></p>
+<p><strong>context:</strong> <em>twaf_anti_hotlink</em></p>
+<h2 id="mode"><a href="#mode" class="headerlink" title="mode"></a>mode</h2><p><strong>syntax:</strong> <em>“mode”: “string”</em></p>
+<p><strong>default:</strong> <em>“referer”</em></p>
+<p><strong>context:</strong> <em>twaf_anti_hotlink</em></p>
+<h2 id="allow-noreferer"><a href="#allow-noreferer" class="headerlink" title="allow_noreferer"></a>allow_noreferer</h2><p><strong>syntax:</strong> <em>“allow_noreferer”: true|false</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_anti_hotlink</em></p>
+<h2 id="cookie-name"><a href="#cookie-name" class="headerlink" title="cookie_name"></a>cookie_name</h2><p><strong>syntax:</strong> <em>“cookie_name”: “string”</em></p>
+<p><strong>default:</strong> <em>TWAF_AH</em></p>
+<p><strong>context:</strong> <em>twaf_anti_hotlink</em></p>
+<p>cookie_name表示盗链模块发送COOKIE的名称，默认”TWAF_AH”</p>
+<p>此配置只有mode为cookie模式下生效</p>
+<h2 id="uri-ext"><a href="#uri-ext" class="headerlink" title="uri_ext"></a>uri_ext</h2><p><strong>syntax:</strong> <em>“uri_ext”: array|exten|”all”</em></p>
+<p><strong>default:</strong> <em>none</em></p>
+<p><strong>context:</strong> <em>twaf_anti_hotlink</em></p>
+<p>uri_ext表示对哪些资源进行盗链防护</p>
+<pre><code>     #对html类型资源进行盗链防护
+     &quot;uri_ext&quot;: &quot;html&quot;
+
+     #对未知类型资源进行盗链防护，nginx无法解析出资源类型时为空字符串
+     &quot;uri_ext&quot;: &quot;&quot;
+
+     #对html、css及未知类型资源进行盗链防护
+     &quot;uri_ext&quot;: [&quot;html&quot;, &quot;css&quot;, &quot;&quot;]
+
+     #对所有资源进行盗链防护
+     &quot;uri_ext&quot;: &quot;all&quot;
+</code></pre><p><a href="#twaf_anti_hotlink">Back to twaf_anti_hotlink</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="twaf-anti-mal-crawler"><a href="#twaf-anti-mal-crawler" class="headerlink" title="twaf_anti_mal_crawler"></a>twaf_anti_mal_crawler</h2><pre class="line-numbers language-txt"><code class="language-txt">{
+    "state": false,                                            -- 模块开关，支持 true，false
+    "log_state":true,                                          -- 日志开关
+
+    "dict_state": false,                                       -- shared_dict 开关
+    "shared_dict_name":"twaf_anti_mal_crawler",                -- shared_dict 名称,若为空，则值为 "twaf_global" 下的 "dict_name"
+    "shared_dict_key": "remote_addr",                          -- shared_dict 键值
+    "timeout":300,                                             -- shared_dict 保存状态有效时长（单位秒）
+    "timer_flush_expired":200,                                 -- shared_dict 清除过期信息的间隔时间（单位秒）,若为空，则值为 "twaf_global" 下的 "timer_flush_expired"
+
+    "cookie_state":true,                                       -- cookie机制开关
+    "crawler_cookie_name":"TWAF_crawler",                      -- 爬虫cookie名称
+    "mal_cookie_name":"TWAF_mcrawler",                         -- 恶意爬虫cookie名称
+
+    "force_scan_robots_state":true,                            -- 页面注入诱捕路径的开关
+    "force_scan_times": 3,                                     -- 注入诱捕路径的页面个数
+    "trap_uri":"/abc/abc.html",                                -- 诱捕路径
+    "trap_args":"id=1",                                        -- 诱捕参数
+
+    "action":"DENY",                                           -- 执行动作，支持 "ALLOW", "DENY", "REDIRECT", "ROBOT", "RESET_CONNECTION", "PASS" 等
+    "action_meta": 403                                         -- 执行动作的附属信息，若 action 为 DENY，action_meta为响应码，若 action 为 REDIRECT，action_meta 为重定向 url
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="state-1"><a href="#state-1" class="headerlink" title="state"></a>state</h2><p><strong>syntax:</strong> <em>state true|false|$dynamic_state</em></p>
+<p><strong>default:</strong> <em>false</em></p>
+<p><strong>context:</strong> <em>twaf_anti_mal_crawler</em></p>
+<p>模块开关，默认false（关闭），支持动态开关</p>
+<p><a href="#twaf_anti_mal_crawler">Back to MCD</a></p>
+<h2 id="log-state-1"><a href="#log-state-1" class="headerlink" title="log_state"></a>log_state</h2><p><strong>syntax:</strong> <em>log_state true|false|$dynamic_state</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_anti_mal_crawler</em></p>
+<p>安全日志开关， 默认true（记录），支持动态开关</p>
+<p><a href="#twaf_anti_mal_crawler">Back to MCD</a></p>
+<h2 id="dict-state"><a href="#dict-state" class="headerlink" title="dict_state"></a>dict_state</h2><p><strong>syntax:</strong> <em>dict_state true|false</em></p>
+<p><strong>default:</strong> <em>false</em></p>
+<p><strong>context:</strong> <em>twaf_anti_mal_crawler</em></p>
+<p>shared_dict 开关。当 dict_state 为 true，某 IP 被此模块拦截，会被记录在内存中，在 timeout 时间内访问会被拦截(且重置timeout)</p>
+<p><a href="#twaf_anti_mal_crawler">Back to MCD</a></p>
+<h2 id="shared-dict-name"><a href="#shared-dict-name" class="headerlink" title="shared_dict_name"></a>shared_dict_name</h2><p><strong>syntax:</strong> <em>shared_dict_name <string></string></em></p>
+<p><strong>default:</strong> <em>nil</em></p>
+<p><strong>context:</strong> <em>twaf_anti_mal_crawler</em></p>
+<p>shared_dict 名称。对应 nginx 中的配置项，不可轻易修改</p>
+<p>若为空，则值为 “twaf_global” 下的 “dict_name”</p>
+<p><a href="#twaf_anti_mal_crawler">Back to MCD</a></p>
+<h2 id="shared-dict-key"><a href="#shared-dict-key" class="headerlink" title="shared_dict_key"></a>shared_dict_key</h2><p><strong>syntax:</strong> <em>shared_dict_key <string>|<array></array></string></em></p>
+<p><strong>default:</strong> <em>remote_addr</em></p>
+<p><strong>context:</strong> <em>twaf_anti_mal_crawler</em></p>
+<p>shared_dict 键值。支持数组</p>
+<p><a href="#twaf_anti_mal_crawler">Back to MCD</a></p>
+<h2 id="timeout"><a href="#timeout" class="headerlink" title="timeout"></a>timeout</h2><p><strong>syntax:</strong> <em>timeout <number></number></em></p>
+<p><strong>default:</strong> <em>300</em></p>
+<p><strong>context:</strong> <em>twaf_anti_mal_crawler</em></p>
+<p>shared_dict 保存状态有效时长（单位秒）</p>
+<p><a href="#twaf_anti_mal_crawler">Back to MCD</a></p>
+<h2 id="timer-flush-expired"><a href="#timer-flush-expired" class="headerlink" title="timer_flush_expired"></a>timer_flush_expired</h2><p><strong>syntax:</strong> <em>timeout <number></number></em></p>
+<p><strong>default:</strong> <em>200</em></p>
+<p><strong>context:</strong> <em>twaf_anti_mal_crawler</em></p>
+<p>shared_dict 清除过期信息的间隔时间（单位秒）,若为空，则值为 “twaf_global” 下的 “timer_flush_expired”</p>
+<p><a href="#twaf_anti_mal_crawler">Back to MCD</a></p>
+<h2 id="cookie-state"><a href="#cookie-state" class="headerlink" title="cookie_state"></a>cookie_state</h2><p><strong>syntax:</strong> <em>cookie_state true|false|$dynamic_state</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_anti_mal_crawler</em></p>
+<p>是否发送cookie,默认true（发送），支持动态开关</p>
+<p><a href="#twaf_anti_mal_crawler">Back to MCD</a></p>
+<h2 id="crawler-cookie-name"><a href="#crawler-cookie-name" class="headerlink" title="crawler_cookie_name"></a>crawler_cookie_name</h2><p><strong>syntax:</strong> <em>crawler_cookie_name <string></string></em></p>
+<p><strong>default:</strong> <em>“TWAF_crawler”</em></p>
+<p><strong>context:</strong> <em>twaf_anti_mal_crawler</em></p>
+<p>爬虫 cookie 名称</p>
+<p><a href="#twaf_anti_mal_crawler">Back to MCD</a></p>
+<h2 id="mal-cookie-name"><a href="#mal-cookie-name" class="headerlink" title="mal_cookie_name"></a>mal_cookie_name</h2><p><strong>syntax:</strong> <em>mal_cookie_name <string></string></em></p>
+<p><strong>default:</strong> <em>TWAF_mcrawler</em></p>
+<p><strong>context:</strong> <em>twaf_anti_mal_crawler</em></p>
+<p>恶意爬虫cookie名称</p>
+<p><a href="#twaf_anti_mal_crawler">Back to MCD</a></p>
+<h2 id="force-scan-robots-state"><a href="#force-scan-robots-state" class="headerlink" title="force_scan_robots_state"></a>force_scan_robots_state</h2><p><strong>syntax:</strong> <em>force_scan_robots_state true|false</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_anti_mal_crawler</em></p>
+<p>页面注入诱捕路径的开关</p>
+<p>某些扫描工具不会去访问 /robots.txt，因此在他访问的页面中插入禁爬目录的暗链</p>
+<p><a href="#twaf_anti_mal_crawler">Back to MCD</a></p>
+<h2 id="force-scan-times"><a href="#force-scan-times" class="headerlink" title="force_scan_times"></a>force_scan_times</h2><p><strong>syntax:</strong> <em>force_scan_times <number></number></em></p>
+<p><strong>default:</strong> <em>3</em></p>
+<p><strong>context:</strong> <em>twaf_anti_mal_crawler</em></p>
+<p>注入诱捕路径的页面数</p>
+<p><a href="#twaf_anti_mal_crawler">Back to MCD</a></p>
+<h2 id="trap-uri"><a href="#trap-uri" class="headerlink" title="trap_uri"></a>trap_uri</h2><p><strong>syntax:</strong> <em>trap_uri <string></string></em></p>
+<p><strong>default:</strong> <em>/abc/abc.html</em></p>
+<p><strong>context:</strong> <em>twaf_anti_mal_crawler</em></p>
+<p>诱捕路径，访问此路径，被标识为恶意爬虫</p>
+<p><a href="#twaf_anti_mal_crawler">Back to MCD</a></p>
+<h2 id="trap-args"><a href="#trap-args" class="headerlink" title="trap_args"></a>trap_args</h2><p><strong>syntax:</strong> <em>trap_args <string></string></em></p>
+<p><strong>default:</strong> <em>id=1</em></p>
+<p><strong>context:</strong> <em>twaf_anti_mal_crawler</em></p>
+<p>诱捕参数。携带此参数访问诱捕路径，不会标识为攻击</p>
+<p><a href="#twaf_anti_mal_crawler">Back to MCD</a></p>
+<p><a href="#twaf_anti_mal_crawler">Back to twaf_anti_mal_crawler</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="twaf-reqstat"><a href="#twaf-reqstat" class="headerlink" title="twaf_reqstat"></a>twaf_reqstat</h2><pre class="line-numbers language-json"><code class="language-json">    <span class="token property">"twaf_reqstat"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"state"</span><span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"safe_state"</span><span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"access_state"</span><span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"upstream_state"</span><span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"shared_dict_name"</span><span class="token operator">:</span><span class="token string">"twaf_reqshm"</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="state-2"><a href="#state-2" class="headerlink" title="state"></a>state</h2><p><strong>syntax:</strong> <em>state true|false|$dynamic_state</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_reqstat</em></p>
+<p>统计模块开关，支持动态开关，默认开启</p>
+<h2 id="access-state"><a href="#access-state" class="headerlink" title="access_state"></a>access_state</h2><p><strong>syntax:</strong> <em>access_state true|false|$dynamic_state</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_reqstat</em></p>
+<p>访问信息统计开关，支持动态开关，默认开启</p>
+<h2 id="safe-state"><a href="#safe-state" class="headerlink" title="safe_state"></a>safe_state</h2><p><strong>syntax:</strong> <em>safe_state true|false|$dynamic_state</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_reqstat</em></p>
+<p>安全信息统计开关，支持动态开关，默认开启</p>
+<h2 id="upstream-state"><a href="#upstream-state" class="headerlink" title="upstream_state"></a>upstream_state</h2><p><strong>syntax:</strong> <em>upstream_state true|false|$dynamic_state</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_reqstat</em></p>
+<p>转发信息统计开关，支持动态开关，默认开启</p>
+<h2 id="shared-dict-name-1"><a href="#shared-dict-name-1" class="headerlink" title="shared_dict_name"></a>shared_dict_name</h2><p><strong>syntax:</strong> <em>shared_dict_name string</em></p>
+<p><strong>default:</strong> <em>openwaf_reqshm</em></p>
+<p><strong>context:</strong> <em>twaf_reqstat</em></p>
+<p>指定shared_dict名称，在这之前需在nginx配置文件中配置<a href="https://github.com/openresty/lua-nginx-module#lua_shared_dict" target="_blank" rel="noopener">lua_shared_dict</a> <name> <size></size></name></p>
+<p>默认shared_dict名称为openwaf_reqshm</p>
+<p><a href="#twaf_reqstat">Back to twaf_reqstat</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="twaf-log"><a href="#twaf-log" class="headerlink" title="twaf_log"></a>twaf_log</h2><pre class="line-numbers language-txt"><code class="language-txt">"twaf_log": {
+        "access_log_state":false,     -- 访问日志开关
+        "security_log_state":true,    -- 安全日志开关
+        "sock_type":"udp",            -- 支持tcp和udp两种协议
+        "content_type":"JSON",        -- 支持JSON和INFLUXDB两种日志格式
+        "host":"127.0.0.1",           -- 日志服务器地址
+        "port":60055,                 -- 日志服务器端口号
+        "flush_limit":0,              -- 缓冲，当存储的日志大于阈值才发送
+        "size_limit": 200,            -- 控制日志中每一项的字符上限，如'raw_header'或请求体响应体，可能会使udp日志报错
+        "drop_limit":65507,           -- 缓冲上限，达到此值，丢弃当前日志，发送缓存并清空缓存，当sock_type为udp时，drop_limit值最大为65507（65508会报错message too long）
+        "max_retry_times":5,          -- 最大容错次数
+        "ssl":false,                  -- 是否开启ssl协议
+        "access_log":{}               -- 访问日志格式
+        "security_log":{}             -- 安全日志格式
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="access-log-state"><a href="#access-log-state" class="headerlink" title="access_log_state"></a>access_log_state</h2><p><strong>syntax:</strong> <em>“access_log_state”: true|false</em></p>
+<p><strong>default:</strong> <em>false</em></p>
+<p><strong>context:</strong> <em>twaf_log</em></p>
+<p>访问日志开关，默认关闭</p>
+<h2 id="security-log-state"><a href="#security-log-state" class="headerlink" title="security_log_state"></a>security_log_state</h2><p><strong>syntax:</strong> <em>“security_log_state”: true|false</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_log</em></p>
+<p>安全事件日志开关，默认开启</p>
+<h2 id="sock-type"><a href="#sock-type" class="headerlink" title="sock_type"></a>sock_type</h2><p><strong>syntax:</strong> <em>“sock_type”: tcp|udp</em></p>
+<p><strong>default:</strong> <em>udp</em></p>
+<p><strong>context:</strong> <em>twaf_log</em></p>
+<p>日志传输协议，默认udp</p>
+<h2 id="content-type"><a href="#content-type" class="headerlink" title="content_type"></a>content_type</h2><p><strong>syntax:</strong> <em>“content_type”: JSON|INFLUXDB</em></p>
+<p><strong>default:</strong> <em>JSON</em></p>
+<p><strong>context:</strong> <em>twaf_log</em></p>
+<p>日志格式，默认JSON</p>
+<h2 id="host-1"><a href="#host-1" class="headerlink" title="host"></a>host</h2><p><strong>syntax:</strong> <em>“host”: string</em></p>
+<p><strong>default:</strong> <em>“127.0.0.1”</em></p>
+<p><strong>context:</strong> <em>twaf_log</em></p>
+<p>日志接收服务器的ip地址</p>
+<h2 id="port-1"><a href="#port-1" class="headerlink" title="port"></a>port</h2><p><strong>syntax:</strong> <em>“port”: number</em></p>
+<p><strong>default:</strong> <em>60055</em></p>
+<p><strong>context:</strong> <em>twaf_log</em></p>
+<p>日志接收服务器的端口号</p>
+<h2 id="flush-limit"><a href="#flush-limit" class="headerlink" title="flush_limit"></a>flush_limit</h2><p><strong>syntax:</strong> <em>“flush_limit”: number</em></p>
+<p><strong>default:</strong> <em>0</em></p>
+<p><strong>context:</strong> <em>twaf_log</em></p>
+<p>缓冲区大小，当存储的日志大于阈值才发送，默认值为0，即立即发送日志</p>
+<h2 id="size-limit"><a href="#size-limit" class="headerlink" title="size_limit"></a>size_limit</h2><p><strong>syntax:</strong> <em>“size_limit”: number</em></p>
+<p><strong>default:</strong> <em>200</em></p>
+<p><strong>context:</strong> <em>twaf_log</em></p>
+<p>控制日志中每一项的字符上限，如’raw_header’或请求体响应体，可能会使udp日志报错</p>
+<h2 id="drop-limit"><a href="#drop-limit" class="headerlink" title="drop_limit"></a>drop_limit</h2><p><strong>syntax:</strong> <em>“drop_limit”: number</em></p>
+<p><strong>default:</strong> <em>65507</em></p>
+<p><strong>context:</strong> <em>twaf_log</em></p>
+<p>缓冲上限，达到此值，丢弃当前日志，发送缓存并清空缓存，当sock_type为udp时，drop_limit值最大为65507（65508会报错message too long）</p>
+<h2 id="max-retry-times"><a href="#max-retry-times" class="headerlink" title="max_retry_times"></a>max_retry_times</h2><p><strong>syntax:</strong> <em>“max_retry_times”: number</em></p>
+<p><strong>default:</strong> <em>5</em></p>
+<p><strong>context:</strong> <em>twaf_log</em></p>
+<p>最大容错次数</p>
+<h2 id="ssl"><a href="#ssl" class="headerlink" title="ssl"></a>ssl</h2><p><strong>syntax:</strong> <em>“ssl”: true|false</em></p>
+<p><strong>default:</strong> <em>false</em></p>
+<p><strong>context:</strong> <em>twaf_log</em></p>
+<p>是否开启ssl协议，默认false</p>
+<h2 id="access-log"><a href="#access-log" class="headerlink" title="access_log"></a>access_log</h2><p><strong>syntax:</strong> <em>“access_log”: table</em></p>
+<p><strong>default:</strong> <em>false</em></p>
+<p><strong>context:</strong> <em>twaf_log</em></p>
+<p>访问日志格式</p>
+<h2 id="security-log"><a href="#security-log" class="headerlink" title="security_log"></a>security_log</h2><p><strong>syntax:</strong> <em>“security_log”: table</em></p>
+<p><strong>default:</strong> <em>false</em></p>
+<p><strong>context:</strong> <em>twaf_log</em></p>
+<p>安全事件日志格式</p>
+<p>若content_type为JSON，则日志格式为</p>
+<pre><code>[
+    variable_key_1, 
+    variable_key_2, 
+    ...
+]
+</code></pre><p>若content_type为INFLUXDB，则日志格式为</p>
+<pre><code>{
+    &quot;db&quot;:MEASUREMENT名称, 
+    &quot;tags&quot;:[variable_key_1, variable_key_2, ...], 
+    &quot;fileds&quot;[variable_key_1, variable_key_2, ...],
+    &quot;time&quot;:true|false
+}
+</code></pre><p>变量名称详见规则引擎模块<a href="#https://github.com/titansec/openwaf_rule_engine#variables">twaf_secrules</a></p>
+<pre><code>    #日志格式举例
+        #JSON格式
+        &quot;security_log&quot;: [
+            &quot;remote_addr&quot;,
+            &quot;remote_port&quot;,
+            &quot;userid&quot;,
+            &quot;dev_uuid&quot;,
+            &quot;original_dst_addr&quot;,
+            &quot;original_dst_port&quot;,
+            &quot;remote_user&quot;,
+            &quot;time_local&quot;,
+            &quot;msec&quot;,
+            &quot;request_method&quot;,
+            &quot;request_uri&quot;,
+            &quot;request_protocol&quot;,
+            &quot;status&quot;,
+            &quot;bytes_sent&quot;,
+            &quot;http_referer&quot;,
+            &quot;http_user_agent&quot;,
+            &quot;gzip_ratio&quot;,
+            &quot;http_host&quot;,
+            &quot;raw_header&quot;
+        ]
+
+        #INFLUXDB格式
+        &quot;security_log&quot;: {
+            &quot;db&quot;:&quot;test&quot;,                  -- MEASUREMENT名称
+            &quot;tags&quot;:[],                    -- tags keys
+            &quot;fileds&quot;:[                    -- fileds keys
+                &quot;remote_addr&quot;,
+                &quot;remote_port&quot;,
+                &quot;userid&quot;,
+                &quot;dev_uuid&quot;,
+                &quot;original_dst_addr&quot;,
+                &quot;original_dst_port&quot;,
+                &quot;remote_user&quot;,
+                &quot;time_local&quot;,
+                &quot;msec&quot;,
+                &quot;request_method&quot;,
+                &quot;request_uri&quot;,
+                &quot;request_protocol&quot;,
+                &quot;status&quot;,
+                &quot;bytes_sent&quot;,
+                &quot;http_referer&quot;,
+                &quot;http_user_agent&quot;,
+                &quot;gzip_ratio&quot;,
+                &quot;http_host&quot;,
+                &quot;raw_header&quot;
+            ],
+            &quot;time&quot;:true                   -- 日志是否携带时间戳
+        }
+</code></pre><p><a href="#twaf_log">Back to twaf_log</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="twaf-secrules"><a href="#twaf-secrules" class="headerlink" title="twaf_secrules"></a>twaf_secrules</h2><pre class="line-numbers language-txt"><code class="language-txt">    "twaf_secrules":{
+        "state": true,                                              -- 总开关
+        "reqbody_state": true,                                      -- 请求体检测开关
+        "header_filter_state": true,                                -- 响应头检测开关
+        "body_filter_state": true,                                  -- 响应体检测开关
+        "system_rules_state": true,                                 -- 系统规则集检测开关
+        "reqbody_limit":134217728,                                  -- 请求体检测阈值，大于阈值不检测
+        "respbody_limit":524288,                                    -- 响应体检测阈值，大于阈值不检测
+        "pre_path": "/opt/OpenWAF/",                                -- OpenWAF安装路径
+        "path": "lib/twaf/inc/knowledge_db/twrules",                -- 特征规则库在OpenWAF中的路径
+        "user_defined_rules":[ ],                                   -- 用户自定义规则，数组
+        "rules_id":{                                                -- 特征排除
+            "111112": [{"REMOTE_HOST":"a.com", "URI":"^/ab"}],      -- 匹配中数组中信息则对应规则失效，数组中key为变量名称，值支持正则
+            "111113": {},                                           -- 特征未被排除
+            "111114": [{}]                                          -- 特征被无条件排除
+        }
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="state-3"><a href="#state-3" class="headerlink" title="state"></a>state</h2><p><strong>syntax:</strong> <em>state true|false</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_secrules</em></p>
+<p>规则引擎总开关</p>
+<h2 id="reqbody-state"><a href="#reqbody-state" class="headerlink" title="reqbody_state"></a>reqbody_state</h2><p><strong>syntax:</strong> <em>reqbody_state true|false</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_secrules</em></p>
+<p>请求体检测开关</p>
+<h2 id="header-filter-state"><a href="#header-filter-state" class="headerlink" title="header_filter_state"></a>header_filter_state</h2><p><strong>syntax:</strong> <em>header_filter_state true|false</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_secrules</em></p>
+<p>响应头检测开关</p>
+<h2 id="body-filter-state"><a href="#body-filter-state" class="headerlink" title="body_filter_state"></a>body_filter_state</h2><p><strong>syntax:</strong> <em>body_filter_state true|false</em></p>
+<p><strong>default:</strong> <em>false</em></p>
+<p><strong>context:</strong> <em>twaf_secrules</em></p>
+<p>响应体检测开关，默认关闭，若开启需添加第三方模块[ngx_http_twaf_header_sent_filter_module暂未开源]</p>
+<h2 id="system-rules-state"><a href="#system-rules-state" class="headerlink" title="system_rules_state"></a>system_rules_state</h2><p><strong>syntax:</strong> <em>system_rules_state true|false</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_secrules</em></p>
+<p>系统规则集检测开关</p>
+<p>lib/twaf/inc/knowledge_db/twrules 目录下的规则，都是系统规则</p>
+<p>除了系统规则外，还有 twaf_secrules 模块下 user_defined_rules 的用户自定义规则</p>
+<p>系统规则一般很少改动，而用户自定义规则却随着业务而增减，如动态配置缓存、压缩、时域控制和黑白名单等。</p>
+<h2 id="reqbody-limit"><a href="#reqbody-limit" class="headerlink" title="reqbody_limit"></a>reqbody_limit</h2><p><strong>syntax:</strong> <em>reqbody_limit number</em></p>
+<p><strong>default:</strong> <em>134217728</em></p>
+<p><strong>context:</strong> <em>twaf_secrules</em></p>
+<p>请求体检测大小上限，默认134217728B(128MB)，若请求体超过设置上限，则不检测</p>
+<p>PS：reqbody_limit值要小于nginx中client_body_buffer_size的值才会生效</p>
+<h2 id="respbody-limit"><a href="#respbody-limit" class="headerlink" title="respbody_limit"></a>respbody_limit</h2><p><strong>syntax:</strong> <em>respbody_limit number</em></p>
+<p><strong>default:</strong> <em>134217728</em></p>
+<p><strong>context:</strong> <em>twaf_secrules</em></p>
+<p>响应体检测大小上限，默认134217728B(128MB)，若响应体大小超过设置上限，则不检测</p>
+<h2 id="pre-path"><a href="#pre-path" class="headerlink" title="pre_path"></a>pre_path</h2><p><strong>syntax:</strong> <em>pre_path string</em></p>
+<p><strong>default:</strong> <em>/opt/OpenWAF/</em></p>
+<p><strong>context:</strong> <em>twaf_secrules</em></p>
+<p>OpenWAF的安装路径</p>
+<h2 id="path-1"><a href="#path-1" class="headerlink" title="path"></a>path</h2><p><strong>syntax:</strong> <em>path string</em></p>
+<p><strong>default:</strong> <em>lib/twaf/inc/knowledge_db/twrules</em></p>
+<p><strong>context:</strong> <em>twaf_secrules</em></p>
+<p>特征规则库在OpenWAF中的路径</p>
+<h2 id="user-defined-rules"><a href="#user-defined-rules" class="headerlink" title="user_defined_rules"></a>user_defined_rules</h2><p><strong>syntax:</strong> <em>user_defined_rules <array></array></em></p>
+<p><strong>default:</strong> <em>[]</em></p>
+<p><strong>context:</strong> <em>twaf_secrules</em></p>
+<p>策略下的用户自定义特征规则</p>
+<p>先执行用户自定义规则，再执行系统规则</p>
+<p>系统特征规则适用于所有的策略，在引擎启动时通过加载特征库或通过 API 加载系统特征规则，系统特征规则一般不会动态更改</p>
+<p>用户自定义特征在策略下生效，一般用于变动较大的特征规则，如：时域控制，修改响应头等临时性规则</p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token property">"user_defined_rules"</span><span class="token operator">:</span><span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"1000001"</span><span class="token punctuation">,</span>
+        <span class="token property">"release_version"</span><span class="token operator">:</span> <span class="token string">"858"</span><span class="token punctuation">,</span>
+        <span class="token property">"charactor_version"</span><span class="token operator">:</span> <span class="token string">"001"</span><span class="token punctuation">,</span>
+        <span class="token property">"disable"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"opts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"nolog"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"phase"</span><span class="token operator">:</span> <span class="token string">"access"</span><span class="token punctuation">,</span>
+        <span class="token property">"action"</span><span class="token operator">:</span> <span class="token string">"deny"</span><span class="token punctuation">,</span>
+        <span class="token property">"meta"</span><span class="token operator">:</span> <span class="token number">403</span><span class="token punctuation">,</span>
+        <span class="token property">"severity"</span><span class="token operator">:</span> <span class="token string">"high"</span><span class="token punctuation">,</span>
+        <span class="token property">"rule_name"</span><span class="token operator">:</span> <span class="token string">"relative time"</span><span class="token punctuation">,</span>
+        <span class="token property">"desc"</span><span class="token operator">:</span> <span class="token string">"周一至周五的8点至18点，禁止访问/test目录"</span><span class="token punctuation">,</span>
+        <span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            <span class="token property">"vars"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+                <span class="token property">"var"</span><span class="token operator">:</span> <span class="token string">"URI"</span>
+            <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token property">"operator"</span><span class="token operator">:</span> <span class="token string">"begins_with"</span><span class="token punctuation">,</span>
+            <span class="token property">"pattern"</span><span class="token operator">:</span> <span class="token string">"/test"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+            <span class="token property">"vars"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+                <span class="token property">"var"</span><span class="token operator">:</span> <span class="token string">"TIME_WDAY"</span>
+            <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token property">"operator"</span><span class="token operator">:</span> <span class="token string">"equal"</span><span class="token punctuation">,</span>
+            <span class="token property">"pattern"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"1"</span><span class="token punctuation">,</span> <span class="token string">"2"</span><span class="token punctuation">,</span> <span class="token string">"3"</span><span class="token punctuation">,</span> <span class="token string">"4"</span><span class="token punctuation">,</span> <span class="token string">"5"</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+            <span class="token property">"vars"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+                <span class="token property">"var"</span><span class="token operator">:</span> <span class="token string">"TIME"</span>
+            <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token property">"operator"</span><span class="token operator">:</span> <span class="token string">"str_range"</span><span class="token punctuation">,</span>
+            <span class="token property">"pattern"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"08:00:00-18:00:00"</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"1000002"</span><span class="token punctuation">,</span>
+        <span class="token property">"release_version"</span><span class="token operator">:</span> <span class="token string">"858"</span><span class="token punctuation">,</span>
+        <span class="token property">"charactor_version"</span><span class="token operator">:</span> <span class="token string">"001"</span><span class="token punctuation">,</span>
+        <span class="token property">"disable"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"opts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"nolog"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"phase"</span><span class="token operator">:</span> <span class="token string">"access"</span><span class="token punctuation">,</span>
+        <span class="token property">"action"</span><span class="token operator">:</span> <span class="token string">"deny"</span><span class="token punctuation">,</span>
+        <span class="token property">"meta"</span><span class="token operator">:</span> <span class="token number">403</span><span class="token punctuation">,</span>
+        <span class="token property">"severity"</span><span class="token operator">:</span> <span class="token string">"high"</span><span class="token punctuation">,</span>
+        <span class="token property">"rule_name"</span><span class="token operator">:</span> <span class="token string">"iputil"</span><span class="token punctuation">,</span>
+        <span class="token property">"desc"</span><span class="token operator">:</span> <span class="token string">"某ip段内不许访问"</span><span class="token punctuation">,</span>
+        <span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            <span class="token property">"vars"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+               <span class="token property">"var"</span><span class="token operator">:</span> <span class="token string">"REMOTE_ADDR"</span>
+            <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token property">"operator"</span><span class="token operator">:</span> <span class="token string">"ip_utils"</span><span class="token punctuation">,</span>
+            <span class="token property">"pattern"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"1.1.1.0/24"</span><span class="token punctuation">,</span><span class="token string">"2.2.2.2-2.2.20.2"</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="rules-id"><a href="#rules-id" class="headerlink" title="rules_id"></a>rules_id</h2><p><strong>syntax:</strong> <em>rules_id table</em></p>
+<p><strong>default:</strong> <em>none</em></p>
+<p><strong>context:</strong> <em>twaf_secrules</em></p>
+<p>用于排除特征</p>
+<p><a href="#twaf_secrules">Back to twaf_secrules</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="twaf-anti-cc"><a href="#twaf-anti-cc" class="headerlink" title="twaf_anti_cc"></a>twaf_anti_cc</h2><pre class="line-numbers language-txt"><code class="language-txt">{
+    "twaf_limit_conn": {
+        "state":false,                                       -- CC防护模块开关
+        "log_state":true,                                    -- CC日志开关
+        "trigger_state":true,                                -- 触发开关
+        "clean_state":true,                                  -- 清洗开关
+        "trigger_thr":{                                      -- 触发阈值（关系为“或”）
+            "req_flow_max":1073741824,                       -- 每秒请求流量，单位B
+            "req_count_max":10000                            -- 每秒请求数
+        },
+        "clean_thr":{                                        -- 清洗阈值
+            "new_conn_max":40,                               -- 单一源ip每秒新建连接数
+            "conn_max":100,                                  -- 单一源ip防护期间内连接总数
+            "req_max":50,                                    -- 单一源ip每秒请求总数
+            "uri_frequency_max":3000                         -- 单一路径每秒请求总数
+        },
+        "attacks": 1,                                        -- 在一次CC攻击过程中，某ip触发清洗值的次数大于attacks，则此ip会一直被拦截，直到CC攻击结束
+        "timer_flush_expired":10,                            -- 清理shared_dict过期数据的时间间隔
+        "interval":10,                                       -- 进入CC防护后发送日志的时间间隔，单位秒
+        "shared_dict_name":"twaf_limit_conn",                -- 存放其他信息的shared_dict
+        "shared_dict_key": "remote_addr",                    -- shared_dict的键值
+        "action":"DENY",                                     -- 触发CC防护执行的动作
+        "action_meta":403,
+        "timeout":30                                         -- 清洗时长（当再次触发清洗值时，重置）
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="rules-1"><a href="#rules-1" class="headerlink" title="rules"></a>rules</h2><p><strong>syntax:</strong> <em>“state”: true|false</em></p>
+<p><strong>default:</strong> <em>false</em></p>
+<p><strong>context:</strong> <em>twaf_limit_conn</em></p>
+<p>boolean类型，CC防护模块总开关，默认关闭</p>
+<h2 id="log-state-2"><a href="#log-state-2" class="headerlink" title="log_state"></a>log_state</h2><p><strong>syntax:</strong> <em>“log_state”: true|false</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_limit_conn</em></p>
+<p>boolean类型，CC防护模块日志开关，默认开启</p>
+<h2 id="trigger-state"><a href="#trigger-state" class="headerlink" title="trigger_state"></a>trigger_state</h2><p><strong>syntax:</strong> <em>“trigger_state”: true|false</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_limit_conn</em></p>
+<p>boolean类型，CC防护模块的触发开关，默认开启</p>
+<p>若关闭，则触发机制关闭，时刻进入CC清洗状态</p>
+<h2 id="clean-state"><a href="#clean-state" class="headerlink" title="clean_state"></a>clean_state</h2><p><strong>syntax:</strong> <em>“clean_state”: true|false</em></p>
+<p><strong>default:</strong> <em>true</em></p>
+<p><strong>context:</strong> <em>twaf_limit_conn</em></p>
+<p>boolean类型，CC防护模块总开关，默认开启</p>
+<p>若关闭（仅用于测试），则清洗机制关闭，CC模块将无法拦截请求</p>
+<h2 id="trigger-thr"><a href="#trigger-thr" class="headerlink" title="trigger_thr"></a>trigger_thr</h2><p><strong>syntax:</strong> <em>“trigger_thr”: table</em></p>
+<p><strong>default:</strong> <em>{“req_flow_max”:1073741824,”req_count_max”:10000}</em></p>
+<p><strong>context:</strong> <em>twaf_limit_conn</em></p>
+<p>table类型，触发阈值</p>
+<p>当达到其中一个触发阈值，进入CC清洗状态</p>
+<p>当前有两个触发阈值  </p>
+<pre class="line-numbers language-txt"><code class="language-txt">    "trigger_thr":{                                      -- 触发阈值（关系为“或”）
+        "req_flow_max":1073741824,                       -- 每秒请求流量，单位B，默认1GB/s
+        "req_count_max":10000                            -- 每秒请求数，默认10000个/秒
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="clean-thr"><a href="#clean-thr" class="headerlink" title="clean_thr"></a>clean_thr</h2><p><strong>syntax:</strong> <em>“clean_thr”: table</em></p>
+<p><strong>default:</strong> <em>{“new_conn_max”:40,”conn_max”:100,”req_max”:50,”uri_frequency_max”:3000}</em></p>
+<p><strong>context:</strong> <em>twaf_limit_conn</em></p>
+<p>table类型，清洗阈值</p>
+<p>当进入CC清洗状态，达到其中一个清洗阈值，则执行相应动作</p>
+<p>当前有四个清洗阈值  </p>
+<pre class="line-numbers language-txt"><code class="language-txt">    "clean_thr":{                                        -- 清洗阈值（关系为“或”）
+        "new_conn_max":40,                               -- 单一源ip每秒新建连接数，默认40个/秒
+        "conn_max":100,                                  -- 单一源ip防护期间内连接总数，默认100个
+        "req_max":50,                                    -- 单一源ip每秒请求总数，默认50个/秒
+        "uri_frequency_max":3000                         -- 单一路径每秒请求总数，默认3000个/秒
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="attacks"><a href="#attacks" class="headerlink" title="attacks"></a>attacks</h2><p><strong>syntax:</strong> <em>“attacks”: number</em></p>
+<p><strong>default:</strong> <em>1</em></p>
+<p><strong>context:</strong> <em>twaf_limit_conn</em></p>
+<p>在一次 CC 攻击过程中，某ip触发清洗阈值的次数大于 attacks ，则此 ip 会一直被拦截，直到 CC 攻击结束</p>
+<p>此前，在一次 CC 攻击过程中，当达到清洗阈值时，才会进行拦截。若未达到清洗阈值，即使之前被拦截过，也可正常访问后端服务器</p>
+<p>正确设置此参数，可以大大提升 CC 防护性能</p>
+<p>若想恢复以前的 CC 防护机制，只需 attacks 设为 0 即可</p>
+<p>此参数出现在 OpenWAF-0.0.6 版本， twaf_anti_cc 的 0.0.3 版本</p>
+<h2 id="timer-flush-expired-1"><a href="#timer-flush-expired-1" class="headerlink" title="timer_flush_expired"></a>timer_flush_expired</h2><p><strong>syntax:</strong> <em>“timer_flush_expired”: number</em></p>
+<p><strong>default:</strong> <em>10</em></p>
+<p><strong>context:</strong> <em>twaf_limit_conn</em></p>
+<p>number类型，清理shared_dict过期数据的时间间隔，默认10秒</p>
+<h2 id="interval"><a href="#interval" class="headerlink" title="interval"></a>interval</h2><p><strong>syntax:</strong> <em>“interval”: number</em></p>
+<p><strong>default:</strong> <em>10</em></p>
+<p><strong>context:</strong> <em>twaf_limit_conn</em></p>
+<p>number类型，进入CC防护后发送日志的时间间隔，默认10秒</p>
+<h2 id="shared-dict-name-2"><a href="#shared-dict-name-2" class="headerlink" title="shared_dict_name"></a>shared_dict_name</h2><p><strong>syntax:</strong> <em>“shared_dict_name”: string</em></p>
+<p><strong>default:</strong> <em>“twaf_limit_conn”</em></p>
+<p><strong>context:</strong> <em>twaf_limit_conn</em></p>
+<p>string类型，存放当前CC防护信息的shared_dict名称</p>
+<h2 id="shared-dict-key-1"><a href="#shared-dict-key-1" class="headerlink" title="shared_dict_key"></a>shared_dict_key</h2><p><strong>syntax:</strong> <em>“shared_dict_key”: string|table</em></p>
+<p><strong>default:</strong> <em>“remote_addr”</em></p>
+<p><strong>context:</strong> <em>twaf_limit_conn</em></p>
+<p>string或table类型，shared_dict的键值，支持nginx变量</p>
+<p>支持字符串类型和数组类型</p>
+<pre><code>    &quot;shared_dict_key&quot;: &quot;remote_addr&quot;
+
+    &quot;shared_dict_key&quot;: [&quot;remote_addr&quot;, &quot;http_user_agent&quot;]
+</code></pre><h2 id="action-1"><a href="#action-1" class="headerlink" title="action"></a>action</h2><p><strong>syntax:</strong> <em>“action”: string</em></p>
+<p><strong>default:</strong> <em>“DENY”</em></p>
+<p><strong>context:</strong> <em>twaf_limit_conn</em></p>
+<p>string类型，触发CC防护执行的动作，默认”DENY”</p>
+<h2 id="action-meta-1"><a href="#action-meta-1" class="headerlink" title="action_meta"></a>action_meta</h2><p><strong>syntax:</strong> <em>“action_meta”: number|string</em></p>
+<p><strong>default:</strong> <em>403</em></p>
+<p><strong>context:</strong> <em>twaf_limit_conn</em></p>
+<p>string或number类型，执行动作的附属信息，默认403</p>
+<h2 id="timeout-1"><a href="#timeout-1" class="headerlink" title="timeout"></a>timeout</h2><p><strong>syntax:</strong> <em>“timeout”: number</em></p>
+<p><strong>default:</strong> <em>30</em></p>
+<p><strong>context:</strong> <em>twaf_limit_conn</em></p>
+<p>number类型，清洗时长，N秒内不再达到触发阈值，则退出CC清洗状态</p>
+<p>在清洗过程中，再次达到触发阈值，则时间重置为30秒</p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h1 id="Nginx-Variables"><a href="#Nginx-Variables" class="headerlink" title="Nginx Variables"></a>Nginx Variables</h1><h2 id="twaf-https"><a href="#twaf-https" class="headerlink" title="$twaf_https"></a>$twaf_https</h2><p><strong>syntax:</strong> <em>set $twaf_https 0|1</em></p>
+<p><strong>default:</strong> <em>0</em></p>
+<p><strong>context:</strong> <em>server</em></p>
+<p>用于标记请求是否通过ssl加密</p>
+<p>“set $twaf_https 1”，则表示请求通过ssl加密</p>
+<p>“set $twaf_https 0”，则表示请求未通过ssl加密</p>
+<pre><code>server {
+    listen 443 ssl;
+    set $twaf_https 1;
+    ...
+}
+
+server {
+    listen 80;
+    set $twaf_https 0;
+    ...
+}
+</code></pre><h2 id="twaf-upstream-server"><a href="#twaf-upstream-server" class="headerlink" title="$twaf_upstream_server"></a>$twaf_upstream_server</h2><p><strong>syntax:</strong> <em>set $twaf_upstream_server “”</em></p>
+<p><strong>default:</strong> <em>none</em></p>
+<p><strong>context:</strong> <em>server</em></p>
+<p>用于指定后端服务器地址，只需初始化为空字符串即可，其值由”server_ssl”和”forward”确定</p>
+<pre><code>upstream server_1 {
+    ...
+}
+
+upstream server_2 {
+    ...
+}
+
+server {
+    ...
+
+    set $twaf_upstream_server &quot;&quot;;
+    location / {
+        ...
+        proxy_pass $twaf_upstream_server;
+    }
+}
+
+若&quot;server_ssl&quot;值为true, &quot;forward&quot;值为&quot;server_1&quot;
+等价于proxy_pass https://server_1;
+
+若&quot;server_ssl&quot;值为false, &quot;forward&quot;值为&quot;server_2&quot;
+等价于proxy_pass http://server_2;
+</code></pre><p><a href="#table-of-contents">Back to TOC</a></p>
+<h1 id="SecRules"><a href="#SecRules" class="headerlink" title="SecRules"></a>SecRules</h1><h2 id="Variables"><a href="#Variables" class="headerlink" title="Variables"></a>Variables</h2><ul>
+<li><a href="#args">ARGS</a></li>
+<li><a href="#args_combined_size">ARGS_COMBINED_SIZE</a></li>
+<li><a href="#args_get">ARGS_GET</a></li>
+<li><a href="#args_get_names">ARGS_GET_NAMES </a></li>
+<li><a href="#args_names">ARGS_NAMES</a></li>
+<li><a href="#args_post">ARGS_POST </a></li>
+<li><a href="#args_post_names">ARGS_POST_NAMES </a></li>
+<li><a href="#bytes_in">BYTES_IN</a></li>
+<li><a href="#connection_requests">CONNECTION_REQUESTS</a></li>
+<li><a href="#duration">DURATION</a></li>
+<li><a href="#files">FILES</a></li>
+<li><a href="#files_names">FILES_NAMES</a></li>
+<li><a href="#geo">GEO</a></li>
+<li><a href="#geo_code3">GEO_CODE3</a></li>
+<li><a href="#geo_code">GEO_CODE3</a></li>
+<li><a href="#geo_id">GEO_ID</a></li>
+<li><a href="#geo_continent">GEO_CONTINENT</a></li>
+<li><a href="#geo_name">GEO_NAME</a></li>
+<li><a href="#gzip_ratio">GZIP_RATIO</a></li>
+<li><a href="#http_cookie">HTTP_COOKIE</a></li>
+<li><a href="#http_host">HTTP_HOST</a></li>
+<li><a href="#http_referer">HTTP_REFERER</a></li>
+<li><a href="#http_user_agent">HTTP_USER_AGENT</a></li>
+<li><a href="#ip_version">IP_VERSION</a></li>
+<li><a href="#matched_var">MATCHED_VAR</a></li>
+<li><a href="#matched_vars">MATCHED_VARS</a></li>
+<li><a href="#matched_var_name">MATCHED_VAR_NAME</a></li>
+<li><a href="#matched_var_names">MATCHED_VARS_NAMES</a></li>
+<li><a href="#original_dst_addr">ORIGINAL_DST_ADDR</a></li>
+<li><a href="#original_dst_port">ORIGINAL_DST_PORT</a></li>
+<li><a href="#policyid">POLICYID</a></li>
+<li><a href="#query_string">QUERY_STRING</a></li>
+<li><a href="#raw_header">RAW_HEADER</a></li>
+<li><a href="#raw_header_true">RAW_HEADER_TRUE</a></li>
+<li><a href="#remote_addr">REMOTE_ADDR</a></li>
+<li><a href="#remote_host">REMOTE_HOST</a></li>
+<li><a href="#remote_port">REMOTE_PORT</a></li>
+<li><a href="#remote_user">REMOTE_USER</a></li>
+<li><a href="#request_basename">REQUEST_BASENAME</a></li>
+<li><a href="#request_body">REQUEST_BODY</a></li>
+<li><a href="#request_cookies">REQUEST_COOKIES</a></li>
+<li><a href="#request_cookies_names">REQUEST_COOKIES_NAMES</a></li>
+<li><a href="#request_filename">REQUEST_FILENAME</a></li>
+<li><a href="#request_headers">REQUEST_HEADERS</a></li>
+<li><a href="#request_headers_names">REQUEST_HEADERS_NAMES</a></li>
+<li><a href="#request_line">REQUEST_LINE</a></li>
+<li><a href="#request_method">REQUEST_METHOD</a></li>
+<li><a href="#request_protocol">REQUEST_PROTOCOL</a></li>
+<li><a href="#http_version">HTTP_VERSION</a></li>
+<li><a href="#uri">URI</a></li>
+<li><a href="#url">URL</a></li>
+<li><a href="#request_uri">REQUEST_URI</a></li>
+<li><a href="#response_body">RESPONSE_BODY</a></li>
+<li><a href="#response_headers">RESPONSE_HEADERS</a></li>
+<li><a href="#response_status">RESPONSE_STATUS</a></li>
+<li><a href="#scheme">SCHEME</a></li>
+<li><a href="#server_addr">SERVER_ADDR</a></li>
+<li><a href="#server_name">SERVER_NAME</a></li>
+<li><a href="#server_port">SERVER_PORT</a></li>
+<li><a href="#session">SESSION</a></li>
+<li><a href="#session_data">SESSION_DATA</a></li>
+<li><a href="#time">TIME</a></li>
+<li><a href="#time_day">TIME_DAY</a></li>
+<li><a href="#time_epoch">TIME_EPOCH</a></li>
+<li><a href="#time_hour">TIME_HOUR</a></li>
+<li><a href="#time_min">TIME_MIN</a></li>
+<li><a href="#time_mon">TIME_MON</a></li>
+<li><a href="#time_sec">TIME_SEC</a></li>
+<li><a href="#time_wday">TIME_WDAY</a></li>
+<li><a href="#time_year">TIME_YEAR</a></li>
+<li><a href="#time_local">TIME_LOCAL</a></li>
+<li><a href="#tx">TX</a></li>
+<li><a href="#unique_id">UNIQUE_ID</a></li>
+<li><a href="#upstream_cache_status">UPSTREAM_CACHE_STATUS</a></li>
+<li><a href="#userid">USERID</a></li>
+</ul>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="ARGS"><a href="#ARGS" class="headerlink" title="ARGS"></a>ARGS</h2><p>table类型，所有的请求参数，包含ARGS_GET和ARGS_POST</p>
+<pre><code>例如：POST http://www.baidu.com?name=miracle&amp;age=5
+
+请求体为：time=123456&amp;day=365
+
+ARGS变量值为{&quot;name&quot;: &quot;miracle&quot;, &quot;age&quot;: &quot;5&quot;, &quot;time&quot;: &quot;123456&quot;, &quot;day&quot;: &quot;365&quot;}
+</code></pre><p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="ARGS-COMBINED-SIZE"><a href="#ARGS-COMBINED-SIZE" class="headerlink" title="ARGS_COMBINED_SIZE"></a>ARGS_COMBINED_SIZE</h2><p>number类型，请求参数总长度，只包含key和value的长度，不包含’&amp;’或’=’等符号</p>
+<pre><code>例如：GET http://www.baidu.com?name=miracle&amp;age=5
+
+ARGS_COMBINED_SIZE变量值为15，而不是18
+</code></pre><p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="ARGS-GET"><a href="#ARGS-GET" class="headerlink" title="ARGS_GET"></a>ARGS_GET</h2><p>table类型，querystring参数</p>
+<pre><code>例如：GET http://www.baidu.com?name=miracle&amp;age=5
+
+ARGS_GET变量值为{&quot;name&quot;: &quot;miracle&quot;, &quot;age&quot;: &quot;5&quot;}
+</code></pre><p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="ARGS-GET-NAMES"><a href="#ARGS-GET-NAMES" class="headerlink" title="ARGS_GET_NAMES"></a>ARGS_GET_NAMES</h2><p>table类型，querystring参数key值</p>
+<pre><code>例如：GET http://www.baidu.com?name=miracle&amp;age=5
+
+ARGS_GET_NAMES变量值为[&quot;name&quot;, &quot;age&quot;]
+</code></pre><p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="ARGS-NAMES"><a href="#ARGS-NAMES" class="headerlink" title="ARGS_NAMES"></a>ARGS_NAMES</h2><p>table类型，querystring参数key值及post参数key值</p>
+<pre><code>例如：POST http://www.baidu.com?name=miracle&amp;age=5
+
+请求体为：time=123456&amp;day=365
+
+ARGS_NAMES变量值为[&quot;name&quot;, &quot;age&quot;, &quot;time&quot;, &quot;day&quot;]
+</code></pre><p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="ARGS-POST"><a href="#ARGS-POST" class="headerlink" title="ARGS_POST"></a>ARGS_POST</h2><p>table类型，POST参数</p>
+<pre><code>例如：
+
+POST http://www.baidu.com/login.html
+
+请求体为：time=123456&amp;day=365
+
+ARGS_POST变量值为{&quot;time&quot;: &quot;123456&quot;, &quot;day&quot;: &quot;365&quot;}
+</code></pre><p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="ARGS-POST-NAMES"><a href="#ARGS-POST-NAMES" class="headerlink" title="ARGS_POST_NAMES"></a>ARGS_POST_NAMES</h2><p>table类型，POST参数key值</p>
+<pre><code>例如：
+
+POST http://www.baidu.com/login.html
+
+请求体为：time=123456&amp;day=365
+
+ARGS_POST_NAMES变量值为[&quot;time&quot;, &quot;day&quot;]
+</code></pre><p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="BYTES-IN"><a href="#BYTES-IN" class="headerlink" title="BYTES_IN"></a>BYTES_IN</h2><p>number类型，接收信息字节数</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="CONNECTION-REQUESTS"><a href="#CONNECTION-REQUESTS" class="headerlink" title="CONNECTION_REQUESTS"></a>CONNECTION_REQUESTS</h2><p>number类型，当前连接中的请求数</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="DURATION"><a href="#DURATION" class="headerlink" title="DURATION"></a>DURATION</h2><p>string类型，处理事务用时时间，单位:微秒(μs)</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="FILES"><a href="#FILES" class="headerlink" title="FILES"></a>FILES</h2><p>table类型，从请求体中得到的原始文件名(带有文件后缀名)</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="FILES-NAMES"><a href="#FILES-NAMES" class="headerlink" title="FILES_NAMES"></a>FILES_NAMES</h2><p>table类型，上传文件名称（不带有后缀名）</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="GEO"><a href="#GEO" class="headerlink" title="GEO"></a>GEO</h2><p>table类型，包含code3,code,id,continent,name等字段信息</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="GEO-CODE3"><a href="#GEO-CODE3" class="headerlink" title="GEO_CODE3"></a>GEO_CODE3</h2><p>string类型，3个字母长度的国家缩写</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="GEO-CODE"><a href="#GEO-CODE" class="headerlink" title="GEO_CODE"></a>GEO_CODE</h2><p>string类型，2个字母长度的国家缩写</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="GEO-ID"><a href="#GEO-ID" class="headerlink" title="GEO_ID"></a>GEO_ID</h2><p>number类型，国家ID</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="GEO-CONTINENT"><a href="#GEO-CONTINENT" class="headerlink" title="GEO_CONTINENT"></a>GEO_CONTINENT</h2><p>string类型，国家所在大洲</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="GEO-NAME"><a href="#GEO-NAME" class="headerlink" title="GEO_NAME"></a>GEO_NAME</h2><p>string类型，国家全称</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="GZIP-RATIO"><a href="#GZIP-RATIO" class="headerlink" title="GZIP_RATIO"></a>GZIP_RATIO</h2><p>string类型，压缩比率</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="HTTP-COOKIE"><a href="#HTTP-COOKIE" class="headerlink" title="HTTP_COOKIE"></a>HTTP_COOKIE</h2><p>string类型，请求头中的cookie字段</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="HTTP-HOST"><a href="#HTTP-HOST" class="headerlink" title="HTTP_HOST"></a>HTTP_HOST</h2><p>string类型，请求头中的host字段值，既域名:端口(80缺省)</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="HTTP-REFERER"><a href="#HTTP-REFERER" class="headerlink" title="HTTP_REFERER"></a>HTTP_REFERER</h2><p>string类型，请求头中的referer字段</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="HTTP-USER-AGENT"><a href="#HTTP-USER-AGENT" class="headerlink" title="HTTP_USER_AGENT"></a>HTTP_USER_AGENT</h2><p>string类型，请求头中的user-agent字段</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="IP-VERSION"><a href="#IP-VERSION" class="headerlink" title="IP_VERSION"></a>IP_VERSION</h2><p>string类型，IPv4 or IPv6</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="MATCHED-VAR"><a href="#MATCHED-VAR" class="headerlink" title="MATCHED_VAR"></a>MATCHED_VAR</h2><p>类型不定，当前匹配中的变量</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="MATCHED-VARS"><a href="#MATCHED-VARS" class="headerlink" title="MATCHED_VARS"></a>MATCHED_VARS</h2><p>table类型，单条规则匹配中的所有变量</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="MATCHED-VAR-NAME"><a href="#MATCHED-VAR-NAME" class="headerlink" title="MATCHED_VAR_NAME"></a>MATCHED_VAR_NAME</h2><p>string类型，当前匹配中的变量名称</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="MATCHED-VARS-NAMES"><a href="#MATCHED-VARS-NAMES" class="headerlink" title="MATCHED_VARS_NAMES"></a>MATCHED_VARS_NAMES</h2><p>table类型，单条规则匹配中的所有变量名称</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="ORIGINAL-DST-ADDR"><a href="#ORIGINAL-DST-ADDR" class="headerlink" title="ORIGINAL_DST_ADDR"></a>ORIGINAL_DST_ADDR</h2><p>string类型，服务器地址，应用代理模式为WAF地址，透明模式为后端服务器地址</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="ORIGINAL-DST-PORT"><a href="#ORIGINAL-DST-PORT" class="headerlink" title="ORIGINAL_DST_PORT"></a>ORIGINAL_DST_PORT</h2><p>string类型，服务器端口号，应用代理模式为WAF端口号，透明模式为后端服务器端口号</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="POLICYID"><a href="#POLICYID" class="headerlink" title="POLICYID"></a>POLICYID</h2><p>string类型，策略ID</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="QUERY-STRING"><a href="#QUERY-STRING" class="headerlink" title="QUERY_STRING"></a>QUERY_STRING</h2><p>string类型，未解码的请求参数</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="RAW-HEADER"><a href="#RAW-HEADER" class="headerlink" title="RAW_HEADER"></a>RAW_HEADER</h2><p>string类型，请求头信息，带请求行</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="RAW-HEADER-TRUE"><a href="#RAW-HEADER-TRUE" class="headerlink" title="RAW_HEADER_TRUE"></a>RAW_HEADER_TRUE</h2><p>string类型，请求头信息，不带请求行</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="REMOTE-ADDR"><a href="#REMOTE-ADDR" class="headerlink" title="REMOTE_ADDR"></a>REMOTE_ADDR</h2><p>string类型，客户端地址</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="REMOTE-HOST"><a href="#REMOTE-HOST" class="headerlink" title="REMOTE_HOST"></a>REMOTE_HOST</h2><p>string类型，域名</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="REMOTE-PORT"><a href="#REMOTE-PORT" class="headerlink" title="REMOTE_PORT"></a>REMOTE_PORT</h2><p>number类型，端口号</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="REMOTE-USER"><a href="#REMOTE-USER" class="headerlink" title="REMOTE_USER"></a>REMOTE_USER</h2><p>string类型，用于身份验证的用户名</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="REQUEST-BASENAME"><a href="#REQUEST-BASENAME" class="headerlink" title="REQUEST_BASENAME"></a>REQUEST_BASENAME</h2><p>string类型，请求的文件名</p>
+<pre><code>例如: GET http://www.baidu.com/test/login.php
+
+REQUEST_BASENAME值为/login.php
+</code></pre><p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="REQUEST-BODY"><a href="#REQUEST-BODY" class="headerlink" title="REQUEST_BODY"></a>REQUEST_BODY</h2><p>类型不定，请求体</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="REQUEST-COOKIES"><a href="#REQUEST-COOKIES" class="headerlink" title="REQUEST_COOKIES"></a>REQUEST_COOKIES</h2><p>table类型，请求携带的cookie</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="REQUEST-COOKIES-NAMES"><a href="#REQUEST-COOKIES-NAMES" class="headerlink" title="REQUEST_COOKIES_NAMES"></a>REQUEST_COOKIES_NAMES</h2><p>table类型，请求携带cookie的名称</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="REQUEST-FILENAME"><a href="#REQUEST-FILENAME" class="headerlink" title="REQUEST_FILENAME"></a>REQUEST_FILENAME</h2><p>string类型，relative request URL(相对请求路径)</p>
+<pre><code>例如: GET http://www.baidu.com/test/login.php
+
+REQUEST_FILENAME值为/test/login.php
+</code></pre><p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="REQUEST-HEADERS"><a href="#REQUEST-HEADERS" class="headerlink" title="REQUEST_HEADERS"></a>REQUEST_HEADERS</h2><p>table类型，请求头信息</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="REQUEST-HEADERS-NAMES"><a href="#REQUEST-HEADERS-NAMES" class="headerlink" title="REQUEST_HEADERS_NAMES"></a>REQUEST_HEADERS_NAMES</h2><p>table类型，请求头key值</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="REQUEST-LINE"><a href="#REQUEST-LINE" class="headerlink" title="REQUEST_LINE"></a>REQUEST_LINE</h2><p>string类型，请求行</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="REQUEST-METHOD"><a href="#REQUEST-METHOD" class="headerlink" title="REQUEST_METHOD"></a>REQUEST_METHOD</h2><p>string类型，请求方法</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="REQUEST-PROTOCOL"><a href="#REQUEST-PROTOCOL" class="headerlink" title="REQUEST_PROTOCOL"></a>REQUEST_PROTOCOL</h2><p>string类型，http请求协议，如: HTTP/1.1</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="HTTP-VERSION"><a href="#HTTP-VERSION" class="headerlink" title="HTTP_VERSION"></a>HTTP_VERSION</h2><p>string类型，http请求协议版本，如: 1.1</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h2><p>string类型，请求路径，既不带域名，也不带参数</p>
+<pre><code>例如: GET http://www.baid.com/test/login.php?name=miracle
+
+URI变量值为/test/login.php
+</code></pre><p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h2><p>string类型，统一资源定位符，SCHEME与HTTP_HOST与URI的拼接</p>
+<pre><code>例如: GET http://www.baid.com/test/login.php?name=miracle
+
+URL变量值为http://www.baid.com/test/login.php
+</code></pre><p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="REQUEST-URI"><a href="#REQUEST-URI" class="headerlink" title="REQUEST_URI"></a>REQUEST_URI</h2><p>string类型，请求路径，带参数，但不带有域名</p>
+<pre><code>例如: GET http://www.baid.com/test/login.php?name=miracle
+
+REQUEST_URI变量值为/test/login.php?name=miracle
+</code></pre><p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="RESPONSE-BODY"><a href="#RESPONSE-BODY" class="headerlink" title="RESPONSE_BODY"></a>RESPONSE_BODY</h2><p>string类型，响应体</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="RESPONSE-HEADERS"><a href="#RESPONSE-HEADERS" class="headerlink" title="RESPONSE_HEADERS"></a>RESPONSE_HEADERS</h2><p>table类型，响应头信息</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="RESPONSE-STATUS"><a href="#RESPONSE-STATUS" class="headerlink" title="RESPONSE_STATUS"></a>RESPONSE_STATUS</h2><p>function类型，响应状态码</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="SCHEME"><a href="#SCHEME" class="headerlink" title="SCHEME"></a>SCHEME</h2><p>string类型，http or https</p>
+<pre><code>例如：GET http://www.baidu.com/
+
+SCHEME变量值为http
+</code></pre><p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="SERVER-ADDR"><a href="#SERVER-ADDR" class="headerlink" title="SERVER_ADDR"></a>SERVER_ADDR</h2><p>string类型，服务器地址</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="SERVER-NAME"><a href="#SERVER-NAME" class="headerlink" title="SERVER_NAME"></a>SERVER_NAME</h2><p>string类型，服务器名称</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="SERVER-PORT"><a href="#SERVER-PORT" class="headerlink" title="SERVER_PORT"></a>SERVER_PORT</h2><p>number类型，服务器端口号</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="SESSION"><a href="#SESSION" class="headerlink" title="SESSION"></a>SESSION</h2><p>table类型，第三方模块lua-resty-session提供的变量</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="SESSION-DATA"><a href="#SESSION-DATA" class="headerlink" title="SESSION_DATA"></a>SESSION_DATA</h2><p>table类型，session信息，第三方模块lua-resty-session提供的变量</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="TIME"><a href="#TIME" class="headerlink" title="TIME"></a>TIME</h2><p>string类型，hour:minute:second</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="TIME-DAY"><a href="#TIME-DAY" class="headerlink" title="TIME_DAY"></a>TIME_DAY</h2><p>number类型，天(1-31)</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="TIME-EPOCH"><a href="#TIME-EPOCH" class="headerlink" title="TIME_EPOCH"></a>TIME_EPOCH</h2><p>number类型，时间戳，seconds since 1970</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="TIME-HOUR"><a href="#TIME-HOUR" class="headerlink" title="TIME_HOUR"></a>TIME_HOUR</h2><p>number类型，小时(0-23)</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="TIME-MIN"><a href="#TIME-MIN" class="headerlink" title="TIME_MIN"></a>TIME_MIN</h2><p>number类型，分钟(0-59)</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="TIME-MON"><a href="#TIME-MON" class="headerlink" title="TIME_MON"></a>TIME_MON</h2><p>number类型，月份(1-12)</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="TIME-SEC"><a href="#TIME-SEC" class="headerlink" title="TIME_SEC"></a>TIME_SEC</h2><p>number类型，秒(0-59)</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="TIME-WDAY"><a href="#TIME-WDAY" class="headerlink" title="TIME_WDAY"></a>TIME_WDAY</h2><p>number类型，周(0-6)</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="TIME-YEAR"><a href="#TIME-YEAR" class="headerlink" title="TIME_YEAR"></a>TIME_YEAR</h2><p>number类型，年份，four-digit，例如: 1997</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="TIME-LOCAL"><a href="#TIME-LOCAL" class="headerlink" title="TIME_LOCAL"></a>TIME_LOCAL</h2><p>string类型，当前时间，例如: 26/Aug/2016:01:32:16 -0400</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="TX"><a href="#TX" class="headerlink" title="TX"></a>TX</h2><p>table类型，用于存储当前请求信息的变量，作用域仅仅是当前请求</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="UNIQUE-ID"><a href="#UNIQUE-ID" class="headerlink" title="UNIQUE_ID"></a>UNIQUE_ID</h2><p>string类型，ID标识，随机生成的字符串，可通过配置来控制随机字符串的长度</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="UPSTREAM-CACHE-STATUS"><a href="#UPSTREAM-CACHE-STATUS" class="headerlink" title="UPSTREAM_CACHE_STATUS"></a>UPSTREAM_CACHE_STATUS</h2><p>keeps the status of accessing a response cache (0.8.3). The status can be either “MISS”, “BYPASS”, “EXPIRED”, “STALE”, “UPDATING”, “REVALIDATED”, or “HIT”.</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="USERID"><a href="#USERID" class="headerlink" title="USERID"></a>USERID</h2><p>string类型，从接入规则配置得到的用于ID标识</p>
+<p><a href="#variables">Back to Var</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="Transformation-Functions"><a href="#Transformation-Functions" class="headerlink" title="Transformation Functions"></a>Transformation Functions</h2><ul>
+<li><a href="#base64_decode">base64_decode</a></li>
+<li><a href="#sql_hex_decode">sql_hex_decode</a></li>
+<li><a href="#base64_encode">base64_encode</a></li>
+<li><a href="#counter">counter</a></li>
+<li><a href="#compress_whitespace">compress_whitespace </a></li>
+<li><a href="#hex_decode">hex_decode</a></li>
+<li><a href="#hex_encode">hex_encode</a></li>
+<li><a href="#html_decode">html_decode</a></li>
+<li><a href="#length">length</a></li>
+<li><a href="#lowercase">lowercase</a></li>
+<li><a href="#md5">md5</a></li>
+<li><a href="#normalise_path">normalise_path</a></li>
+<li><a href="#remove_nulls">remove_nulls</a></li>
+<li><a href="#remove_whitespace">remove_whitespace</a></li>
+<li><a href="#replace_comments">replace_comments</a></li>
+<li><a href="#remove_comments_char">remove_comments_char</a></li>
+<li><a href="#remove_comments">remove_comments</a></li>
+<li><a href="#uri_decode">uri_decode</a></li>
+<li><a href="#uri_encode">uri_encode</a></li>
+<li><a href="#sha1">sha1</a></li>
+<li><a href="#trim_left">trim_left</a></li>
+<li><a href="#trim_right">trim_right</a></li>
+<li><a href="#trim">trim</a></li>
+</ul>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="base64-decode"><a href="#base64-decode" class="headerlink" title="base64_decode"></a>base64_decode</h2><p>Decodes a Base64-encoded string.</p>
+<p>Note: 注意transform的执行顺序</p>
+<pre><code>例如：
+{
+   &quot;id&quot;: &quot;xxxx&quot;,
+   ...
+   &quot;transform&quot;: [&quot;base64_decode&quot;, &quot;lowercase&quot;],
+   ...
+}
+
+先执行base64解码，然后字符串最小化，若顺序调换，会影响结果
+</code></pre><p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="sql-hex-decode"><a href="#sql-hex-decode" class="headerlink" title="sql_hex_decode"></a>sql_hex_decode</h2><p>Decode sql hex data.</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="base64-encode"><a href="#base64-encode" class="headerlink" title="base64_encode"></a>base64_encode</h2><p>Encodes input string using Base64 encoding.</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="counter"><a href="#counter" class="headerlink" title="counter"></a>counter</h2><p>计数，相当于modsecurity中的’&amp;’符号</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="compress-whitespace"><a href="#compress-whitespace" class="headerlink" title="compress_whitespace"></a>compress_whitespace</h2><p>Converts any of the whitespace characters (0x20, \f, \t, \n, \r, \v, 0xa0) to spaces (ASCII 0x20), compressing multiple consecutive space characters into one.</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="hex-decode"><a href="#hex-decode" class="headerlink" title="hex_decode"></a>hex_decode</h2><p>Decodes a string that has been encoded using the same algorithm as the one used in hexEncode </p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="hex-encode"><a href="#hex-encode" class="headerlink" title="hex_encode"></a>hex_encode</h2><p>Encodes string (possibly containing binary characters) by replacing each input byte with two hexadecimal characters.</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="html-decode"><a href="#html-decode" class="headerlink" title="html_decode"></a>html_decode</h2><p>Decodes the characters encoded as HTML entities.</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="length"><a href="#length" class="headerlink" title="length"></a>length</h2><p>Looks up the length of the input string in bytes</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="lowercase"><a href="#lowercase" class="headerlink" title="lowercase"></a>lowercase</h2><p>Converts all characters to lowercase</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="md5"><a href="#md5" class="headerlink" title="md5"></a>md5</h2><p>Calculates an MD5 hash from the data in input. The computed hash is in a raw binary form and may need encoded into text to be printed (or logged). Hash functions are commonly used in combination with hex_encode (for example: “transform”: [“md5”, “hex_encode”).</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="normalise-path"><a href="#normalise-path" class="headerlink" title="normalise_path"></a>normalise_path</h2><p>Removes multiple slashes, directory self-references, and directory back-references (except when at the beginning of the input) from input string.</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="remove-nulls"><a href="#remove-nulls" class="headerlink" title="remove_nulls"></a>remove_nulls</h2><p>Removes all NUL bytes from input</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="remove-whitespace"><a href="#remove-whitespace" class="headerlink" title="remove_whitespace"></a>remove_whitespace</h2><p>Removes all whitespace characters from input.</p>
+<p>移除空白字符\s，包含水平定位字符 (‘\t’)、归位键(‘\r’)、换行(‘\n’)、垂直定位字符(‘\v’)或翻页(‘\f’)等</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="replace-comments"><a href="#replace-comments" class="headerlink" title="replace_comments"></a>replace_comments</h2><p>用一个空格代替/<em>…</em>/注释内容</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="remove-comments-char"><a href="#remove-comments-char" class="headerlink" title="remove_comments_char"></a>remove_comments_char</h2><p>Removes common comments chars (/<em>, </em>/, –, #).</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="remove-comments"><a href="#remove-comments" class="headerlink" title="remove_comments"></a>remove_comments</h2><p>去掉/<em>…</em>/注释内容</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="uri-decode"><a href="#uri-decode" class="headerlink" title="uri_decode"></a>uri_decode</h2><p>Unescape str as an escaped URI component.</p>
+<pre><code>例如: 
+&quot;b%20r56+7&quot; 使用uri_decode转换后为 b r56 7
+</code></pre><p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="uri-encode"><a href="#uri-encode" class="headerlink" title="uri_encode"></a>uri_encode</h2><p>Escape str as a URI component.</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="sha1"><a href="#sha1" class="headerlink" title="sha1"></a>sha1</h2><p>Calculates a SHA1 hash from the input string. The computed hash is in a raw binary form and may need encoded into text to be printed (or logged). Hash functions are commonly used in combination with hex_encode (for example, “transform”: [“sha1”, “hex_encode”]).</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="trim-left"><a href="#trim-left" class="headerlink" title="trim_left"></a>trim_left</h2><p>Removes whitespace from the left side of the input string.</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="trim-right"><a href="#trim-right" class="headerlink" title="trim_right"></a>trim_right</h2><p>Removes whitespace from the right side of the input string.</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="trim"><a href="#trim" class="headerlink" title="trim"></a>trim</h2><p>Removes whitespace from both the left and right sides of the input string.</p>
+<p><a href="#transformation-functions">Back to TFF</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="Operators"><a href="#Operators" class="headerlink" title="Operators"></a>Operators</h2><ul>
+<li><a href="#begins_with">begins_with</a></li>
+<li><a href="#contains">contains</a></li>
+<li><a href="#contains_word">contains_word</a></li>
+<li><a href="#detect_sqli">detect_sqli</a></li>
+<li><a href="#detect_xss">detect_xss</a></li>
+<li><a href="#ends_with">ends_with</a></li>
+<li><a href="#equal">equal</a></li>
+<li><a href="#greater_eq">greater_eq</a></li>
+<li><a href="#greater">greater</a></li>
+<li><a href="#ip_utils">ip_utils</a></li>
+<li><a href="#less_eq">less_eq</a></li>
+<li><a href="#less">less</a></li>
+<li><a href="#pf">pf</a></li>
+<li><a href="#regex">regex</a></li>
+<li><a href="#str_match">str_match</a></li>
+<li><a href="#validate_url_encoding">validate_url_encoding</a></li>
+<li><a href="#num_range">num_range</a></li>
+<li><a href="#str_range">str_range</a></li>
+</ul>
+<p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="begins-with"><a href="#begins-with" class="headerlink" title="begins_with"></a>begins_with</h2><p>Returns true if the parameter string is found at the beginning of the input.</p>
+<p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="contains"><a href="#contains" class="headerlink" title="contains"></a>contains</h2><p>Returns true if the parameter string is found anywhere in the input.</p>
+<p>operator为contains且pattern为数组，相当于modsecurity的pm</p>
+<p>PS: modsecurity的pm忽略大小写，OpenWAF中contains不忽略大小写</p>
+<pre><code>例如:
+{
+    &quot;id&quot;: &quot;xxx&quot;,
+    ...
+    &quot;operator&quot;: &quot;contains&quot;,
+    &quot;pattern&quot;: [&quot;abc&quot;, &quot;def&quot;],
+    ...
+}
+</code></pre><p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="contains-word"><a href="#contains-word" class="headerlink" title="contains_word"></a>contains_word</h2><p>Returns true if the parameter string (with word boundaries) is found anywhere in the input.</p>
+<p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="detect-sqli"><a href="#detect-sqli" class="headerlink" title="detect_sqli"></a>detect_sqli</h2><p>This operator uses LibInjection to detect SQLi attacks.</p>
+<p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="detect-xss"><a href="#detect-xss" class="headerlink" title="detect_xss"></a>detect_xss</h2><p>This operator uses LibInjection to detect XSS attacks.</p>
+<p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="ends-with"><a href="#ends-with" class="headerlink" title="ends_with"></a>ends_with</h2><p>Returns true if the parameter string is found at the end of the input.</p>
+<p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="equal"><a href="#equal" class="headerlink" title="equal"></a>equal</h2><p>Performs a string comparison and returns true if the parameter string is identical to the input string.</p>
+<p>相当于modsecurity的eq和streq</p>
+<pre><code>例如:
+{
+    &quot;id&quot;: &quot;xxx&quot;,
+    ...
+    &quot;operator&quot;: &quot;equal&quot;,
+    &quot;pattern&quot;: [12345, &quot;html&quot;, &quot;23456&quot;]
+    ...
+}
+</code></pre><p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="greater-eq"><a href="#greater-eq" class="headerlink" title="greater_eq"></a>greater_eq</h2><p>Performs numerical comparison and returns true if the input value is greater than or equal to the provided parameter.</p>
+<p>return false, if a value is provided that cannot be converted to a number.</p>
+<p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="greater"><a href="#greater" class="headerlink" title="greater"></a>greater</h2><p>Performs numerical comparison and returns true if the input value is greater than the operator parameter.</p>
+<p>return false, if a value is provided that cannot be converted to a number.</p>
+<p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="ip-utils"><a href="#ip-utils" class="headerlink" title="ip_utils"></a>ip_utils</h2><p>Performs a fast ipv4 or ipv6 match of REMOTE_ADDR variable data. Can handle the following formats:</p>
+<p>Full IPv4 Address: 192.168.1.100<br>Network Block/CIDR Address: 192.168.1.0/24<br>IPv4 Address Region: 1.1.1.1-2.2.2.2</p>
+<p>ip_utils与pf的组合相当于modsecurity中的ipMatchF和ipMatchFromFile</p>
+<pre><code>例如:
+规则如下：
+{
+    &quot;id&quot;: &quot;xxxx&quot;,
+    ...
+    &quot;operator&quot;: &quot;ip_utils&quot;,
+    &quot;pf&quot;: &quot;/tmp/ip_blacklist.txt&quot;,
+    ...
+}
+&quot;/tmp/ip_blacklist.txt&quot;文件内容如下：
+192.168.1.100
+192.168.1.0/24
+1.1.1.1-2.2.2.2
+</code></pre><p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="less-eq"><a href="#less-eq" class="headerlink" title="less_eq"></a>less_eq</h2><p>Performs numerical comparison and returns true if the input value is less than or equal to the operator parameter.</p>
+<p>return false, if a value is provided that cannot be converted to a number.</p>
+<p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="less"><a href="#less" class="headerlink" title="less"></a>less</h2><p>Performs numerical comparison and returns true if the input value is less than to the operator parameter.</p>
+<p>return false, if a value is provided that cannot be converted to a number.</p>
+<p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="pf"><a href="#pf" class="headerlink" title="pf"></a>pf</h2><p>pattern是operator操作的参数</p>
+<p>pf是指pattern from file，与pattern互斥（二者不可同时出现），目前仅支持绝对路径</p>
+<p>pf与contains组合，相当于modsecurity的pmf或pmFromFile</p>
+<p>pf与ip_utils组合，相当于modsecurity的ipMatchF或ipMatchFromFile</p>
+<p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="regex"><a href="#regex" class="headerlink" title="regex"></a>regex</h2><p>Performs a regular expression match of the pattern provided as parameter. </p>
+<p>regex还有modecurity的capture捕获功能</p>
+<p>modsecurity有关capture的描述如下：<br>When used together with the regular expression operator (@rx), the capture action will create copies of the regular expression captures and place them into the transaction variable collection.</p>
+<p>OpenWAF中无capture指令，但使用regex默认开启capture功能</p>
+<pre><code>例如:
+{
+    &quot;id&quot;: &quot;000031&quot;,
+    &quot;release_version&quot;: &quot;858&quot;,
+    &quot;charactor_version&quot;: &quot;001&quot;,
+    &quot;opts&quot;: {
+        &quot;nolog&quot;: false
+    },
+    &quot;phase&quot;: &quot;access&quot;,
+    &quot;action&quot;: &quot;deny&quot;,
+    &quot;meta&quot;: 403,
+    &quot;severity&quot;: &quot;low&quot;,
+    &quot;rule_name&quot;: &quot;protocol.reqHeader.c&quot;,
+    &quot;desc&quot;: &quot;协议规范性约束，检测含有不合规Range或Request-Range值的HTTP请求&quot;,
+    &quot;match&quot;: [
+        {
+            &quot;vars&quot;: [
+                {
+                    &quot;var&quot;: &quot;REQUEST_HEADERS&quot;,
+                    &quot;parse&quot;: {
+                        &quot;specific&quot;: &quot;Range&quot;
+                    }
+                },
+                {
+                    &quot;var&quot;: &quot;REQUEST_HEADERS&quot;,
+                    &quot;parse&quot;: {
+                        &quot;specific&quot;: &quot;Request-Range&quot;
+                    }
+                }
+            ],
+            &quot;operator&quot;: &quot;regex&quot;,
+            &quot;pattern&quot;: &quot;(\\d+)\\-(\\d+)\\,&quot;
+        },
+        {
+            &quot;vars&quot;: [{
+                &quot;var&quot;: &quot;TX&quot;,
+                &quot;parse&quot;: {
+                    &quot;specific&quot;: &quot;2&quot;
+                }
+            }],
+            &quot;operator&quot;: &quot;greater_eq&quot;,
+            &quot;pattern&quot;: &quot;%{TX.1}&quot;,
+            &quot;parse_pattern&quot;: true,
+            &quot;op_negated&quot;: true
+        }
+    ]
+}
+</code></pre><p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="str-match"><a href="#str-match" class="headerlink" title="str_match"></a>str_match</h2><p>等同于contains</p>
+<p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="validate-url-encoding"><a href="#validate-url-encoding" class="headerlink" title="validate_url_encoding"></a>validate_url_encoding</h2><p>Validates the URL-encoded characters in the provided input string.</p>
+<p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="num-range"><a href="#num-range" class="headerlink" title="num_range"></a>num_range</h2><p>判断是否在数字范围内</p>
+<p>它与transform的length组合，相当于modsecurity的validateByteRange</p>
+<pre><code>{
+    &quot;id&quot;: &quot;xxx&quot;,
+    ...
+    &quot;operator&quot;: &quot;num_range&quot;,
+    &quot;pattern&quot;: [10, &quot;13&quot;, &quot;32-126&quot;],
+    &quot;transform&quot;: &quot;length&quot;,
+    ...
+}
+</code></pre><p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="str-range"><a href="#str-range" class="headerlink" title="str_range"></a>str_range</h2><p>判断是否在字符串范围内</p>
+<pre><code>例如时间区间判断:
+{
+    &quot;id&quot;: &quot;xxx&quot;,
+    ...
+    &quot;operator&quot;: &quot;str_range&quot;,
+    &quot;pattern&quot;: [&quot;01:42:00-04:32:00&quot;],
+    ...
+}
+</code></pre><p><a href="#operators">Back to OPERATORS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ul>
+<li><a href="#allow">allow</a></li>
+<li><a href="#allow_phase">allow_phase</a></li>
+<li><a href="#deny">deny</a></li>
+<li><a href="#id">id</a></li>
+<li><a href="#nolog">nolog</a></li>
+<li><a href="#op_negated">op_negated</a></li>
+<li><a href="#parse">parse</a></li>
+<li><a href="#pass">pass</a></li>
+<li><a href="#warn">warn</a></li>
+<li><a href="#audit">audit</a></li>
+<li><a href="#phase">phase</a></li>
+<li><a href="#proxy_cache">proxy_cache</a></li>
+<li><a href="#redirect">redirect</a></li>
+<li><a href="#charactor_version">charactor_version</a></li>
+<li><a href="#severity">severity</a></li>
+<li><a href="#setvar">setvar</a></li>
+<li><a href="#meta">meta</a></li>
+<li><a href="#transform">transform</a></li>
+<li><a href="#tag">tag</a></li>
+<li><a href="#release_version">release_version</a></li>
+<li><a href="#robot">robot</a></li>
+<li><a href="#add_resp_headers">add_resp_headers</a></li>
+</ul>
+<p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="allow"><a href="#allow" class="headerlink" title="allow"></a>allow</h2><p>Stops processing of the current phase but also skipping over all other phases.</p>
+<pre><code>&quot;action&quot;: &quot;allow&quot;
+</code></pre><p>一旦执行此动作，则后面的防护规则及其他安全模块均不进行安全检测，此动作一般用于白名单</p>
+<p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="allow-phase"><a href="#allow-phase" class="headerlink" title="allow_phase"></a>allow_phase</h2><p>Stops processing of the current phase.</p>
+<pre><code>&quot;action&quot;: &quot;allow_phase&quot;
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="deny"><a href="#deny" class="headerlink" title="deny"></a>deny</h2><p>Stops rule processing and intercepts transaction.</p>
+<pre><code>&quot;action&quot;: &quot;deny&quot;,
+&quot;meta&quot;: 403
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="id"><a href="#id" class="headerlink" title="id"></a>id</h2><p>Stops rule processing and intercepts transaction.</p>
+<pre><code>&quot;id&quot;: &quot;xxxxxxx&quot;
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="nolog"><a href="#nolog" class="headerlink" title="nolog"></a>nolog</h2><p>不记录日志</p>
+<pre><code>&quot;opts&quot;: {
+    &quot;nolog&quot;: true
+}
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="op-negated"><a href="#op-negated" class="headerlink" title="op_negated"></a>op_negated</h2><p>对operator结果的取反</p>
+<pre><code>&quot;match&quot;: [{
+    &quot;vars&quot;: [{
+        &quot;var&quot;: &quot;HTTP_USER_AGENT&quot;
+    }],
+    &quot;transform&quot;: &quot;length&quot;,
+    &quot;operator&quot;: &quot;less_eq&quot;,
+    &quot;pattern&quot;: 50,
+    &quot;op_negated&quot;: true
+}]
+
+等价于
+
+&quot;match&quot;: [{
+    &quot;vars&quot;: [{
+        &quot;var&quot;: &quot;HTTP_USER_AGENT&quot;
+    }],
+    &quot;transform&quot;: &quot;length&quot;,
+    &quot;operator&quot;: &quot;greater&quot;,
+    &quot;pattern&quot;: 50
+}]
+
+若请求头中user_agent字段长度大于50，则匹配中此条规则
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="parse"><a href="#parse" class="headerlink" title="parse"></a>parse</h2><p>对变量进一步解析</p>
+<pre><code>若请求GET http://www.baidu.com?name=miracle&amp;age=5
+
+&quot;match&quot;: [{
+    &quot;vars&quot;: [{
+        &quot;var&quot;: &quot;ARGS_GET&quot;
+    }]，
+    ...
+}]
+得到的值为{&quot;name&quot;: &quot;miracle&quot;, &quot;age&quot;: &quot;5&quot;}
+
+
+&quot;match&quot;: [{
+    &quot;vars&quot;: [{
+        &quot;var&quot;: &quot;ARGS_GET&quot;,
+        &quot;parse&quot;: {
+            &quot;specific&quot;: &quot;name&quot;
+        }
+    }]
+}]
+得到的值为[&quot;miracle&quot;]
+
+
+&quot;match&quot;: [{
+    &quot;vars&quot;: [{
+        &quot;var&quot;: &quot;ARGS_GET&quot;,
+        &quot;parse&quot;: {
+            &quot;specific&quot;: [&quot;name&quot;, &quot;age&quot;]
+        }
+    }]
+}]
+得到的值为[&quot;miracle&quot;, &quot;5&quot;]
+
+
+&quot;match&quot;: [{
+    &quot;vars&quot;: [{
+        &quot;var&quot;: &quot;ARGS_GET&quot;,
+        &quot;parse&quot;: {
+            &quot;ignore&quot;: &quot;name&quot;
+        }
+    }]
+}]
+得到的值为{&quot;age&quot;: &quot;5&quot;}
+
+
+&quot;match&quot;: [{
+    &quot;vars&quot;: [{
+        &quot;var&quot;: &quot;ARGS_GET&quot;,
+        &quot;parse&quot;: {
+            &quot;ignore&quot;: [&quot;name&quot;, &quot;age&quot;]
+        }
+    }]
+}]
+得到的值为[]
+
+
+&quot;match&quot;: [{
+    &quot;vars&quot;: [{
+        &quot;var&quot;: &quot;ARGS_GET&quot;,
+        &quot;parse&quot;: {
+            &quot;keys&quot;: true
+        }
+    }]
+}]
+得到的值为[&quot;name&quot;, &quot;age&quot;]
+
+
+&quot;match&quot;: [{
+    &quot;vars&quot;: [{
+        &quot;var&quot;: &quot;ARGS_GET&quot;,
+        &quot;parse&quot;: {
+            &quot;values&quot;: true
+        }
+    }]
+}]
+得到的值为[&quot;miracle&quot;, &quot;5&quot;]
+
+
+&quot;match&quot;: [{
+    &quot;vars&quot;: [{
+        &quot;var&quot;: &quot;ARGS_GET&quot;,
+        &quot;parse&quot;: {
+            &quot;all&quot;: true
+        }
+    }]
+}]
+得到的值为[&quot;name&quot;, &quot;age&quot;, &quot;miracle&quot;, &quot;5&quot;]
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="pass"><a href="#pass" class="headerlink" title="pass"></a>pass</h2><p>Continues processing with the next rule in spite of a successful match.</p>
+<pre><code>&quot;action&quot;: &quot;pass&quot;
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="warn"><a href="#warn" class="headerlink" title="warn"></a>warn</h2><p>like ‘pass’</p>
+<pre><code>&quot;action&quot;: &quot;warn&quot;
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="audit"><a href="#audit" class="headerlink" title="audit"></a>audit</h2><p>like ‘pass’</p>
+<pre><code>&quot;action&quot;: &quot;audit&quot;
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="phase"><a href="#phase" class="headerlink" title="phase"></a>phase</h2><p>规则执行的阶段，取值可为”access”,”header_filter”,”body_filter”的组合</p>
+<pre><code>{
+    &quot;id&quot;: &quot;xxx_01&quot;,
+    &quot;phase&quot;: &quot;access&quot;,
+    ...
+}
+&quot;xxx_01&quot;规则在access阶段执行
+
+{
+    &quot;id&quot;: &quot;xxx_02&quot;,
+    &quot;phase&quot;: [&quot;access&quot;, &quot;header_filter&quot;],
+    ...
+}
+&quot;xxx_02规则在access阶段和&quot;header_filter&quot;阶段各执行一次
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="proxy-cache"><a href="#proxy-cache" class="headerlink" title="proxy_cache"></a>proxy_cache</h2><pre><code>{
+    ...
+    phase = &quot;header_filter&quot;,         -- 缓存开关需在header_filter阶段配置
+    action = &quot;pass&quot;,                 -- 无需拦截请求
+    opts = {
+        nolog = true,                -- 不需记录日志
+        proxy_cache = {
+            state = true|false,      -- 缓存开关
+            expired = 600            -- 缓存时长（单位秒）,默认600秒
+        }
+    }
+    ...
+}
+
+若state为true，且得到的缓存状态为&quot;MISS&quot;或&quot;EXPIRED&quot;，则对响应内容进行缓存，同时设置缓存时长
+若state为false，则清除对应缓存键的缓存（包含其缓存文件）
+</code></pre><p>举例如下：</p>
+<pre><code># nginx.conf 有关proxy cache 配置如下
+http {
+    proxy_cache_path  /opt/cache/OpenWAF-proxy levels=2:2 keys_zone=twaf_cache:101m max_size=100m use_temp_path=off;
+    proxy_cache_key $host$uri;
+    proxy_cache twaf_cache;
+    proxy_ignore_headers X-Accel-Expires Cache-Control Set-Cookie;
+    proxy_no_cache $twaf_cache_flag;
+
+    server {
+        set $twaf_cache_flag 1;         #默认不缓存
+    }
+}
+
+# lua 格式 配置
+{ 
+    id = &quot;test_x01&quot;,                      -- id 全局唯一
+    opts = {
+        nolog = true,
+        proxy_cache = {
+            state = true,
+            expired = 300
+        }
+    },
+    phase = &quot;header_filter&quot;, 
+    action = &quot;pass&quot;,
+    match = {{
+        vars = {{
+            var = "URI"
+        },{
+            var = "REQUEST_HEADERS",
+            parse = {
+                specific = "Referer"
+            }
+        }},
+        operator = &quot;equal&quot;,
+        pattern = {&quot;/xampp/&quot;, &quot;%{SCHEME}://%{HTTP_HOST}/xampp/&quot;},
+        parse_pattern = true
+    }}
+}
+此规则将缓存URI为&#39;/xampp/&#39;的页面，更新时间为300秒
+
+若match中过滤条件为响应码，则相当于Nginx的proxy_cache_valid指令
+若match中过滤条件为请求方法，则相当于Nginx的proxy_cache_methods指令
+若macth中过滤条件为资源类型，则相当于Nginx的proxy_cache_content_type指令
+
+PS: proxy_cache_content_type指令为官方指令，是miracle Qi修改Nginx源码扩展的功能
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="redirect"><a href="#redirect" class="headerlink" title="redirect"></a>redirect</h2><pre><code>&quot;action&quot;: &quot;redirect&quot;,
+&quot;meta&quot;: &quot;/index.html&quot;
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="charactor-version"><a href="#charactor-version" class="headerlink" title="charactor_version"></a>charactor_version</h2><p>指定此条规则的版本，同modsecurity中Action的rev功能</p>
+<pre><code>&quot;charactor_version&quot;: &quot;001&quot;
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="severity"><a href="#severity" class="headerlink" title="severity"></a>severity</h2><p>Assigns severity to the rule in which it is used.</p>
+<p>The data below is used by the OWASP ModSecurity Core Rule Set (CRS):</p>
+<p>EMERGENCY: is generated from correlation of anomaly scoring data where there is an inbound attack and an outbound leakage.<br>ALERT: is generated from correlation where there is an inbound attack and an outbound application level error.<br>CRITICAL: Anomaly Score of 5. Is the highest severity level possible without correlation. It is normally generated by the web attack rules (40 level files).<br>ERROR: Error - Anomaly Score of 4. Is generated mostly from outbound leakage rules (50 level files).<br>WARNING: Anomaly Score of 3. Is generated by malicious client rules (35 level files).<br>NOTICE: Anomaly Score of 2. Is generated by the Protocol policy and anomaly files.<br>INFO<br>DEBUG</p>
+<p>也可自定义严重等级，如:low，medium，high，critical等</p>
+<pre><code>&quot;severity&quot;: &quot;high&quot;
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="setvar"><a href="#setvar" class="headerlink" title="setvar"></a>setvar</h2><p>Creates, removes, or updates a variable. </p>
+<pre><code>{
+    &quot;id&quot;: &quot;xxx_01&quot;,
+    &quot;opts&quot;:{
+        &quot;nolog&quot;: false,
+        &quot;setvar&quot;: [{
+            &quot;column&quot;: &quot;TX&quot;,
+            &quot;key&quot;: &quot;score&quot;,
+            &quot;value&quot;: 5,
+            &quot;incr&quot;: true
+        }]
+    },
+    ...
+}
+&quot;xxx_01&quot;规则中，给变量TX中score成员的值加5，若TX中无score成员，则初始化为0，再加5
+
+{
+    &quot;id&quot;: &quot;xxx_02&quot;,
+    &quot;opts&quot;:{
+        &quot;nolog&quot;: false,
+        &quot;setvar&quot;: [{
+            &quot;column&quot;: &quot;TX&quot;,
+            &quot;key&quot;: &quot;score&quot;,
+            &quot;value&quot;: 5
+        }]
+    },
+    ...
+}
+
+&quot;xxx_02&quot;规则中，给变量TX中score成员的值赋为5
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="meta"><a href="#meta" class="headerlink" title="meta"></a>meta</h2><p>“action”的附属信息</p>
+<pre><code>若&quot;action&quot;为&quot;deny&quot;，则&quot;meta&quot;为响应码
+&quot;action&quot;: &quot;deny&quot;,
+&quot;meta&quot;: 403
+
+若&quot;action&quot;为&quot;redirect&quot;，则&quot;meta&quot;为重定向地址
+&quot;action&quot;: &quot;redirect&quot;,
+&quot;meta&quot;: &quot;/index.html&quot;
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h2><p>This action is used to specify the transformation pipeline to use to transform the value of each variable used in the rule before matching.</p>
+<p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h2><p>Assigns a tag (category) to a rule.</p>
+<pre><code>支持数组    &quot;tag&quot;: [&quot;xxx_1&quot;, &quot;xxx_2&quot;]
+支持字符串  &quot;tag&quot;: &quot;xxx_3&quot;
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="release-version"><a href="#release-version" class="headerlink" title="release_version"></a>release_version</h2><p>规则集版本，等同于modsecurity中Action的ver功能</p>
+<pre><code>&quot;release_version&quot;: &quot;858&quot;
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="robot"><a href="#robot" class="headerlink" title="robot"></a>robot</h2><p>人机识别</p>
+<p>需提前配置人机识别模块配置，此功能暂未放开</p>
+<pre><code>&quot;action&quot;: &quot;robot&quot;
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h2 id="add-resp-headers"><a href="#add-resp-headers" class="headerlink" title="add_resp_headers"></a>add_resp_headers</h2><p>增删改响应头</p>
+<pre><code>例如隐藏server字段:
+&quot;opts&quot;: {
+    &quot;add_resp_headers&quot;: {
+        &quot;server&quot;: &quot;&quot;
+    }
+}
+</code></pre><p><a href="#others">Back to OTHERS</a></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+<h1 id="Donation"><a href="#Donation" class="headerlink" title="Donation"></a>Donation</h1><h2 id="PayPal"><a href="#PayPal" class="headerlink" title="PayPal"></a>PayPal</h2><p><a href="https://www.paypal.me/miracleqi" target="_blank" rel="noopener">通过 PayPal 来支持 OpenWAF</a></p>
+<h2 id="Alipay"><a href="#Alipay" class="headerlink" title="Alipay"></a>Alipay</h2><p><img src="http://i.imgur.com/0rSpXc8.png"></p>
+<h2 id="WeChat"><a href="#WeChat" class="headerlink" title="WeChat"></a>WeChat</h2><p><img src="http://i.imgur.com/FzbU2z4.png"></p>
+<p><a href="#table-of-contents">Back to TOC</a></p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/3.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">相关文章</div>
+				<div>评论</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
+		
+			<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+		
+			<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	<ul>
+		
+				<li>
+					<div>
+						<a href="/2018/12/31/轻松玩转-OpenWAF-之-ELK/" title="轻松玩转 OpenWAF 之 ELK">
+							轻松玩转 OpenWAF 之 ELK
+						</a>
+						<p>
+							名称ELK 是比较火的开源日志分析系统
+本节主要介绍，ELK 的 docker 部署及与 OpenWAF 的结合
+Table of Contents
+ELK简介
+安装
+Elasticsearch
+Logstash
+Kibana
+
+
+O...
+						</p>
+					</div>
+
+					<a href="/2018/12/31/轻松玩转-OpenWAF-之-ELK/" title="轻松玩转 OpenWAF 之 ELK">				
+						<img src="/img/post-cover/7.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之 ELK">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/31/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">
+							深入研究 OpenWAF 之 nginx 配置
+						</a>
+						<p>
+							名称此文档将详细描述 OpenWAF 的 nginx 配置文件 /etc/ngx_openwaf.conf 中每一项配置
+以及接入规则（access_rule）与 nginx 配置的关联
+Table of Contents
+twaf_...
+						</p>
+					</div>
+
+					<a href="/2018/12/31/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">				
+						<img src="/img/post-cover/6.jpg" class="relateImg" alt="深入研究 OpenWAF 之 nginx 配置">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" title="轻松玩转 OpenWAF 之入门篇">
+							轻松玩转 OpenWAF 之入门篇
+						</a>
+						<p>
+							名称OpenWAF快速入门，即从安装到上线测试的一个快速体验流程，包括安装，发布应用，查看日志，上线测试
+Table of Contents
+安装
+发布应用
+日志
+规则
+
+安装请看 OpenWAF 安装文档
+发布应用
+简介  
+接入规...
+						</p>
+					</div>
+
+					<a href="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" title="轻松玩转 OpenWAF 之入门篇">				
+						<img src="/img/post-cover/5.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之入门篇">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇">
+							轻松玩转 OpenWAF 之安装篇
+						</a>
+						<p>
+							名称OpenWAF 支持源码安装和 Docker 安装
+学习、开发、需求变动大、有一定维护能力，建议源码安装仅使用 OpenWAF 进行防护，建议 Docker 安装
+Table of Contents
+源码安装
+Debian&amp...
+						</p>
+					</div>
+
+					<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇">				
+						<img src="/img/post-cover/4.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之安装篇">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">
+							Microsoft Search 磁盘空间不足
+						</a>
+						<p>
+							Microsoft Search 导致 C 盘空间不足.
+前言Windows Search的功能是为我们电脑中的文件、电子邮件和其他内容提供内容索引、属性缓存和搜索结果。Windows Search默认是开机启动的，它会利用计算机的空...
+						</p>
+					</div>
+
+					<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">				
+						<img src="/img/post-cover/1.jpg" class="relateImg" alt="Microsoft Search 磁盘空间不足">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客">
+							用 hexo 创建自己的博客
+						</a>
+						<p>
+							用 hexo 创建属于自己的博客  
+前言想要创建自己的博客由来已久。之前偶尔写点东西，记录在了新浪和w3cschool。随着需要记录的文章越来越多，下定决心搭建一个属于自己的博客。现在大家用 hexo 比较多，也比较方便，并且能使用...
+						</p>
+					</div>
+
+					<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客">				
+						<img src="/img/post-cover/0.jpg" class="relateImg" alt="用 hexo 创建自己的博客">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/27/hello-world/" title="Hello World">
+							Hello World
+						</a>
+						<p>
+							Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using ...
+						</p>
+					</div>
+
+					<a href="/2018/12/27/hello-world/" title="Hello World">				
+						<img src="/img/post-cover/2.jpg" class="relateImg" alt="Hello World">
+					</a>
+				</li>											
+		
+		
+	</ul>
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- comment gitalk -->
+			<!-- show gitalk comment -->
+<div id="gitalk-container"></div>
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+	//Thanks O-R
+	//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+	//去除尾部匹配正则数组的字符串  
+	//Remove redundant characters
+	String.prototype.trimEnd = function(regStr) {
+		var result = this;
+		if(regStr == undefined || regStr == null || regStr == "") {
+			return result;
+		}
+		var array = regStr.split(',');
+
+		if(array.length > 0) {
+
+			var c = array.shift();
+			var str = this;
+			var i = str.length;
+			var rg = new RegExp(c);
+			var matchArr = str.match(rg);
+
+			if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+				var matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+					.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+					.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+					.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+					.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+					.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+					.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+					.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+				matchStr = matchStr + '$';
+				result = str.replace(new RegExp(matchStr), "");
+			}
+
+			if(array.length > 0) {
+				return result.trimEnd(array.join())
+			} else {
+				return result;
+			}
+		}
+	};
+
+	//Create gitalk
+	var gitalk = new Gitalk({
+		clientID: '1c4a9c51912861df1489',
+		clientSecret: 'de2039c0832657f5fa14b8fca2a8e45e0f82fdba',
+		//id: window.location.pathname,
+		//id: decodeURI(window.location.pathname),
+		//id: (window.location.pathname).split("/").pop().substring(0, 49),
+		id: decodeURI( md5( location.href.trimEnd('#.*$,\\?.*$,index.html$') ) ),
+		repo: 'Blog-Comment-Repo',
+		owner: 'miracleqi',
+		admin: 'miracleqi',
+		distractionFreeMode: 'true',
+	})
+	gitalk.render('gitalk-container');
+</script>
+
+		
+		
+	
+
+</div>
+			</div>
+		</div>	
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+
+	<script>
+		var appid = 'flQVrCRla4H5iIfSkVBHzKbn-gzGzoHsz',
+            appkey = 'KjVRLD07OiS38ChDcQ2QPfcs';	  
+        AnnieLeancloud(appid, appkey);         
+	</script>
+    
+
+
+ 
+
+<!-- show math formula -->
+
+
+
+
+<!-- TODO: There seems to be a bug when you close the post gallery! -->
+<link rel="stylesheet" href="/plugin/lightgallery/css/lightgallery.css">
+<script src="/plugin/lightgallery/js/jquery-1.11.0.min.js"></script>
+<script src="/plugin/lightgallery/js/lightgallery-all.min.js"></script>
+
+<script type="text/javascript">
+	var postTitle = $('.article-title a').text() ? $('.article-title a').text() : "No post title!";
+	$('.article-content img').each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		$(this).wrap('<div class="img-responsive" data-src="' + imgPath + '" data-responsive="' + imgPath + '" data-sub-html="<p>图片 ' + imgTitle + '</p><h4>文章' + postTitle + '</h4>"></div>');
+	});
+
+	$('.article-content').lightGallery({
+		mode: 'lg-slide',
+		selector: '.img-responsive',
+		share: false,
+		zoom: false,
+		download: false
+	});
+	//TODO：支持video
+</script>
+
+<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+		
+
+		<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		
+			<li>
+				<a href="https://github.com/miracleqi" title="Github" target="_blank">
+					<i class="fa fa-github"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="http://github.com/" title="Weibo" target="_blank">
+					<i class="fa fa-weibo"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="mailto:290557551@qq.com" title="Email" target="_blank">
+					<i class="fa fa-envelope-o"></i>
+				</a>
+			</li>
+		
+
+		
+			<li>
+				<a href="http://290557551" title="QQ" target="_blank">
+					<i class="fa fa-qq"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="http://github.com/" title="Twitter" target="_blank">
+					<i class="fa fa-twitter"></i>
+				</a>
+			</li>
+		
+	 
+</ul>
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2018, content by MiracleQi-温柔魔君. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay. 					
+		</p>
+	</div>		
+</footer>
+		
+    <!-- set '1' to show motto in all pages! -->
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+    <!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup">
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      ESC
+   </span>
+		<div class="local-search-header">
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			
+
+   
+	<div id="topN"></div>
+	
+    <script>
+        var appid = 'flQVrCRla4H5iIfSkVBHzKbn-gzGzoHsz',
+            appkey = 'KjVRLD07OiS38ChDcQ2QPfcs',
+            limitCount = 10;
+        if( $('#topN').length ){
+            AV.initialize(appid, appkey);
+            var Counter = AV.Object.extend("Counter");  
+            topNPost(Counter, limitCount);
+        }
+    </script>
+   
+
+		</div>
+	</div>
+</div>
+
+<script src="/js/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+    <script src="/js/love.js"></script>
+
+
+<!--back to top-->
+
+    
+	<div id="totop">
+  		<a href="javascript:;" name="TOTOP" class="fa fa-arrow-up"></a>
+	</div>
+	<div id="tobuttom">
+		<a href="javascript:;" name="TOBUTTOM" class="fa fa-arrow-down"></a>
+	</div>
+ 
+
+
+ 
+
+<script src="/js/vibrant.js"></script>
+<script src="/js/chinese.js"></script>
+<script src="/js/main.js"></script>
+	<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"superSample":2,"width":85,"height":170,"position":"left","hOffset":0,"vOffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2}});</script></body>
+	</html>

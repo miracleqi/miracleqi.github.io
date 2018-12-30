@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      Hello World | 齐健的博客
+      轻松玩转 OpenWAF 之安装篇 | 齐健的博客
     
   </title>
   <meta name="author" content="MiracleQi-温柔魔君">
@@ -114,7 +114,7 @@
 				<!-- Page title -->
 				<p>
 					
-						当前文章&nbsp;:&nbsp;《Hello World》
+						当前文章&nbsp;:&nbsp;《轻松玩转 OpenWAF 之安装篇》
 					
 				</p>
 				<!-- Progress bar -->
@@ -277,8 +277,8 @@
 	
 	<div class="article-title">
 		
-	<a href="/2018/12/27/hello-world/" itemprop="url">
-		Hello World
+	<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" itemprop="url">
+		轻松玩转 OpenWAF 之安装篇
 	</a>
 
 	</div>
@@ -287,17 +287,17 @@
 		<span>
 			
 	发布于
-	<a href="/2018/12/27/hello-world/" itemprop="url">
-		<time datetime="2018-12-27T06:24:45.680Z" itemprop="datePublished">
-	  		2018-12-27
+	<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" itemprop="url">
+		<time datetime="2018-12-30T19:18:00.000Z" itemprop="datePublished">
+	  		2018-12-31
 	  </time>
 	</a> 
 
 	/
 	更新于
-	<a href="/2018/12/27/hello-world/" itemprop="url">
-		<time datetime="2018-12-27T06:24:45.680Z" itemprop="dateUpdated">
-	  		2018-12-30
+	<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" itemprop="url">
+		<time datetime="2018-12-30T19:18:00.000Z" itemprop="dateUpdated">
+	  		2018-12-31
 	  </time>
 	</a> 	
 
@@ -305,12 +305,18 @@
 		/
 		<span>
 			<i class="fa fa-tags"></i>
-					
+			
+	
+		<a href="/tags/OpenWAF/" class=" ">
+			OpenWAF
+		</a>
+	
+		
 		</span>
 		/
 		
 
-    <span class="leancloud_visitors" id="/2018/12/27/hello-world/_visitors" data-url="/2018/12/27/hello-world/" data-title="Hello World">
+    <span class="leancloud_visitors" id="/2018/12/31/轻松玩转-OpenWAF-之安装篇/_visitors" data-url="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" data-title="轻松玩转 OpenWAF 之安装篇">
         热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
     </span>
@@ -319,7 +325,7 @@
 
 
 
-    <span class="leancloud_likes" id="/2018/12/27/hello-world/_likes" data-url="/2018/12/27/hello-world/" data-title="Hello World" rel="unlike">
+    <span class="leancloud_likes" id="/2018/12/31/轻松玩转-OpenWAF-之安装篇/_likes" data-url="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" data-title="轻松玩转 OpenWAF 之安装篇" rel="unlike">
         喜欢
         <i class="fa fa-heart"></i>
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -328,23 +334,155 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span>
+		<h1 id="名称"><a href="#名称" class="headerlink" title="名称"></a>名称</h1><p>OpenWAF 支持源码安装和 Docker 安装</p>
+<p>学习、开发、需求变动大、有一定维护能力，建议源码安装<br>仅使用 OpenWAF 进行防护，建议 Docker 安装</p>
+<h1 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h1><ul>
+<li><a href="#源码安装">源码安装</a><ul>
+<li><a href="#debianubuntu">Debian&amp;Ubuntu</a></li>
+<li><a href="#centos">CentOS</a></li>
+<li><a href="#others">Others</a></li>
+</ul>
+</li>
+<li><a href="#docker容器安装">Docker容器安装</a></li>
+</ul>
+<h2 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h2><h3 id="Debian-amp-Ubuntu"><a href="#Debian-amp-Ubuntu" class="headerlink" title="Debian&amp;Ubuntu"></a>Debian&amp;Ubuntu</h3><ol>
+<li>安装OpenWAF依赖</li>
+</ol>
+<pre class="line-numbers language-txt"><code class="language-txt">    cd /opt
+    apt-get install gcc wget git swig make perl build-essential zlib1g-dev libgeoip-dev libncurses5-dev libreadline-dev -y
+    wget https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz
+    wget https://www.openssl.org/source/openssl-1.1.0h.tar.gz
+    wget https://openresty.org/download/openresty-1.13.6.2.tar.gz
+    tar -zxvf pcre-8.42.tar.gz
+    tar -zxvf openssl-1.1.0h.tar.gz
+    tar -zxvf openresty-1.13.6.2.tar.gz
+    rm -rf pcre-8.42.tar.gz \
+           openssl-1.1.0h.tar.gz \
+           openresty-1.13.6.2.tar.gz
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-txt"><code class="language-txt">PS: 
+    1.1 OpenSSL 版本要求
+
+        OpenResty 要求 OpenSSL 最低版本在 1.0.2e 以上，但 apt-get 安装 openssl 并不满足此版本，因此提供解决方法如下：
+
+        方法 1. apt-get 使用 backports 源安装 openssl，如 jessie-backports  
+            echo "deb http://mirrors.163.com/debian/ jessie-backports main" >> /etc/apt/sources.list  
+            apt-get update  
+            apt-get install -t jessie-backports openssl  
+
+        方法 2. 下载 openssl 源代码，如 1.1.0h 版本  
+            wget -c http://www.openssl.org/source/openssl-1.1.0h.tar.gz  
+            tar -zxvf openssl-1.1.0h.tar.gz
+            ./config  
+            make && make install  
+
+        若用方法 1 和 方法 2 后， openssl version 命令显示的版本依旧低于 1.0.2e 版本，请求方法 3
+
+        方法 3. 编译 openresty 时指定 openssl 安装目录
+            wget -c http://www.openssl.org/source/openssl-1.1.0h.tar.gz
+            tar -zxvf openssl-1.1.0h.tar.gz
+            编译 openresty 时通过 --with-openssl=/path/to/openssl-xxx/ 指定 openssl 安装路径  
+
+        本示例使用方法 3
+
+    1.2 pcre-jit
+
+        OpenResty 依赖 PCRE ，但通过 apt-get 安装无法开启 pcre-jit，解决方法：  
+
+        方法 1. 源码编译
+            wget https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz  
+            tar -zxvf pcre-8.42.tar.gz  
+            cd pcre-8.42  
+            ./configure --enable-jit  
+            make && make install  
+
+        方法 2. 编译 openresty 时指定 pcre 安装目录
+            wget https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz  
+            tar -zxvf pcre-8.42.tar.gz  
+            编译 openresty 时通过 --with-pcre=/path/to/pcre-xxx/ 指定 pcre 安装路径 
+
+        本示例使用方法 2
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>安装 OpenWAF  </li>
+</ol>
+<pre class="line-numbers language-txt"><code class="language-txt">    cd /opt  
+    git clone https://github.com/titansec/OpenWAF.git
+    mv /opt/OpenWAF/lib/openresty/ngx_openwaf.conf /etc
+    mv /opt/OpenWAF/lib/openresty/configure /opt/openresty-1.13.6.2
+    cp -RP /opt/OpenWAF/lib/openresty/* /opt/openresty-1.13.6.2/bundle/
+    cd /opt/OpenWAF
+    make install
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-txt"><code class="language-txt">PS:
+    2.1 ngx_openwaf.conf
+        ngx_openwaf.conf 是 OpenResty 的 [nginx](http://nginx.org/en/docs/) 配置文件
+
+    2.2 configure 
+        configure 是 OpenResty 的编译文件
+        OpenWAF 修改了此文件，用于编译 OpenWAF 所依赖的第三方模块
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>编译 openresty  </li>
+</ol>
+<pre class="line-numbers language-txt"><code class="language-txt">    cd /opt/openresty-1.13.6.2/  
+    ./configure --with-pcre-jit --with-ipv6 \  
+                --with-http_stub_status_module \  
+                --with-http_ssl_module \  
+                --with-http_realip_module \  
+                --with-http_sub_module  \  
+                --with-http_geoip_module \  
+                --with-openssl=/opt/openssl-1.1.0h \ 
+                --with-pcre=/opt/pcre-8.42
+    make && make install 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h3><pre><code>与 [Debian](#debianubuntu) 安装几乎一致，只需在安装依赖时，将 apt-get 一行命令换成以下命令即可：
+</code></pre><pre class="line-numbers language-txt"><code class="language-txt">    yum install gcc gcc-c++ wget GeoIP-devel git swig make perl perl-ExtUtils-Embed readline-devel zlib-devel -y
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash"><code class="language-bash">$ hexo server
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash"><code class="language-bash">$ hexo generate
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash"><code class="language-bash">$ hexo deploy
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<h3 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h3><pre><code>其他操作系统安装 OpenWAF，可参考 [OpenResty](https://openresty.org/cn/installation.html) 安装  
+再安装 OpenWAF 依赖的 swig 即可  
+</code></pre><h2 id="Docker容器安装"><a href="#Docker容器安装" class="headerlink" title="Docker容器安装"></a>Docker容器安装</h2><pre class="line-numbers language-txt"><code class="language-txt">1. pull docker images from repository
+   docker pull titansec/openwaf
+
+2. start-up docker 
+    docker run -d --name openwaf \
+               -p 80:80 -p 443:443 \
+               -v /opt/openwaf/conf/ngx_openwaf.conf:/etc/ngx_openwaf.conf \
+               -v /opt/openwaf/conf/twaf_access_rule.json:/opt/OpenWAF/conf/twaf_access_rule.json \
+               -v /opt/openwaf/log/openwaf_error.log:/var/log/openwaf_error.log \
+               titansec/openwaf 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-txt"><code class="language-txt">PS:
+    1. docker pull titansec/openwaf 
+        docker pull titansec/openwaf 获取 jessie 的 OpenWAF 最新版
+        docker pull titansec/openwaf:latest 获取 jessie 的 OpenWAF 最新版
+        docker pull titansec/openwaf:jessie 获取 jessie 的 OpenWAF 最新版
+        docker pull titansec/openwaf:centos 获取 centos 的 OpenWAF 最新版
+
+        获取历史版本：
+        docker pull titansec/openwaf:x.x.x-jessie 获取 jessie 的 OpenWAF x.x.x 版
+        docker pull titansec/openwaf:x.x.x-centos 获取 centos 的 OpenWAF x.x.x 版
+
+        历史版本列表：https://hub.docker.com/r/titansec/openwaf/tags/
+
+    2. 挂载配置文件和日志
+        将配置文件保留在宿主机中，更新 OpenWAF 只需更新 Docker 镜像即可
+        2.1 挂载 nginx 配置文件
+            如，事先将 ngx_openwaf.conf 放在宿主机 /opt/openwaf/conf/ 目录下，然后启动 docker 容器时添加参数如下：
+            -v /opt/openwaf/conf/ngx_openwaf.conf:/etc/ngx_openwaf.conf
+        2.2 挂载 twaf_access_rule.json 接入规则配置文件
+            如，事先将 twaf_access_rule.json 放在宿主机 /opt/openwaf/conf/ 目录下，然后启动 docker 容器时添加参数如下：
+            -v /opt/openwaf/conf/twaf_access_rule.json:/opt/OpenWAF/conf/twaf_access_rule.json
+        2.3 挂载 nginx 错误日志
+            -v /opt/openwaf/log/openwaf_error.log:/var/log/openwaf_error.log
+
+    3. restart 
+        修改宿主机中的配置文件后，执行 docker restart openwaf(容器名称) 即可
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/post-cover/2.jpg"></div>
+	<div id="current-post-cover" data-scr="/img/post-cover/4.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -358,10 +496,14 @@
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
-			<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客" rel="prev">
+			<a href="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" title="轻松玩转 OpenWAF 之入门篇" rel="prev">
 				&laquo;上一篇
 			</a>
 		
+		
+			<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册" rel="next">
+				下一篇&raquo;
+			</a>
 			
 	</span>
       		
@@ -448,26 +590,6 @@ Table of Contents
 		
 				<li>
 					<div>
-						<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇">
-							轻松玩转 OpenWAF 之安装篇
-						</a>
-						<p>
-							名称OpenWAF 支持源码安装和 Docker 安装
-学习、开发、需求变动大、有一定维护能力，建议源码安装仅使用 OpenWAF 进行防护，建议 Docker 安装
-Table of Contents
-源码安装
-Debian&amp...
-						</p>
-					</div>
-
-					<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇">				
-						<img src="/img/post-cover/4.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之安装篇">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
 						<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">
 							OpenWAF 使用手册
 						</a>
@@ -519,6 +641,22 @@ Installatio...
 
 					<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客">				
 						<img src="/img/post-cover/0.jpg" class="relateImg" alt="用 hexo 创建自己的博客">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/27/hello-world/" title="Hello World">
+							Hello World
+						</a>
+						<p>
+							Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using ...
+						</p>
+					</div>
+
+					<a href="/2018/12/27/hello-world/" title="Hello World">				
+						<img src="/img/post-cover/2.jpg" class="relateImg" alt="Hello World">
 					</a>
 				</li>											
 		
