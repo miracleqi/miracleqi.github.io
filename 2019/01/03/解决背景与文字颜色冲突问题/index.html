@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      Microsoft Search 磁盘空间不足 | 齐健的博客
+      解决背景与文字颜色冲突问题 | 齐健的博客
     
   </title>
   <meta name="author" content="MiracleQi-温柔魔君">
@@ -114,7 +114,7 @@
 				<!-- Page title -->
 				<p>
 					
-						当前文章&nbsp;:&nbsp;《Microsoft Search 磁盘空间不足》
+						当前文章&nbsp;:&nbsp;《解决背景与文字颜色冲突问题》
 					
 				</p>
 				<!-- Progress bar -->
@@ -277,8 +277,8 @@
 	
 	<div class="article-title">
 		
-	<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" itemprop="url">
-		Microsoft Search 磁盘空间不足
+	<a href="/2019/01/03/解决背景与文字颜色冲突问题/" itemprop="url">
+		解决背景与文字颜色冲突问题
 	</a>
 
 	</div>
@@ -287,17 +287,17 @@
 		<span>
 			
 	发布于
-	<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" itemprop="url">
-		<time datetime="2018-12-29T17:46:00.000Z" itemprop="datePublished">
-	  		2018-12-30
+	<a href="/2019/01/03/解决背景与文字颜色冲突问题/" itemprop="url">
+		<time datetime="2019-01-03T07:08:00.000Z" itemprop="datePublished">
+	  		2019-01-03
 	  </time>
 	</a> 
 
 	/
 	更新于
-	<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" itemprop="url">
-		<time datetime="2018-12-29T17:46:00.000Z" itemprop="dateUpdated">
-	  		2018-12-30
+	<a href="/2019/01/03/解决背景与文字颜色冲突问题/" itemprop="url">
+		<time datetime="2019-01-03T07:08:00.000Z" itemprop="dateUpdated">
+	  		2019-01-03
 	  </time>
 	</a> 	
 
@@ -307,8 +307,12 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/Windows/" class=" ">
-			Windows
+		<a href="/tags/CSS/" class=" ">
+			CSS
+		</a>
+	
+		<a href="/tags/hexo-Annie/" class=" ">
+			hexo-Annie
 		</a>
 	
 		
@@ -316,7 +320,7 @@
 		/
 		
 
-    <span class="leancloud_visitors" id="/2018/12/30/Microsoft-Search-磁盘空间不足/_visitors" data-url="/2018/12/30/Microsoft-Search-磁盘空间不足/" data-title="Microsoft Search 磁盘空间不足">
+    <span class="leancloud_visitors" id="/2019/01/03/解决背景与文字颜色冲突问题/_visitors" data-url="/2019/01/03/解决背景与文字颜色冲突问题/" data-title="解决背景与文字颜色冲突问题">
         热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
     </span>
@@ -325,7 +329,7 @@
 
 
 
-    <span class="leancloud_likes" id="/2018/12/30/Microsoft-Search-磁盘空间不足/_likes" data-url="/2018/12/30/Microsoft-Search-磁盘空间不足/" data-title="Microsoft Search 磁盘空间不足" rel="unlike">
+    <span class="leancloud_likes" id="/2019/01/03/解决背景与文字颜色冲突问题/_likes" data-url="/2019/01/03/解决背景与文字颜色冲突问题/" data-title="解决背景与文字颜色冲突问题" rel="unlike">
         喜欢
         <i class="fa fa-heart"></i>
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -334,34 +338,53 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<p>Microsoft Search 导致 C 盘空间不足.</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Windows Search的功能是为我们电脑中的文件、电子邮件和其他内容提供内容索引、属性缓存和搜索结果。Windows Search默认是开机启动的，它会利用计算机的空闲时间来建立索引，加大对计算机硬盘的使用率。<br>最近家中电脑总是报 C 盘空间不足，利用软件清理空间时，发现 Microsoft Search 索引文件达到 73.7 GB，使用软件无法清理掉此文件（需管理员权限）<br>此文件就在 C:\ProgramData\Microsoft\Search\Data\Applications\Windows\Windows.edb<br>删除此文件，过一段时间又恢复，无法根治。<br>魔君为大家带来以下三种方案：</p>
-<ol>
-<li>关闭 search 服务，用 everything search 等第三方搜索软件替代</li>
-<li>缩小索引范围，我选择了此方案</li>
-<li>索引文件转移到其他磁盘</li>
-</ol>
-<h2 id="方案1：关闭-search-服务"><a href="#方案1：关闭-search-服务" class="headerlink" title="方案1：关闭 search 服务"></a>方案1：关闭 search 服务</h2><ol>
-<li>桌面右键“我的电脑”-选择“管理”<br><img src="/images/pasted-5.png" alt="upload successful"></li>
-<li>在弹出的窗口中选择“服务”<br><img src="/images/pasted-6.png" alt="upload successful"></li>
-<li>找到“windows search”并选择<br><img src="/images/pasted-7.png" alt="upload successful"></li>
-<li>右键-属性，选择“禁用”即可停用服务<br><img src="/images/pasted-8.png" alt="upload successful"></li>
-</ol>
-<h2 id="方案2：缩小索引范围"><a href="#方案2：缩小索引范围" class="headerlink" title="方案2：缩小索引范围"></a>方案2：缩小索引范围</h2><ol>
-<li>在开始菜单的搜索栏直接搜索「索引选项」<br><img src="/images/pasted-9.png" alt="upload successful"><br>或者打开控制面板，搜索“索引选项”  </li>
-<li>点击「修改」，去掉“用户”<br><img src="/images/pasted-10.png" alt="upload successful"><br>一般只需要保留「开始」菜单即可<br>视情况而定，我的台式机，为一万多项建立索引，就有 73.7 GB，去掉“用户”后，索引仅有 8MB。<br>然鹅，我的笔记本，为 五万多项建立索引，仅有 200多MB。手动滑稽。</li>
-<li>点击「高级」，重建索引<br><img src="/images/pasted-11.png" alt="upload successful"><br>到此，73.7GB 减少为 8MB，好开森！</li>
-</ol>
-<h2 id="方案3：索引文件转移至其他磁盘"><a href="#方案3：索引文件转移至其他磁盘" class="headerlink" title="方案3：索引文件转移至其他磁盘"></a>方案3：索引文件转移至其他磁盘</h2><p>虽然 SSD 空间少，但 HDD 空间多啊，经常用到 windows 索引的小伙伴，可以将索引文件转移至空间多的磁盘  </p>
-<ol>
-<li>在开始菜单的搜索栏直接搜索「索引选项」<br><img src="/images/pasted-9.png" alt="upload successful"><br>或者打开控制面板，搜索“索引选项”</li>
-<li>点击「高级」，选择新位置<br><img src="/images/pasted-12.png" alt="upload successful"></li>
-<li>重建索引<br><img src="/images/pasted-11.png" alt="upload successful"><br>由于文件过大，建议有充足时间（如睡前）再重建<br>或手动删除原 Windows.edb，windows 会在空闲时自动在新位置生成新的索引文件</li>
-</ol>
+		<p>解决因背景图颜色，导致文字看不清晰的问题</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>刚刚创建此博客，被随机背景图和散文诗集吸引。但常常因为背景图颜色过浅，导致白色的文字看不清晰。  </p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>本来想把所有的背景图都换成黑色的。但当我下载了 1500 多张图，准备从中挑出所有的黑色背景图时，公司的美工丢给我一行代码彻底解决了我的问题。</p>
+<pre><code>text-shadow:1px 1px 1px #000;
+</code></pre><p>仅仅是给文字加了深色阴影。</p>
+<h2 id="Annie-主题"><a href="#Annie-主题" class="headerlink" title="Annie 主题"></a>Annie 主题</h2><p>有了解决方法，开始修改 Annie 主题<br>在 Annie/source/css 下，有个 Annie.css 文件</p>
+<pre><code>第 208 行
+header .h-header {
+   text-shadow:1px 1px 1px #000;   /*MiracleQi修改*/
+    position: relative;
+    height: 10%;
+    padding: 1em;
+}
+
+第 262 行
+header .motto {
+   text-shadow:1px 1px 1px #000;   /*MiracleQi修改*/
+    font-family: Georgia, &quot;Times New Roman&quot;, Times, serif;
+    font-size: 1.5em;
+    font-weight: 100;
+    line-height: 1.5em;
+    color: white;
+    text-align: center;
+    width: 60%;
+    margin: 4em auto;
+}
+
+第 303 行
+header .h-footer ul li a {
+   text-shadow:1px 1px 1px #000;   /*MiracleQi修改*/
+    display: inline-block;
+    cursor: pointer;
+    margin: 0 1em;
+    border: 0;
+    font-size: 1.2em;
+    color: #fff;
+}
+</code></pre><p>将这三处白色的文字，加上阴影即可。</p>
+<h2 id="前后对比"><a href="#前后对比" class="headerlink" title="前后对比"></a>前后对比</h2><p>修改前：</p>
+<p><img src="/images/pasted-13.png" alt="upload successful"></p>
+<p>修改后：</p>
+<p><img src="/images/pasted-14.png" alt="upload successful"></p>
+<p>完美！</p>
 	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/post-cover/1.jpg"></div>
+	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -375,12 +398,12 @@
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
-			<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册" rel="prev">
+			<a href="/2019/01/03/批量修改或添加文件后缀名/" title="批量修改或添加文件后缀名" rel="prev">
 				&laquo;上一篇
 			</a>
 		
 		
-			<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客" rel="next">
+			<a href="/2018/12/31/轻松玩转-OpenWAF-之-ELK/" title="轻松玩转 OpenWAF 之 ELK" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -413,24 +436,6 @@
 
 					<a href="/2019/01/03/批量修改或添加文件后缀名/" title="批量修改或添加文件后缀名">				
 						<img src="/img/cart_cover.jpg" class="relateImg" alt="批量修改或添加文件后缀名">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2019/01/03/解决背景与文字颜色冲突问题/" title="解决背景与文字颜色冲突问题">
-							解决背景与文字颜色冲突问题
-						</a>
-						<p>
-							解决因背景图颜色，导致文字看不清晰的问题
-前言刚刚创建此博客，被随机背景图和散文诗集吸引。但常常因为背景图颜色过浅，导致白色的文字看不清晰。  
-方法本来想把所有的背景图都换成黑色的。但当我下载了 1500 多张图，准备从中挑出所有的...
-						</p>
-					</div>
-
-					<a href="/2019/01/03/解决背景与文字颜色冲突问题/" title="解决背景与文字颜色冲突问题">				
-						<img src="/img/cart_cover.jpg" class="relateImg" alt="解决背景与文字颜色冲突问题">
 					</a>
 				</li>											
 		
@@ -545,6 +550,23 @@ Installatio...
 
 					<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">				
 						<img src="/img/post-cover/3.jpg" class="relateImg" alt="OpenWAF 使用手册">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">
+							Microsoft Search 磁盘空间不足
+						</a>
+						<p>
+							Microsoft Search 导致 C 盘空间不足.
+前言Windows Search的功能是为我们电脑中的文件、电子邮件和其他内容提供内容索引、属性缓存和搜索结果。Windows Search默认是开机启动的，它会利用计算机的空...
+						</p>
+					</div>
+
+					<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">				
+						<img src="/img/post-cover/1.jpg" class="relateImg" alt="Microsoft Search 磁盘空间不足">
 					</a>
 				</li>											
 		

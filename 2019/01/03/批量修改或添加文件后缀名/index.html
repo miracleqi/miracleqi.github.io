@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      Microsoft Search 磁盘空间不足 | 齐健的博客
+      批量修改或添加文件后缀名 | 齐健的博客
     
   </title>
   <meta name="author" content="MiracleQi-温柔魔君">
@@ -114,7 +114,7 @@
 				<!-- Page title -->
 				<p>
 					
-						当前文章&nbsp;:&nbsp;《Microsoft Search 磁盘空间不足》
+						当前文章&nbsp;:&nbsp;《批量修改或添加文件后缀名》
 					
 				</p>
 				<!-- Progress bar -->
@@ -277,8 +277,8 @@
 	
 	<div class="article-title">
 		
-	<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" itemprop="url">
-		Microsoft Search 磁盘空间不足
+	<a href="/2019/01/03/批量修改或添加文件后缀名/" itemprop="url">
+		批量修改或添加文件后缀名
 	</a>
 
 	</div>
@@ -287,17 +287,17 @@
 		<span>
 			
 	发布于
-	<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" itemprop="url">
-		<time datetime="2018-12-29T17:46:00.000Z" itemprop="datePublished">
-	  		2018-12-30
+	<a href="/2019/01/03/批量修改或添加文件后缀名/" itemprop="url">
+		<time datetime="2019-01-03T07:30:00.000Z" itemprop="datePublished">
+	  		2019-01-03
 	  </time>
 	</a> 
 
 	/
 	更新于
-	<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" itemprop="url">
-		<time datetime="2018-12-29T17:46:00.000Z" itemprop="dateUpdated">
-	  		2018-12-30
+	<a href="/2019/01/03/批量修改或添加文件后缀名/" itemprop="url">
+		<time datetime="2019-01-03T07:30:00.000Z" itemprop="dateUpdated">
+	  		2019-01-03
 	  </time>
 	</a> 	
 
@@ -307,8 +307,8 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/Windows/" class=" ">
-			Windows
+		<a href="/tags/command/" class=" ">
+			command
 		</a>
 	
 		
@@ -316,7 +316,7 @@
 		/
 		
 
-    <span class="leancloud_visitors" id="/2018/12/30/Microsoft-Search-磁盘空间不足/_visitors" data-url="/2018/12/30/Microsoft-Search-磁盘空间不足/" data-title="Microsoft Search 磁盘空间不足">
+    <span class="leancloud_visitors" id="/2019/01/03/批量修改或添加文件后缀名/_visitors" data-url="/2019/01/03/批量修改或添加文件后缀名/" data-title="批量修改或添加文件后缀名">
         热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
     </span>
@@ -325,7 +325,7 @@
 
 
 
-    <span class="leancloud_likes" id="/2018/12/30/Microsoft-Search-磁盘空间不足/_likes" data-url="/2018/12/30/Microsoft-Search-磁盘空间不足/" data-title="Microsoft Search 磁盘空间不足" rel="unlike">
+    <span class="leancloud_likes" id="/2019/01/03/批量修改或添加文件后缀名/_likes" data-url="/2019/01/03/批量修改或添加文件后缀名/" data-title="批量修改或添加文件后缀名" rel="unlike">
         喜欢
         <i class="fa fa-heart"></i>
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -334,34 +334,42 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<p>Microsoft Search 导致 C 盘空间不足.</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Windows Search的功能是为我们电脑中的文件、电子邮件和其他内容提供内容索引、属性缓存和搜索结果。Windows Search默认是开机启动的，它会利用计算机的空闲时间来建立索引，加大对计算机硬盘的使用率。<br>最近家中电脑总是报 C 盘空间不足，利用软件清理空间时，发现 Microsoft Search 索引文件达到 73.7 GB，使用软件无法清理掉此文件（需管理员权限）<br>此文件就在 C:\ProgramData\Microsoft\Search\Data\Applications\Windows\Windows.edb<br>删除此文件，过一段时间又恢复，无法根治。<br>魔君为大家带来以下三种方案：</p>
-<ol>
-<li>关闭 search 服务，用 everything search 等第三方搜索软件替代</li>
-<li>缩小索引范围，我选择了此方案</li>
-<li>索引文件转移到其他磁盘</li>
-</ol>
-<h2 id="方案1：关闭-search-服务"><a href="#方案1：关闭-search-服务" class="headerlink" title="方案1：关闭 search 服务"></a>方案1：关闭 search 服务</h2><ol>
-<li>桌面右键“我的电脑”-选择“管理”<br><img src="/images/pasted-5.png" alt="upload successful"></li>
-<li>在弹出的窗口中选择“服务”<br><img src="/images/pasted-6.png" alt="upload successful"></li>
-<li>找到“windows search”并选择<br><img src="/images/pasted-7.png" alt="upload successful"></li>
-<li>右键-属性，选择“禁用”即可停用服务<br><img src="/images/pasted-8.png" alt="upload successful"></li>
-</ol>
-<h2 id="方案2：缩小索引范围"><a href="#方案2：缩小索引范围" class="headerlink" title="方案2：缩小索引范围"></a>方案2：缩小索引范围</h2><ol>
-<li>在开始菜单的搜索栏直接搜索「索引选项」<br><img src="/images/pasted-9.png" alt="upload successful"><br>或者打开控制面板，搜索“索引选项”  </li>
-<li>点击「修改」，去掉“用户”<br><img src="/images/pasted-10.png" alt="upload successful"><br>一般只需要保留「开始」菜单即可<br>视情况而定，我的台式机，为一万多项建立索引，就有 73.7 GB，去掉“用户”后，索引仅有 8MB。<br>然鹅，我的笔记本，为 五万多项建立索引，仅有 200多MB。手动滑稽。</li>
-<li>点击「高级」，重建索引<br><img src="/images/pasted-11.png" alt="upload successful"><br>到此，73.7GB 减少为 8MB，好开森！</li>
-</ol>
-<h2 id="方案3：索引文件转移至其他磁盘"><a href="#方案3：索引文件转移至其他磁盘" class="headerlink" title="方案3：索引文件转移至其他磁盘"></a>方案3：索引文件转移至其他磁盘</h2><p>虽然 SSD 空间少，但 HDD 空间多啊，经常用到 windows 索引的小伙伴，可以将索引文件转移至空间多的磁盘  </p>
-<ol>
-<li>在开始菜单的搜索栏直接搜索「索引选项」<br><img src="/images/pasted-9.png" alt="upload successful"><br>或者打开控制面板，搜索“索引选项”</li>
-<li>点击「高级」，选择新位置<br><img src="/images/pasted-12.png" alt="upload successful"></li>
-<li>重建索引<br><img src="/images/pasted-11.png" alt="upload successful"><br>由于文件过大，建议有充足时间（如睡前）再重建<br>或手动删除原 Windows.edb，windows 会在空闲时自动在新位置生成新的索引文件</li>
-</ol>
-	
+		<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>常见的是对不同文件名进行文件后缀名修改。但今天遇到同一文件名的情况。</p>
+<h2 id="常见"><a href="#常见" class="headerlink" title="常见"></a>常见</h2><p>windows 或 Linux</p>
+<pre><code>命令： ren *.jpg *.bmp   # 将 jpg 后缀改为 bmp
+
+如：1.jpg 2.txt
+改后为：1.bmp 2.txt
+</code></pre><pre><code>命令： ren * *.jpg # 将所有文件后缀改为 jpg
+
+修改前：
+1.jpg
+2.txt
+3
+改后为：
+1.jpg
+2.jpg  # txt 后缀变为了 jpg
+3.jpg  # 没有后缀的也添加了 jpg 后缀
+</code></pre><h2 id="相同文件名"><a href="#相同文件名" class="headerlink" title="相同文件名"></a>相同文件名</h2><p>如果文件名相同，那么修改后缀后，会因”文件已存在”报错。<br>今天遇到如下文件：</p>
+<pre><code>1920x1080.1
+1920x1080.2
+1920x1080.3
+</code></pre><p>不能修改后缀，只能添加后缀了(linux 环境)</p>
+<pre><code>命令：rename &#39;s/$/\.jpg/&#39; *
+
+修改后：
+1920x1080.1.jpg
+1920x1080.2.jpg
+1920x1080.3.jpg
+</code></pre><h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><pre><code># rename &#39;s/\.sh/\.php/&#39; *               #将当前目录下.sh后缀的文件，变成.php
+# rename &#39;s/$/\.bak/&#39; /home/www/*.php    #给www目录下的.php加上bak后缀 
+# rename &#39;s/^/bak_/&#39; *.bin               #给当前目录下的.bin后缀文件加上bak_前缀
+# rename &#39;s/\.bin$//&#39; *                  #批量删除当前目录下所有文件的.bin 后缀  
+# rename &#39;s/A-Z/a-z/&#39; *                  #修改当前目录所有文件名为小写  
+</code></pre>	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/post-cover/1.jpg"></div>
+	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -375,12 +383,8 @@
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
-			<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册" rel="prev">
-				&laquo;上一篇
-			</a>
 		
-		
-			<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客" rel="next">
+			<a href="/2019/01/03/解决背景与文字颜色冲突问题/" title="解决背景与文字颜色冲突问题" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -395,27 +399,6 @@
 
 <div class="relate-post">
 	<ul>
-		
-				<li>
-					<div>
-						<a href="/2019/01/03/批量修改或添加文件后缀名/" title="批量修改或添加文件后缀名">
-							批量修改或添加文件后缀名
-						</a>
-						<p>
-							前言常见的是对不同文件名进行文件后缀名修改。但今天遇到同一文件名的情况。
-常见windows 或 Linux
-命令： ren *.jpg *.bmp   # 将 jpg 后缀改为 bmp
-
-如：1.jpg 2.txt
-改后为：1.bm...
-						</p>
-					</div>
-
-					<a href="/2019/01/03/批量修改或添加文件后缀名/" title="批量修改或添加文件后缀名">				
-						<img src="/img/cart_cover.jpg" class="relateImg" alt="批量修改或添加文件后缀名">
-					</a>
-				</li>											
-		
 		
 				<li>
 					<div>
@@ -545,6 +528,23 @@ Installatio...
 
 					<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">				
 						<img src="/img/post-cover/3.jpg" class="relateImg" alt="OpenWAF 使用手册">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">
+							Microsoft Search 磁盘空间不足
+						</a>
+						<p>
+							Microsoft Search 导致 C 盘空间不足.
+前言Windows Search的功能是为我们电脑中的文件、电子邮件和其他内容提供内容索引、属性缓存和搜索结果。Windows Search默认是开机启动的，它会利用计算机的空...
+						</p>
+					</div>
+
+					<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">				
+						<img src="/img/post-cover/1.jpg" class="relateImg" alt="Microsoft Search 磁盘空间不足">
 					</a>
 				</li>											
 		
