@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      轻松玩转 OpenWAF 之安装篇 | 齐健的博客
+      用 hugo 创建自己的博客 | 齐健的博客
     
   </title>
   <meta name="author" content="MiracleQi-温柔魔君">
@@ -114,7 +114,7 @@
 				<!-- Page title -->
 				<p>
 					
-						当前文章&nbsp;:&nbsp;《轻松玩转 OpenWAF 之安装篇》
+						当前文章&nbsp;:&nbsp;《用 hugo 创建自己的博客》
 					
 				</p>
 				<!-- Progress bar -->
@@ -277,8 +277,8 @@
 	
 	<div class="article-title">
 		
-	<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" itemprop="url">
-		轻松玩转 OpenWAF 之安装篇
+	<a href="/2019/01/04/用-hugo-创建自己的博客/" itemprop="url">
+		用 hugo 创建自己的博客
 	</a>
 
 	</div>
@@ -287,17 +287,17 @@
 		<span>
 			
 	发布于
-	<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" itemprop="url">
-		<time datetime="2018-12-30T19:18:00.000Z" itemprop="datePublished">
-	  		2018-12-31
+	<a href="/2019/01/04/用-hugo-创建自己的博客/" itemprop="url">
+		<time datetime="2019-01-04T06:27:00.000Z" itemprop="datePublished">
+	  		2019-01-04
 	  </time>
 	</a> 
 
 	/
 	更新于
-	<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" itemprop="url">
-		<time datetime="2018-12-30T19:18:00.000Z" itemprop="dateUpdated">
-	  		2018-12-31
+	<a href="/2019/01/04/用-hugo-创建自己的博客/" itemprop="url">
+		<time datetime="2019-01-04T06:27:00.000Z" itemprop="dateUpdated">
+	  		2019-01-04
 	  </time>
 	</a> 	
 
@@ -307,8 +307,8 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/OpenWAF/" class=" ">
-			OpenWAF
+		<a href="/tags/hugo/" class=" ">
+			hugo
 		</a>
 	
 		
@@ -316,7 +316,7 @@
 		/
 		
 
-    <span class="leancloud_visitors" id="/2018/12/31/轻松玩转-OpenWAF-之安装篇/_visitors" data-url="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" data-title="轻松玩转 OpenWAF 之安装篇">
+    <span class="leancloud_visitors" id="/2019/01/04/用-hugo-创建自己的博客/_visitors" data-url="/2019/01/04/用-hugo-创建自己的博客/" data-title="用 hugo 创建自己的博客">
         热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
     </span>
@@ -325,7 +325,7 @@
 
 
 
-    <span class="leancloud_likes" id="/2018/12/31/轻松玩转-OpenWAF-之安装篇/_likes" data-url="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" data-title="轻松玩转 OpenWAF 之安装篇" rel="unlike">
+    <span class="leancloud_likes" id="/2019/01/04/用-hugo-创建自己的博客/_likes" data-url="/2019/01/04/用-hugo-创建自己的博客/" data-title="用 hugo 创建自己的博客" rel="unlike">
         喜欢
         <i class="fa fa-heart"></i>
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -334,155 +334,47 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<h1 id="名称"><a href="#名称" class="headerlink" title="名称"></a>名称</h1><p>OpenWAF 支持源码安装和 Docker 安装</p>
-<p>学习、开发、需求变动大、有一定维护能力，建议源码安装<br>仅使用 OpenWAF 进行防护，建议 Docker 安装</p>
-<h1 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h1><ul>
-<li><a href="#源码安装">源码安装</a><ul>
-<li><a href="#debianubuntu">Debian&amp;Ubuntu</a></li>
-<li><a href="#centos">CentOS</a></li>
-<li><a href="#others">Others</a></li>
-</ul>
-</li>
-<li><a href="#docker容器安装">Docker容器安装</a></li>
-</ul>
-<h2 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h2><h3 id="Debian-amp-Ubuntu"><a href="#Debian-amp-Ubuntu" class="headerlink" title="Debian&amp;Ubuntu"></a>Debian&amp;Ubuntu</h3><ol>
-<li>安装OpenWAF依赖</li>
+		<p>如何用 hugo 搭建自己的博客</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前两天，hexo 打开了自建博客的道路。今天看到了 hugo，准备研究一下。<br>hugo 是用 go 语言开发的，优势在于编译速度快。如果博客文章达到七八百篇，hexo 可能要几十分钟，但 hugo“眨眼”就完成。而且自学过 go 的基础语法，对 go 的项目挺感兴趣的。下面一起来看看，如何用 hugo 创建属于自己的博客。</p>
+<p>参考自 <a href="https://gohugo.io/getting-started/installing/#source" target="_blank" rel="noopener">hugo 官网安装文档</a></p>
+<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h3><p>Git Bash 并不是必要的，但不太喜欢在 cmd 中操作各种命令，所以挑了这个比较好使的Git Bash, 我的是windows环境，所以下载 <a href="https://git-for-windows.github.io/" target="_blank" rel="noopener">windows版本</a> 并安装就可以了。</p>
+<p>安装步骤：双击下载好的 exe 文件，一路 next 就好啦</p>
+<p>安装好后，打开 gitbash，查看版本：</p>
+<pre><code>$ git version
+git version 2.20.1.windows.1
+</code></pre><p>然后你就可以在这里发挥你的聪明才智了</p>
+<h3 id="go"><a href="#go" class="headerlink" title="go"></a>go</h3><p>直接去<a href="https://golang.org/dl/" target="_blank" rel="noopener">官网</a>选择对应版本即可（当前 hugo 要求 go 的最低版本为 1.11）。我这里选择的是 <a href="https://dl.google.com/go/go1.11.4.windows-amd64.msi" target="_blank" rel="noopener">go1.11.4.windows-amd64.msi</a></p>
+<p>安装步骤：双击下载好的 msi 文件，一路 next 就好啦</p>
+<p>安装好后，打开 gitbash，查看版本：</p>
+<pre><code>$ go version
+go version go1.11.4 windows/amd64
+</code></pre><h2 id="安装-hugo"><a href="#安装-hugo" class="headerlink" title="安装 hugo"></a>安装 hugo</h2><p>用官网的安装方式，多次安装失败，最后直接上 github 找到对应版本下载安装。</p>
+<h3 id="成功安装"><a href="#成功安装" class="headerlink" title="成功安装"></a>成功安装</h3><p><a href="https://github.com/gohugoio/hugo/releases" target="_blank" rel="noopener">github 找到对应版本</a>。<br>我这里选择 hugo_extended_0.53_Windows-64bit.zip  </p>
+<ol>
+<li>解压。下载后，解压缩至想要安装的目录（如 d:\hugo）  </li>
+<li>PATH。再将此目录添加至 PATH （我的电脑→属性→高级-&gt;环境变量）  </li>
+<li>验证。打开新的 cmd 或 gitbash ，查看 hugo 版本信息</li>
 </ol>
-<pre class="line-numbers language-txt"><code class="language-txt">    cd /opt
-    apt-get install gcc wget git swig make perl build-essential zlib1g-dev libgeoip-dev libncurses5-dev libreadline-dev -y
-    wget https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz
-    wget https://www.openssl.org/source/openssl-1.1.0h.tar.gz
-    wget https://openresty.org/download/openresty-1.13.6.2.tar.gz
-    tar -zxvf pcre-8.42.tar.gz
-    tar -zxvf openssl-1.1.0h.tar.gz
-    tar -zxvf openresty-1.13.6.2.tar.gz
-    rm -rf pcre-8.42.tar.gz \
-           openssl-1.1.0h.tar.gz \
-           openresty-1.13.6.2.tar.gz
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-txt"><code class="language-txt">PS: 
-    1.1 OpenSSL 版本要求
-
-        OpenResty 要求 OpenSSL 最低版本在 1.0.2e 以上，但 apt-get 安装 openssl 并不满足此版本，因此提供解决方法如下：
-
-        方法 1. apt-get 使用 backports 源安装 openssl，如 jessie-backports  
-            echo "deb http://mirrors.163.com/debian/ jessie-backports main" >> /etc/apt/sources.list  
-            apt-get update  
-            apt-get install -t jessie-backports openssl  
-
-        方法 2. 下载 openssl 源代码，如 1.1.0h 版本  
-            wget -c http://www.openssl.org/source/openssl-1.1.0h.tar.gz  
-            tar -zxvf openssl-1.1.0h.tar.gz
-            ./config  
-            make && make install  
-
-        若用方法 1 和 方法 2 后， openssl version 命令显示的版本依旧低于 1.0.2e 版本，请求方法 3
-
-        方法 3. 编译 openresty 时指定 openssl 安装目录
-            wget -c http://www.openssl.org/source/openssl-1.1.0h.tar.gz
-            tar -zxvf openssl-1.1.0h.tar.gz
-            编译 openresty 时通过 --with-openssl=/path/to/openssl-xxx/ 指定 openssl 安装路径  
-
-        本示例使用方法 3
-
-    1.2 pcre-jit
-
-        OpenResty 依赖 PCRE ，但通过 apt-get 安装无法开启 pcre-jit，解决方法：  
-
-        方法 1. 源码编译
-            wget https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz  
-            tar -zxvf pcre-8.42.tar.gz  
-            cd pcre-8.42  
-            ./configure --enable-jit  
-            make && make install  
-
-        方法 2. 编译 openresty 时指定 pcre 安装目录
-            wget https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz  
-            tar -zxvf pcre-8.42.tar.gz  
-            编译 openresty 时通过 --with-pcre=/path/to/pcre-xxx/ 指定 pcre 安装路径 
-
-        本示例使用方法 2
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol start="2">
-<li>安装 OpenWAF  </li>
-</ol>
-<pre class="line-numbers language-txt"><code class="language-txt">    cd /opt  
-    git clone https://github.com/titansec/OpenWAF.git
-    mv /opt/OpenWAF/lib/openresty/ngx_openwaf.conf /etc
-    mv /opt/OpenWAF/lib/openresty/configure /opt/openresty-1.13.6.2
-    cp -RP /opt/OpenWAF/lib/openresty/* /opt/openresty-1.13.6.2/bundle/
-    cd /opt/OpenWAF
-    make install
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-txt"><code class="language-txt">PS:
-    2.1 ngx_openwaf.conf
-        ngx_openwaf.conf 是 OpenResty 的 [nginx](http://nginx.org/en/docs/) 配置文件
-
-    2.2 configure 
-        configure 是 OpenResty 的编译文件
-        OpenWAF 修改了此文件，用于编译 OpenWAF 所依赖的第三方模块
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol start="3">
-<li>编译 openresty  </li>
-</ol>
-<pre class="line-numbers language-txt"><code class="language-txt">    cd /opt/openresty-1.13.6.2/  
-    ./configure --with-pcre-jit --with-ipv6 \  
-                --with-http_stub_status_module \  
-                --with-http_ssl_module \  
-                --with-http_realip_module \  
-                --with-http_sub_module  \  
-                --with-http_geoip_module \  
-                --with-openssl=/opt/openssl-1.1.0h \ 
-                --with-pcre=/opt/pcre-8.42
-    make && make install 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h3><pre><code>与 [Debian](#debianubuntu) 安装几乎一致，只需在安装依赖时，将 apt-get 一行命令换成以下命令即可：
-</code></pre><pre class="line-numbers language-txt"><code class="language-txt">    yum install gcc gcc-c++ wget GeoIP-devel git swig make perl perl-ExtUtils-Embed readline-devel zlib-devel -y
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h3><pre><code>其他操作系统安装 OpenWAF，可参考 [OpenResty](https://openresty.org/cn/installation.html) 安装  
-再安装 OpenWAF 依赖的 swig 即可  
-</code></pre><h2 id="Docker容器安装"><a href="#Docker容器安装" class="headerlink" title="Docker容器安装"></a>Docker容器安装</h2><pre class="line-numbers language-txt"><code class="language-txt">1. pull docker images from repository
-   docker pull titansec/openwaf
-
-2. start-up docker 
-    docker run -d --name openwaf \
-               -p 80:80 -p 443:443 \
-               -v /opt/openwaf/conf/ngx_openwaf.conf:/etc/ngx_openwaf.conf \
-               -v /opt/openwaf/conf/twaf_access_rule.json:/opt/OpenWAF/conf/twaf_access_rule.json \
-               -v /opt/openwaf/log/openwaf_error.log:/var/log/openwaf_error.log \
-               titansec/openwaf 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-txt"><code class="language-txt">PS:
-    1. docker pull titansec/openwaf 
-        docker pull titansec/openwaf 获取 jessie 的 OpenWAF 最新版
-        docker pull titansec/openwaf:latest 获取 jessie 的 OpenWAF 最新版
-        docker pull titansec/openwaf:jessie 获取 jessie 的 OpenWAF 最新版
-        docker pull titansec/openwaf:centos 获取 centos 的 OpenWAF 最新版
-
-        获取历史版本：
-        docker pull titansec/openwaf:x.x.x-jessie 获取 jessie 的 OpenWAF x.x.x 版
-        docker pull titansec/openwaf:x.x.x-centos 获取 centos 的 OpenWAF x.x.x 版
-
-        历史版本列表：https://hub.docker.com/r/titansec/openwaf/tags/
-
-    2. 挂载配置文件和日志
-        将配置文件保留在宿主机中，更新 OpenWAF 只需更新 Docker 镜像即可
-        2.1 挂载 nginx 配置文件
-            如，事先将 ngx_openwaf.conf 放在宿主机 /opt/openwaf/conf/ 目录下，然后启动 docker 容器时添加参数如下：
-            -v /opt/openwaf/conf/ngx_openwaf.conf:/etc/ngx_openwaf.conf
-        2.2 挂载 twaf_access_rule.json 接入规则配置文件
-            如，事先将 twaf_access_rule.json 放在宿主机 /opt/openwaf/conf/ 目录下，然后启动 docker 容器时添加参数如下：
-            -v /opt/openwaf/conf/twaf_access_rule.json:/opt/OpenWAF/conf/twaf_access_rule.json
-        2.3 挂载 nginx 错误日志
-            -v /opt/openwaf/log/openwaf_error.log:/var/log/openwaf_error.log
-
-    3. restart 
-        修改宿主机中的配置文件后，执行 docker restart openwaf(容器名称) 即可
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre><code>$ hugo.exe version
+Hugo Static Site Generator v0.53/extended windows/amd64 BuildDate: unknown
+</code></pre><p>至此，hugo 安装完毕！</p>
+<h3 id="失败安装"><a href="#失败安装" class="headerlink" title="失败安装"></a>失败安装</h3><p>官方安装方式：</p>
+<pre><code>mkdir $HOME/src
+cd $HOME/src
+git clone https://github.com/gohugoio/hugo.git
+cd hugo
+go install --tags extended
+</code></pre><p>难题：git 超时<br>hugo 共有 63.13 MB，从 github 上 clone，速度只有 6 KB/s，下载到百分之十几就超时断开了(就算不断开，也要 3 个小时才完成)，即使用浏览器从github 上下载 zip 源文件，也是一样的结果。<br>解决方法：借用 gitee<br>先在gitee(开源中国)下新建仓库 hugo，然后从选择从已有仓库导入，hugo 代码 2 分钟就从 github 到了 gitee。然后从 gitee 上 git clone 即可，速度达到 386 KiB/s，2 分钟就搞定了。</p>
+<p>不想在 gitee 创建仓库，可以从魔君这里 git clone。</p>
+<pre><code>cd d:    # 我在 D 盘安装的 hugo
+git clone https://gitee.com/miracleqi/hugo.git
+cd hugo
+go install --tags extended
+</code></pre><p>go install 这一步，各种异常（从 github 拉取各种依赖包，超时，认证失败等），放弃此安装方式。</p>
 	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/post-cover/4.jpg"></div>
+	<div id="current-post-cover" data-scr="/img/post-cover/11.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -496,12 +388,12 @@
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
-			<a href="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" title="轻松玩转 OpenWAF 之入门篇" rel="prev">
+			<a href="/2019/01/07/docker从0开始/" title="docker从0开始" rel="prev">
 				&laquo;上一篇
 			</a>
 		
 		
-			<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册" rel="next">
+			<a href="/2019/01/03/对于-hexo-Annie-主题部分修改/" title="对于 hexo Annie 主题部分修改" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -516,6 +408,119 @@
 
 <div class="relate-post">
 	<ul>
+		
+				<li>
+					<div>
+						<a href="/2019/01/03/对于-hexo-Annie-主题部分修改/" title="对于 hexo Annie 主题部分修改">
+							对于 hexo Annie 主题部分修改
+						</a>
+						<p>
+							修改部分 Annie 主题的设置
+字体默认字体Annie 默认是繁体字，改为默认是简体字
+修改 Annie\source\js\chinese.js 文件的第五行
+原文：
+var zh_choose = &#39;t&#39;;
+改为...
+						</p>
+					</div>
+
+					<a href="/2019/01/03/对于-hexo-Annie-主题部分修改/" title="对于 hexo Annie 主题部分修改">				
+						<img src="/img/post-cover/10.jpg" class="relateImg" alt="对于 hexo Annie 主题部分修改">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客">
+							用 hexo 创建自己的博客
+						</a>
+						<p>
+							用 hexo 创建属于自己的博客  
+前言想要创建自己的博客由来已久。之前偶尔写点东西，记录在了新浪和w3cschool。随着需要记录的文章越来越多，下定决心搭建一个属于自己的博客。现在大家用 hexo 比较多，也比较方便，并且能使用...
+						</p>
+					</div>
+
+					<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客">				
+						<img src="/img/post-cover/0.jpg" class="relateImg" alt="用 hexo 创建自己的博客">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2019/01/07/压缩与解压缩/" title="压缩与解压缩">
+							压缩与解压缩
+						</a>
+						<p>
+							zip格式压缩:  zip filename.zip dirname
+解压:  unzip filename.zip
+tar.gz 或 tgz或格式压缩:  tar -zcvf filename.tar.gz dirname1 dir...
+						</p>
+					</div>
+
+					<a href="/2019/01/07/压缩与解压缩/" title="压缩与解压缩">				
+						<img src="/img/post-cover/13.jpg" class="relateImg" alt="压缩与解压缩">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2019/01/07/docker从0开始/" title="docker从0开始">
+							docker从0开始
+						</a>
+						<p>
+							docker 的安装及常用命名
+1. 安装 Docker当前环境为 Debian8在 Ubuntu 14.04 及以上版本安装 Docker
+1.1 方法一：简化版安装 dockerwget -qO- https://get.dock...
+						</p>
+					</div>
+
+					<a href="/2019/01/07/docker从0开始/" title="docker从0开始">				
+						<img src="/img/post-cover/12.jpg" class="relateImg" alt="docker从0开始">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2019/01/03/批量修改或添加文件后缀名/" title="批量修改或添加文件后缀名">
+							批量修改或添加文件后缀名
+						</a>
+						<p>
+							前言常见的是对不同文件名进行文件后缀名修改。但今天遇到同一文件名的情况。
+常见windows 或 Linux
+命令： ren *.jpg *.bmp   # 将 jpg 后缀改为 bmp
+
+如：1.jpg 2.txt
+改后为：1.bm...
+						</p>
+					</div>
+
+					<a href="/2019/01/03/批量修改或添加文件后缀名/" title="批量修改或添加文件后缀名">				
+						<img src="/img/post-cover/9.jpg" class="relateImg" alt="批量修改或添加文件后缀名">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2019/01/03/解决背景与文字颜色冲突问题/" title="解决背景与文字颜色冲突问题">
+							解决背景与文字颜色冲突问题
+						</a>
+						<p>
+							解决因背景图颜色，导致文字看不清晰的问题
+前言刚刚创建此博客，被随机背景图和散文诗集吸引。但常常因为背景图颜色过浅，导致白色的文字看不清晰。  
+方法本来想把所有的背景图都换成黑色的。但当我下载了 1500 多张图，准备从中挑出所有的...
+						</p>
+					</div>
+
+					<a href="/2019/01/03/解决背景与文字颜色冲突问题/" title="解决背景与文字颜色冲突问题">				
+						<img src="/img/post-cover/8.jpg" class="relateImg" alt="解决背景与文字颜色冲突问题">
+					</a>
+				</li>											
+		
 		
 				<li>
 					<div>
@@ -590,136 +595,20 @@ Table of Contents
 		
 				<li>
 					<div>
-						<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">
-							OpenWAF 使用手册
+						<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇">
+							轻松玩转 OpenWAF 之安装篇
 						</a>
 						<p>
-							NameOpenWAF
-第一个全方位开源的Web应用防护系统（WAF），更全面的防护功能，更多样的防护策略
+							名称OpenWAF 支持源码安装和 Docker 安装
+学习、开发、需求变动大、有一定维护能力，建议源码安装仅使用 OpenWAF 进行防护，建议 Docker 安装
 Table of Contents
-Name
-Version
-Synopsis
-Description
-Installatio...
+源码安装
+Debian&amp...
 						</p>
 					</div>
 
-					<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">				
-						<img src="/img/post-cover/3.jpg" class="relateImg" alt="OpenWAF 使用手册">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2019/01/07/压缩与解压缩/" title="压缩与解压缩">
-							压缩与解压缩
-						</a>
-						<p>
-							zip格式压缩:  zip filename.zip dirname
-解压:  unzip filename.zip
-tar.gz 或 tgz或格式压缩:  tar -zcvf filename.tar.gz dirname1 dir...
-						</p>
-					</div>
-
-					<a href="/2019/01/07/压缩与解压缩/" title="压缩与解压缩">				
-						<img src="/img/post-cover/13.jpg" class="relateImg" alt="压缩与解压缩">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2019/01/07/docker从0开始/" title="docker从0开始">
-							docker从0开始
-						</a>
-						<p>
-							docker 的安装及常用命名
-1. 安装 Docker当前环境为 Debian8在 Ubuntu 14.04 及以上版本安装 Docker
-1.1 方法一：简化版安装 dockerwget -qO- https://get.dock...
-						</p>
-					</div>
-
-					<a href="/2019/01/07/docker从0开始/" title="docker从0开始">				
-						<img src="/img/post-cover/12.jpg" class="relateImg" alt="docker从0开始">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2019/01/04/用-hugo-创建自己的博客/" title="用 hugo 创建自己的博客">
-							用 hugo 创建自己的博客
-						</a>
-						<p>
-							如何用 hugo 搭建自己的博客
-前言前两天，hexo 打开了自建博客的道路。今天看到了 hugo，准备研究一下。hugo 是用 go 语言开发的，优势在于编译速度快。如果博客文章达到七八百篇，hexo 可能要几十分钟，但 hugo“...
-						</p>
-					</div>
-
-					<a href="/2019/01/04/用-hugo-创建自己的博客/" title="用 hugo 创建自己的博客">				
-						<img src="/img/post-cover/11.jpg" class="relateImg" alt="用 hugo 创建自己的博客">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2019/01/03/对于-hexo-Annie-主题部分修改/" title="对于 hexo Annie 主题部分修改">
-							对于 hexo Annie 主题部分修改
-						</a>
-						<p>
-							修改部分 Annie 主题的设置
-字体默认字体Annie 默认是繁体字，改为默认是简体字
-修改 Annie\source\js\chinese.js 文件的第五行
-原文：
-var zh_choose = &#39;t&#39;;
-改为...
-						</p>
-					</div>
-
-					<a href="/2019/01/03/对于-hexo-Annie-主题部分修改/" title="对于 hexo Annie 主题部分修改">				
-						<img src="/img/post-cover/10.jpg" class="relateImg" alt="对于 hexo Annie 主题部分修改">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2019/01/03/批量修改或添加文件后缀名/" title="批量修改或添加文件后缀名">
-							批量修改或添加文件后缀名
-						</a>
-						<p>
-							前言常见的是对不同文件名进行文件后缀名修改。但今天遇到同一文件名的情况。
-常见windows 或 Linux
-命令： ren *.jpg *.bmp   # 将 jpg 后缀改为 bmp
-
-如：1.jpg 2.txt
-改后为：1.bm...
-						</p>
-					</div>
-
-					<a href="/2019/01/03/批量修改或添加文件后缀名/" title="批量修改或添加文件后缀名">				
-						<img src="/img/post-cover/9.jpg" class="relateImg" alt="批量修改或添加文件后缀名">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2019/01/03/解决背景与文字颜色冲突问题/" title="解决背景与文字颜色冲突问题">
-							解决背景与文字颜色冲突问题
-						</a>
-						<p>
-							解决因背景图颜色，导致文字看不清晰的问题
-前言刚刚创建此博客，被随机背景图和散文诗集吸引。但常常因为背景图颜色过浅，导致白色的文字看不清晰。  
-方法本来想把所有的背景图都换成黑色的。但当我下载了 1500 多张图，准备从中挑出所有的...
-						</p>
-					</div>
-
-					<a href="/2019/01/03/解决背景与文字颜色冲突问题/" title="解决背景与文字颜色冲突问题">				
-						<img src="/img/post-cover/8.jpg" class="relateImg" alt="解决背景与文字颜色冲突问题">
+					<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇">				
+						<img src="/img/post-cover/4.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之安装篇">
 					</a>
 				</li>											
 		
