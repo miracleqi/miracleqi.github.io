@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      在 alpine 上编译 openssl 遇到的问题 | 齐健的博客
+      要想 lua 中调用 c 函数，c 文件如何修改？ | 齐健的博客
     
   </title>
   <meta name="author" content="MiracleQi-温柔魔君">
@@ -114,7 +114,7 @@
 				<!-- Page title -->
 				<p>
 					
-						当前文章&nbsp;:&nbsp;《在 alpine 上编译 openssl 遇到的问题》
+						当前文章&nbsp;:&nbsp;《要想 lua 中调用 c 函数，c 文件如何修改？》
 					
 				</p>
 				<!-- Progress bar -->
@@ -277,8 +277,8 @@
 	
 	<div class="article-title">
 		
-	<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" itemprop="url">
-		在 alpine 上编译 openssl 遇到的问题
+	<a href="/2016/02/25/要想-lua-中调用-c-函数，c-文件如何修改？/" itemprop="url">
+		要想 lua 中调用 c 函数，c 文件如何修改？
 	</a>
 
 	</div>
@@ -287,16 +287,16 @@
 		<span>
 			
 	发布于
-	<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" itemprop="url">
-		<time datetime="2019-01-08T02:38:00.000Z" itemprop="datePublished">
-	  		2019-01-08
+	<a href="/2016/02/25/要想-lua-中调用-c-函数，c-文件如何修改？/" itemprop="url">
+		<time datetime="2016-02-25T01:27:00.000Z" itemprop="datePublished">
+	  		2016-02-25
 	  </time>
 	</a> 
 
 	/
 	更新于
-	<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" itemprop="url">
-		<time datetime="2019-01-08T02:38:00.000Z" itemprop="dateUpdated">
+	<a href="/2016/02/25/要想-lua-中调用-c-函数，c-文件如何修改？/" itemprop="url">
+		<time datetime="2016-02-25T01:27:00.000Z" itemprop="dateUpdated">
 	  		2019-01-08
 	  </time>
 	</a> 	
@@ -307,12 +307,8 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/openssl/" class=" ">
-			openssl
-		</a>
-	
-		<a href="/tags/openwaf/" class=" ">
-			openwaf
+		<a href="/tags/lua/" class=" ">
+			lua
 		</a>
 	
 		
@@ -320,7 +316,7 @@
 		/
 		
 
-    <span class="leancloud_visitors" id="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/_visitors" data-url="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" data-title="在 alpine 上编译 openssl 遇到的问题">
+    <span class="leancloud_visitors" id="/2016/02/25/要想-lua-中调用-c-函数，c-文件如何修改？/_visitors" data-url="/2016/02/25/要想-lua-中调用-c-函数，c-文件如何修改？/" data-title="要想 lua 中调用 c 函数，c 文件如何修改？">
         热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
     </span>
@@ -329,7 +325,7 @@
 
 
 
-    <span class="leancloud_likes" id="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/_likes" data-url="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" data-title="在 alpine 上编译 openssl 遇到的问题" rel="unlike">
+    <span class="leancloud_likes" id="/2016/02/25/要想-lua-中调用-c-函数，c-文件如何修改？/_likes" data-url="/2016/02/25/要想-lua-中调用-c-函数，c-文件如何修改？/" data-title="要想 lua 中调用 c 函数，c 文件如何修改？" rel="unlike">
         喜欢
         <i class="fa fa-heart"></i>
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -338,31 +334,50 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<p>alpine 上编译 openssl (v1.1.1) 遇到 ucontext 报错</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天在 alpine 基础上编译 <a href="#https://github.com/titansec/openwaf">openwaf</a>，编到 openssl 时，报 ucontext 相关错误。</p>
-<h2 id="ucontext-报错"><a href="#ucontext-报错" class="headerlink" title="ucontext 报错"></a>ucontext 报错</h2><p>编译 openssl</p>
-<pre><code># ./config
-# make &amp;&amp; make install
-</code></pre><p>错误描述：</p>
-<pre><code>./libcrypto.so: warning: gethostbyname is obsolescent, use getnameinfo() instead.
-./libcrypto.so: undefined reference to getcontext&#39; 
-./libcrypto.so: undefined reference to setcontext&#39;
-./libcrypto.so: undefined reference to `makecontext&#39;
-</code></pre><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>没有使用 no-async 参数，加上之后就可以了。</p>
-<pre><code># ./config no-async
-# make &amp;&amp; make install
-</code></pre><p>no-async: 交叉编译工具链没有提供GNU C的ucontext库</p>
-<p>PS：<a href="#https://github.com/openssl/openssl/issues/1607">openssl 相关 issue</a></p>
-<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>openssl 交叉编译过程中会遇到很多问题，这里罗列其他几个参数：</p>
-<pre><code>no-asm:    在交叉编译过程中不使用汇编代码代码加速编译过程.原因是它的汇编代码是对arm格式不支持的。
-shared: 生成动态连接库。
-no-async: 交叉编译工具链没有提供GNU C的ucontext库
--–prefix=: 安装路径，编译完成install后将有bin，lib，include等文件夹
--–cross-compile-prefix=: 交叉编译工具
-</code></pre>	
+		<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>想要像 cjson，gd，libinjection 一样，代码是用 c 实现的，却在 openresty 的 lua 模块中被调用。<br>下面以添加 ssdeep.so 为例，其中有 fuzzy_hash_buf 和 fuzzy_compare 两个接口函数。<br>lua 版本为 5.1.4，openresty 版本为 1.9.7.1  </p>
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h3 id="添加头文件"><a href="#添加头文件" class="headerlink" title="添加头文件"></a>添加头文件</h3><pre><code>//#include &lt;lua.hpp&gt;
+
+#include &lt;lauxlib.h&gt;
+
+//#include &lt;lualib.h&gt;
+</code></pre><p>某些资料中显示要添加三个头，不过编译时显示lua.hpp找不到</p>
+<p>我添加的 ssdeep 只需要 lauxlib.h 即可</p>
+<h3 id="修改接口函数"><a href="#修改接口函数" class="headerlink" title="修改接口函数"></a>修改接口函数</h3><p>原有 fuzzy_hash_buf 函数如下:</p>
+<pre><code>char* fuzzy_hash_buf(const unsigned char *buf, uint32_t buf_len)
+{
+     ......
+     return result;
+}
+</code></pre><p>现改为</p>
+<pre><code>int fuzzy_hash_buf_m(lua_State* L) {  //前期加上了extern &quot;C&quot;，但是会报错
+    const unsigned char *buf = (const unsigned char *)lua_tostring(L, 1);
+    uint32_t buf_len = (uint32_t)lua_tonumber(L, 2); 
+    char   result[FUZZY_MAX_RESULT];
+    .......
+    lua_pushstring(L, result); //返回result值
+    return 1; //返回结果的数量
+}
+</code></pre><p>注解:<br>所有注册到 Lua 中的接口函数都具有相同的原型，该原型就是定义在 lua.h 中的 lua_CFunction:</p>
+<pre><code>typedef int (*lua_CFunction) (lua_State *L);
+</code></pre><p>接口函数返回值表示返回结果的数量<br>返回值通过 lua_pushstring 或者 lua_pushnumber 注入 L 中</p>
+<h3 id="接口函数列表"><a href="#接口函数列表" class="headerlink" title="接口函数列表"></a>接口函数列表</h3><pre><code>static LuaL_reg libs[] = { //开始为LuaL_Reg会报错，原因是lua版本的问题
+    {&quot;fuzzy_hash_buf&quot;, fuzzy_hash_buf},  
+    {NULL, NULL} 
+
+}
+</code></pre><h3 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h3><pre><code>int luaopen_ssdeep(lua_State* L)  
+{  
+    const char* libName = &quot;ssdeep&quot;;    
+    luaL_register(L, libName, libs);   
+    return 1; 
+}
+</code></pre><p>luaL_register 根据给定的名称 (“ssdeep”) 创建（或复用）一个 table，并用数组 libs 中的信息填充这个 table。在 LuaL_register 返回时，会将这个 table 留在栈中。最后返回 1，表示将这个 table 返回给 lua。</p>
+<h3 id="编译及调用"><a href="#编译及调用" class="headerlink" title="编译及调用"></a>编译及调用</h3><p>C 模块完成后，必须将其链接到解释器。如果 Lua 解释器支持动态链接的话，那么最简便的方法就是使用动态链接机制。在这种情况中，必须将 C 代码编译成动态链接库，并将这个库放入 C 路径（LUA_CPATH）中。然后便可以用 require 从 Lua 中加载这个模块: require  “ssdeep” 会将动态库 ssdeep 链接到 Lua，并会寻找 luaopen_ssdeep 函数，将其注册为一个 Lua 函数，然后调用它以打开模块。</p>
+<p>如果解释器不支持动态链接，那么就必须用新的模块来重新编译 Lua。此外，还需要以某种方式来告诉解释器，它应在打开一个新状态的同时打开这个模块。最简单的做法是，将 luaopen_ssdeep 加到 luaL_openlibs 会打开的标准库列表中，这个列表在文件 linit.c中。</p>
+	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/post-cover/15.jpg"></div>
+	<div id="current-post-cover" data-scr="/img/post-cover/17.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -376,14 +391,10 @@ no-async: 交叉编译工具链没有提供GNU C的ucontext库
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
-			<a href="/2019/01/08/删除非目录文件/" title="删除非目录文件" rel="prev">
+			<a href="/2016/02/25/压缩与解压缩/" title="压缩与解压缩" rel="prev">
 				&laquo;上一篇
 			</a>
 		
-		
-			<a href="/2019/01/04/用-hugo-创建自己的博客/" title="用 hugo 创建自己的博客" rel="next">
-				下一篇&raquo;
-			</a>
 			
 	</span>
       		
@@ -411,6 +422,24 @@ no-async: 交叉编译工具链没有提供GNU C的ucontext库
 
 					<a href="/2019/01/08/删除非目录文件/" title="删除非目录文件">				
 						<img src="/img/post-cover/16.jpg" class="relateImg" alt="删除非目录文件">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" title="在 alpine 上编译 openssl 遇到的问题">
+							在 alpine 上编译 openssl 遇到的问题
+						</a>
+						<p>
+							alpine 上编译 openssl (v1.1.1) 遇到 ucontext 报错
+前言今天在 alpine 基础上编译 openwaf，编到 openssl 时，报 ucontext 相关错误。
+ucontext 报错编译 ope...
+						</p>
+					</div>
+
+					<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" title="在 alpine 上编译 openssl 遇到的问题">				
+						<img src="/img/post-cover/15.jpg" class="relateImg" alt="在 alpine 上编译 openssl 遇到的问题">
 					</a>
 				</li>											
 		
@@ -467,22 +496,6 @@ tar.gz 或 tgz或格式压缩:  tar -zcvf filename.tar.gz dirname1 dir...
 
 					<a href="/2016/02/25/压缩与解压缩/" title="压缩与解压缩">				
 						<img src="/img/post-cover/13.jpg" class="relateImg" alt="压缩与解压缩">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2016/02/25/要想-lua-中调用-c-函数，c-文件如何修改？/" title="要想 lua 中调用 c 函数，c 文件如何修改？">
-							要想 lua 中调用 c 函数，c 文件如何修改？
-						</a>
-						<p>
-							背景想要像 cjson，gd，libinjection 一样，代码是用 c 实现的，却在 openresty 的 lua 模块中被调用。下面以添加 ssdeep.so 为例，其中有 fuzzy_hash_buf 和 fuzzy_com...
-						</p>
-					</div>
-
-					<a href="/2016/02/25/要想-lua-中调用-c-函数，c-文件如何修改？/" title="要想 lua 中调用 c 函数，c 文件如何修改？">				
-						<img src="/img/post-cover/17.jpg" class="relateImg" alt="要想 lua 中调用 c 函数，c 文件如何修改？">
 					</a>
 				</li>											
 		

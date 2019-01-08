@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      在 alpine 上编译 openssl 遇到的问题 | 齐健的博客
+      openresty 各组件依赖 | 齐健的博客
     
   </title>
   <meta name="author" content="MiracleQi-温柔魔君">
@@ -114,7 +114,7 @@
 				<!-- Page title -->
 				<p>
 					
-						当前文章&nbsp;:&nbsp;《在 alpine 上编译 openssl 遇到的问题》
+						当前文章&nbsp;:&nbsp;《openresty 各组件依赖》
 					
 				</p>
 				<!-- Progress bar -->
@@ -277,8 +277,8 @@
 	
 	<div class="article-title">
 		
-	<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" itemprop="url">
-		在 alpine 上编译 openssl 遇到的问题
+	<a href="/2016/06/17/openresty-各组件依赖/" itemprop="url">
+		openresty 各组件依赖
 	</a>
 
 	</div>
@@ -287,17 +287,17 @@
 		<span>
 			
 	发布于
-	<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" itemprop="url">
-		<time datetime="2019-01-08T02:38:00.000Z" itemprop="datePublished">
-	  		2019-01-08
+	<a href="/2016/06/17/openresty-各组件依赖/" itemprop="url">
+		<time datetime="2016-06-17T02:45:00.000Z" itemprop="datePublished">
+	  		2016-06-17
 	  </time>
 	</a> 
 
 	/
 	更新于
-	<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" itemprop="url">
-		<time datetime="2019-01-08T02:38:00.000Z" itemprop="dateUpdated">
-	  		2019-01-08
+	<a href="/2016/06/17/openresty-各组件依赖/" itemprop="url">
+		<time datetime="2016-06-17T02:45:00.000Z" itemprop="dateUpdated">
+	  		2019-01-09
 	  </time>
 	</a> 	
 
@@ -307,12 +307,20 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/openssl/" class=" ">
-			openssl
+		<a href="/tags/nginx/" class=" ">
+			nginx
 		</a>
 	
-		<a href="/tags/openwaf/" class=" ">
-			openwaf
+		<a href="/tags/openresty/" class=" ">
+			openresty
+		</a>
+	
+		<a href="/tags/modsecurity/" class=" ">
+			modsecurity
+		</a>
+	
+		<a href="/tags/gd/" class=" ">
+			gd
 		</a>
 	
 		
@@ -320,7 +328,7 @@
 		/
 		
 
-    <span class="leancloud_visitors" id="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/_visitors" data-url="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" data-title="在 alpine 上编译 openssl 遇到的问题">
+    <span class="leancloud_visitors" id="/2016/06/17/openresty-各组件依赖/_visitors" data-url="/2016/06/17/openresty-各组件依赖/" data-title="openresty 各组件依赖">
         热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
     </span>
@@ -329,7 +337,7 @@
 
 
 
-    <span class="leancloud_likes" id="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/_likes" data-url="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" data-title="在 alpine 上编译 openssl 遇到的问题" rel="unlike">
+    <span class="leancloud_likes" id="/2016/06/17/openresty-各组件依赖/_likes" data-url="/2016/06/17/openresty-各组件依赖/" data-title="openresty 各组件依赖" rel="unlike">
         喜欢
         <i class="fa fa-heart"></i>
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -338,31 +346,140 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<p>alpine 上编译 openssl (v1.1.1) 遇到 ucontext 报错</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天在 alpine 基础上编译 <a href="#https://github.com/titansec/openwaf">openwaf</a>，编到 openssl 时，报 ucontext 相关错误。</p>
-<h2 id="ucontext-报错"><a href="#ucontext-报错" class="headerlink" title="ucontext 报错"></a>ucontext 报错</h2><p>编译 openssl</p>
-<pre><code># ./config
-# make &amp;&amp; make install
-</code></pre><p>错误描述：</p>
-<pre><code>./libcrypto.so: warning: gethostbyname is obsolescent, use getnameinfo() instead.
-./libcrypto.so: undefined reference to getcontext&#39; 
-./libcrypto.so: undefined reference to setcontext&#39;
-./libcrypto.so: undefined reference to `makecontext&#39;
-</code></pre><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>没有使用 no-async 参数，加上之后就可以了。</p>
-<pre><code># ./config no-async
-# make &amp;&amp; make install
-</code></pre><p>no-async: 交叉编译工具链没有提供GNU C的ucontext库</p>
-<p>PS：<a href="#https://github.com/openssl/openssl/issues/1607">openssl 相关 issue</a></p>
-<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>openssl 交叉编译过程中会遇到很多问题，这里罗列其他几个参数：</p>
-<pre><code>no-asm:    在交叉编译过程中不使用汇编代码代码加速编译过程.原因是它的汇编代码是对arm格式不支持的。
-shared: 生成动态连接库。
-no-async: 交叉编译工具链没有提供GNU C的ucontext库
--–prefix=: 安装路径，编译完成install后将有bin，lib，include等文件夹
--–cross-compile-prefix=: 交叉编译工具
+		<p>openresty 各组件(modsecurity、zlib、openssl、pcre、lua、gd、tools等)安装。</p>
+<h2 id="openresty"><a href="#openresty" class="headerlink" title="openresty"></a>openresty</h2><p><a href="https://openresty.org/download/openresty-1.9.15.1.tar.gz" target="_blank" rel="noopener">https://openresty.org/download/openresty-1.9.15.1.tar.gz</a></p>
+<p>目前最新版本 1.9.15.1 支持动态加载模块</p>
+<h2 id="nginx-依赖"><a href="#nginx-依赖" class="headerlink" title="nginx 依赖"></a>nginx 依赖</h2><h3 id="openssl-–-ssl依赖"><a href="#openssl-–-ssl依赖" class="headerlink" title="openssl – ssl依赖"></a>openssl – ssl依赖</h3><p><a href="http://www.openssl.org/source/openssl-1.0.2h.tar.gz" target="_blank" rel="noopener">http://www.openssl.org/source/openssl-1.0.2h.tar.gz</a>  </p>
+<p>目前最新版本 1.0.2h</p>
+<pre><code>./config  
+make &amp;&amp; make install
+openssl version      # 验证版本
+</code></pre><h3 id="pcre-–-正则依赖"><a href="#pcre-–-正则依赖" class="headerlink" title="pcre – 正则依赖"></a>pcre – 正则依赖</h3><p><a href="http://sourceforge.net/projects/pcre/files/pcre/8.38/pcre-8.38.tar.gz" target="_blank" rel="noopener">http://sourceforge.net/projects/pcre/files/pcre/8.38/pcre-8.38.tar.gz</a>  </p>
+<p>目前最新版本是 8.38</p>
+<pre><code>./configure --enable-jit  
+make &amp;&amp; make isntall
+pcre-config --version      # 验证版本
+</code></pre><h3 id="zlib-–-压缩依赖"><a href="#zlib-–-压缩依赖" class="headerlink" title="zlib – 压缩依赖"></a>zlib – 压缩依赖</h3><p><a href="http://zlib.net/zlib-1.2.8.tar.gz" target="_blank" rel="noopener">http://zlib.net/zlib-1.2.8.tar.gz</a></p>
+<p>最新版本是 1.2.8，13 年更新</p>
+<pre><code>./configure  
+make &amp;&amp; make install
+</code></pre><p>如果没有达到目的，还可以</p>
+<pre><code>apt-get install zlib1g zlib1g-dev
+</code></pre><h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><h3 id="ssdeep"><a href="#ssdeep" class="headerlink" title="ssdeep"></a>ssdeep</h3><p>暂时用不到，已改成 lua_ssdeep</p>
+<h3 id="clamav"><a href="#clamav" class="headerlink" title="clamav"></a>clamav</h3><pre><code>apt-get install clamav
+</code></pre><h3 id="lua-gd"><a href="#lua-gd" class="headerlink" title="lua_gd"></a>lua_gd</h3><h4 id="gd"><a href="#gd" class="headerlink" title="gd"></a>gd</h4><p><a href="https://bitbucket.org/libgd/gd-libgd/downloads" target="_blank" rel="noopener">https://bitbucket.org/libgd/gd-libgd/downloads</a></p>
+<p>手动下载libgd-2.1.1</p>
+<p>ps:尝试apt-get install libgd3 但编译时提示找不到gd.h</p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><h4 id="jpeg"><a href="#jpeg" class="headerlink" title="jpeg"></a>jpeg</h4><p><a href="http://www.ijg.org/files/" target="_blank" rel="noopener">http://www.ijg.org/files/</a></p>
+<p>下载最新的 jpegsrc.v9b.tar.gz</p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><p>这里直接 apt-get install libjpeg-dev</p>
+<h4 id="lpng-amp-freetype"><a href="#lpng-amp-freetype" class="headerlink" title="lpng  &amp; freetype"></a>lpng  &amp; freetype</h4><p><a href="http://jaist.dl.sourceforge.net/project/libpng/" target="_blank" rel="noopener">http://jaist.dl.sourceforge.net/project/libpng/</a></p>
+<p>这里下载 libpng16/1.6.16/libpng-1.6.16.tar.gz</p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><p><a href="http://ftp.twaren.net/Unix/NonGNU/freetype/" target="_blank" rel="noopener">http://ftp.twaren.net/Unix/NonGNU/freetype/</a></p>
+<p>这里下载 freetype-2.5.5.tar.gz</p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><p>或者直接 apt-get install libfreetype6-dev 会自动安装依赖 libpng12-dev</p>
+<h4 id="libtiff"><a href="#libtiff" class="headerlink" title="libtiff"></a>libtiff</h4><pre><code>apt-get install libtiff5-dev
+</code></pre><p>实测 lua_gd 处理 tiff 图片无效，因此不需安装</p>
+<h4 id="libgif"><a href="#libgif" class="headerlink" title="libgif"></a>libgif</h4><pre><code>apt-get install libgif-dev
+</code></pre><p>gd 对 gif 处理并不友好，因此需要处理 gif 图片，推荐 imagick</p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><pre><code>apt-get install libvpx-dev
+apt-get install libxpm-dev
+apt-get install libfontconfig1-dev
+
+我这里都用不到，就不安装了
+</code></pre><h2 id="libinjection"><a href="#libinjection" class="headerlink" title="libinjection"></a>libinjection</h2><p>编译 libinjection 需要 swig 支持</p>
+<pre><code>apt-get install swig
+</code></pre><h2 id="modsecurity"><a href="#modsecurity" class="headerlink" title="modsecurity"></a>modsecurity</h2><h3 id="apxs"><a href="#apxs" class="headerlink" title="apxs"></a>apxs</h3><pre><code>apt-get install apache2-dev (apxs)
+</code></pre><h3 id="pcre"><a href="#pcre" class="headerlink" title="pcre"></a>pcre</h3><p>同上</p>
+<h3 id="apr"><a href="#apr" class="headerlink" title="apr"></a>apr</h3><p><a href="http://apr.apache.org/download.cgi" target="_blank" rel="noopener">http://apr.apache.org/download.cgi</a>  下载 apr 与 apr-util</p>
+<h4 id="apr-1-5-2"><a href="#apr-1-5-2" class="headerlink" title="apr-1.5.2"></a>apr-1.5.2</h4><pre><code> ./configure   
+make &amp;&amp; make install
+</code></pre><h4 id="apr-util-1-5-4"><a href="#apr-util-1-5-4" class="headerlink" title="apr-util-1.5.4"></a>apr-util-1.5.4</h4><pre><code>./configure --with-apr=/soft/apr-1.5.2 
+make &amp;&amp; make install
+</code></pre><h3 id="autogen-sh-依赖"><a href="#autogen-sh-依赖" class="headerlink" title="./autogen.sh 依赖"></a>./autogen.sh 依赖</h3><p> libtoolize autoreconf autoheader automake autoconf 均为 not found</p>
+<h4 id="libtool"><a href="#libtool" class="headerlink" title="libtool"></a>libtool</h4><p><a href="ftp://ftp.gnu.org/gnu/libtool/" target="_blank" rel="noopener">ftp://ftp.gnu.org/gnu/libtool/</a></p>
+<p>本次下载libtool-2.4.6.tar.gz</p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><h4 id="automake"><a href="#automake" class="headerlink" title="automake"></a>automake</h4><p><a href="ftp://ftp.gnu.org/gnu/automake/" target="_blank" rel="noopener">ftp://ftp.gnu.org/gnu/automake/</a></p>
+<p>本次下载automake-1.9.tar.gz</p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><h4 id="autoconf"><a href="#autoconf" class="headerlink" title="autoconf"></a>autoconf</h4><p>包含 autoheader、autoreconf 与 autom4te 等</p>
+<p><a href="http://ftp.gnu.org/gnu/autoconf/" target="_blank" rel="noopener">http://ftp.gnu.org/gnu/autoconf/</a></p>
+<p>本次下载autoconf-2.69.tar.gz</p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><h4 id="yajl"><a href="#yajl" class="headerlink" title="yajl"></a>yajl</h4><p><a href="http://lloyd.github.io/yajl/" target="_blank" rel="noopener">http://lloyd.github.io/yajl/</a></p>
+<p>本次下载 yajl-2.1.0.tar.gz</p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><p>依赖 cmake</p>
+<p><a href="https://cmake.org/download/" target="_blank" rel="noopener">https://cmake.org/download/</a></p>
+<p>本次下载 cmake-3.6.0-rc2.tar.gz</p>
+<pre><code>./configure
+make &amp;＆ make install
+</code></pre><h4 id="lua5-1"><a href="#lua5-1" class="headerlink" title="lua5.1"></a>lua5.1</h4><p><a href="http://www.lua.org/ftp/" target="_blank" rel="noopener">http://www.lua.org/ftp/</a></p>
+<p>当前最新版本 5.3.3，本次下载 5.1</p>
+<pre><code>make linux &amp;&amp; make install
+</code></pre><p>若提示找不到readline头文件</p>
+<pre><code>apt-get install libreadline6 libreadline6-dev
+</code></pre><p>若提示找不到-lncurses</p>
+<pre><code>apt-get install libncurses5 libncurses5-dev
+</code></pre><p>ps:若需要重编 lua，要先 make clean</p>
+<h4 id="libxml2"><a href="#libxml2" class="headerlink" title="libxml2"></a>libxml2</h4><pre><code>apt-get install libxml2 libxml2-dev
+</code></pre><p>ps: ./autogen.sh 时，提示 PKG_PROG_PKG_CONFIG 找不到</p>
+<p>在确认 pkg-config 安装，且有 pkg.m4 后意识到系统有两套 automake</p>
+<p>终端输入aclocal –print-ac-dir</p>
+<p>得到 /usr/share/aclocal</p>
+<p>但是 libtool.m4 却在 /usr/local/share/aclocal</p>
+<p>如果无法去掉“非标准的”automake，只需</p>
+<pre><code>ACLOCAL_PATH=/usr/share/aclocal ./autogen.sh
+</code></pre><p>或者 </p>
+<pre><code>export ACLOCAL_PATH=/usr/share/aclocal
+./autogen.sh
+</code></pre><p>但需要的文件可能分别在两个路径下，</p>
+<p>因此我先将 /usr/local/share/aclocal/ 下文件拷贝到 /usr/share/aclocal 下</p>
+<p><a href="#http://www.gnu.org/software/automake/manual/html_node/Macro-Search-Path.html#Macro-Search-Path">ACLOCAL参考文档</a></p>
+<h4 id="编译-modsecurity"><a href="#编译-modsecurity" class="headerlink" title="编译 modsecurity"></a>编译 modsecurity</h4><p><a href="https://github.com/SpiderLabs/ModSecurity/tree/nginx_refactoring" target="_blank" rel="noopener">https://github.com/SpiderLabs/ModSecurity/tree/nginx_refactoring</a></p>
+<p>最新版本 2.9.1</p>
+<pre><code>./configure --with-apxs=/usr/bin/apxs  --with-pcre=/usr/local/bin/pcre-config --enable-pcre-match-limit=1500 --enable-pcre-match-limit-recursion=1500 --enable-pcre-study  --enable-twaf-var  --enable-pcre-jit  --enable-lua-cache --enable-standalone-module  --with-apr=/usr/local/apr  --with-lua --with-lua=/usr/local/lua​  with-apu=/usr/bin/apu-1-config --disable-mlogc
+</code></pre><h2 id="openresty-tools"><a href="#openresty-tools" class="headerlink" title="openresty tools"></a>openresty tools</h2><h3 id="nginx-systemtap-toolkit-amp-stapxx"><a href="#nginx-systemtap-toolkit-amp-stapxx" class="headerlink" title="nginx-systemtap-toolkit &amp; stapxx"></a>nginx-systemtap-toolkit &amp; stapxx</h3><p><a href="https://github.com/openresty/openresty-systemtap-toolkit" target="_blank" rel="noopener">https://github.com/openresty/openresty-systemtap-toolkit</a></p>
+<p><a href="https://github.com/openresty/stapxx" target="_blank" rel="noopener">https://github.com/openresty/stapxx</a></p>
+<h4 id="systemtap"><a href="#systemtap" class="headerlink" title="systemtap"></a>systemtap</h4><p>systemtap 要求版本在 2.1 以上</p>
+<p><a href="https://sourceware.org/systemtap/ftp/releases/systemtap-2.6.tar.gz" target="_blank" rel="noopener">https://sourceware.org/systemtap/ftp/releases/systemtap-2.6.tar.gz</a></p>
+<p>systemtap <a href="http://openresty.org/en/build-systemtap.html" target="_blank" rel="noopener">安装详细</a>（包括依赖）</p>
+<ol>
+<li><p>kernel-debuginfo</p>
+<p><a href="https://packages.debian.org/jessie/amd64/linux-image-3.16.0-4-amd64-dbg/download" target="_blank" rel="noopener">https://packages.debian.org/jessie/amd64/linux-image-3.16.0-4-amd64-dbg/download</a><br>或：</p>
+<pre><code>apt-get install linux-image-$(uname -r)-dbg
+</code></pre></li>
+<li>kernel-devel</li>
+</ol>
+<pre><code>apt-get install linux-headers-$(uname -r)
+</code></pre><h4 id="utrace"><a href="#utrace" class="headerlink" title="utrace"></a>utrace</h4><p>Linux kernels 版本低于 3.5​，则需打utrace patch</p>
+<h4 id="perl"><a href="#perl" class="headerlink" title="perl"></a>perl</h4><p>perl 要求版本在 5.6.1 以上</p>
+<h4 id="kernel-debuginfo-amp-kernel-devel"><a href="#kernel-debuginfo-amp-kernel-devel" class="headerlink" title="kernel-debuginfo &amp; kernel-devel"></a>kernel-debuginfo &amp; kernel-devel</h4><p>要对应 kernel 版本</p>
+<h3 id="FlameGraph"><a href="#FlameGraph" class="headerlink" title="FlameGraph"></a>FlameGraph</h3><p><a href="http://dtrace.org/blogs/brendan/2011/12/16/flame-graphs/​" target="_blank" rel="noopener">http://dtrace.org/blogs/brendan/2011/12/16/flame-graphs/​</a></p>
+<p>或者</p>
+<p><a href="https://github.com/brendangregg/FlameGraph" target="_blank" rel="noopener">https://github.com/brendangregg/FlameGraph</a></p>
+<p>制作火焰图</p>
+<h2 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h2><p><a href="http://redis.io/" target="_blank" rel="noopener">http://redis.io/</a></p>
+<p>目前最新版本为3.2.1</p>
+<pre><code>make
+./src/redis-server redis.conf
 </code></pre>	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/post-cover/15.jpg"></div>
+	<div id="current-post-cover" data-scr="/img/post-cover/18.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -376,12 +493,12 @@ no-async: 交叉编译工具链没有提供GNU C的ucontext库
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
-			<a href="/2019/01/08/删除非目录文件/" title="删除非目录文件" rel="prev">
+			<a href="/2016/08/16/docker从0开始/" title="docker从0开始" rel="prev">
 				&laquo;上一篇
 			</a>
 		
 		
-			<a href="/2019/01/04/用-hugo-创建自己的博客/" title="用 hugo 创建自己的博客" rel="next">
+			<a href="/2016/02/25/压缩与解压缩/" title="压缩与解压缩" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -417,6 +534,24 @@ no-async: 交叉编译工具链没有提供GNU C的ucontext库
 		
 				<li>
 					<div>
+						<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" title="在 alpine 上编译 openssl 遇到的问题">
+							在 alpine 上编译 openssl 遇到的问题
+						</a>
+						<p>
+							alpine 上编译 openssl (v1.1.1) 遇到 ucontext 报错
+前言今天在 alpine 基础上编译 openwaf，编到 openssl 时，报 ucontext 相关错误。
+ucontext 报错编译 ope...
+						</p>
+					</div>
+
+					<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" title="在 alpine 上编译 openssl 遇到的问题">				
+						<img src="/img/post-cover/15.jpg" class="relateImg" alt="在 alpine 上编译 openssl 遇到的问题">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
 						<a href="/2019/01/03/批量修改或添加文件后缀名/" title="批量修改或添加文件后缀名">
 							批量修改或添加文件后缀名
 						</a>
@@ -432,23 +567,6 @@ no-async: 交叉编译工具链没有提供GNU C的ucontext库
 
 					<a href="/2019/01/03/批量修改或添加文件后缀名/" title="批量修改或添加文件后缀名">				
 						<img src="/img/post-cover/9.jpg" class="relateImg" alt="批量修改或添加文件后缀名">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2016/06/17/openresty-各组件依赖/" title="openresty 各组件依赖">
-							openresty 各组件依赖
-						</a>
-						<p>
-							openresty 各组件(modsecurity、zlib、openssl、pcre、lua、gd、tools等)安装。
-openrestyhttps://openresty.org/download/openresty-1.9.1...
-						</p>
-					</div>
-
-					<a href="/2016/06/17/openresty-各组件依赖/" title="openresty 各组件依赖">				
-						<img src="/img/post-cover/18.jpg" class="relateImg" alt="openresty 各组件依赖">
 					</a>
 				</li>											
 		
@@ -483,6 +601,25 @@ tar.gz 或 tgz或格式压缩:  tar -zcvf filename.tar.gz dirname1 dir...
 
 					<a href="/2016/02/25/要想-lua-中调用-c-函数，c-文件如何修改？/" title="要想 lua 中调用 c 函数，c 文件如何修改？">				
 						<img src="/img/post-cover/17.jpg" class="relateImg" alt="要想 lua 中调用 c 函数，c 文件如何修改？">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2017/04/19/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">
+							深入研究 OpenWAF 之 nginx 配置
+						</a>
+						<p>
+							名称此文档将详细描述 OpenWAF 的 nginx 配置文件 /etc/ngx_openwaf.conf 中每一项配置
+以及接入规则（access_rule）与 nginx 配置的关联
+Table of Contents
+twaf_...
+						</p>
+					</div>
+
+					<a href="/2017/04/19/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">				
+						<img src="/img/post-cover/6.jpg" class="relateImg" alt="深入研究 OpenWAF 之 nginx 配置">
 					</a>
 				</li>											
 		
@@ -562,23 +699,6 @@ Installatio...
 
 					<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">				
 						<img src="/img/post-cover/3.jpg" class="relateImg" alt="OpenWAF 使用手册">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">
-							Microsoft Search 磁盘空间不足
-						</a>
-						<p>
-							Microsoft Search 导致 C 盘空间不足.
-前言Windows Search的功能是为我们电脑中的文件、电子邮件和其他内容提供内容索引、属性缓存和搜索结果。Windows Search默认是开机启动的，它会利用计算机的空...
-						</p>
-					</div>
-
-					<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">				
-						<img src="/img/post-cover/1.jpg" class="relateImg" alt="Microsoft Search 磁盘空间不足">
 					</a>
 				</li>											
 		
