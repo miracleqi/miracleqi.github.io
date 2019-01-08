@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      轻松玩转 OpenWAF 之入门篇 | 齐健的博客
+      docker从0开始 | 齐健的博客
     
   </title>
   <meta name="author" content="MiracleQi-温柔魔君">
@@ -114,7 +114,7 @@
 				<!-- Page title -->
 				<p>
 					
-						当前文章&nbsp;:&nbsp;《轻松玩转 OpenWAF 之入门篇》
+						当前文章&nbsp;:&nbsp;《docker从0开始》
 					
 				</p>
 				<!-- Progress bar -->
@@ -277,8 +277,8 @@
 	
 	<div class="article-title">
 		
-	<a href="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" itemprop="url">
-		轻松玩转 OpenWAF 之入门篇
+	<a href="/2016/08/16/docker从0开始/" itemprop="url">
+		docker从0开始
 	</a>
 
 	</div>
@@ -287,17 +287,17 @@
 		<span>
 			
 	发布于
-	<a href="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" itemprop="url">
-		<time datetime="2018-12-30T19:22:00.000Z" itemprop="datePublished">
-	  		2018-12-31
+	<a href="/2016/08/16/docker从0开始/" itemprop="url">
+		<time datetime="2016-08-16T01:33:00.000Z" itemprop="datePublished">
+	  		2016-08-16
 	  </time>
 	</a> 
 
 	/
 	更新于
-	<a href="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" itemprop="url">
-		<time datetime="2018-12-30T19:22:00.000Z" itemprop="dateUpdated">
-	  		2018-12-31
+	<a href="/2016/08/16/docker从0开始/" itemprop="url">
+		<time datetime="2016-08-16T01:33:00.000Z" itemprop="dateUpdated">
+	  		2019-01-08
 	  </time>
 	</a> 	
 
@@ -307,8 +307,8 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/OpenWAF/" class=" ">
-			OpenWAF
+		<a href="/tags/Docker/" class=" ">
+			Docker
 		</a>
 	
 		
@@ -316,7 +316,7 @@
 		/
 		
 
-    <span class="leancloud_visitors" id="/2018/12/31/轻松玩转-OpenWAF-之入门篇/_visitors" data-url="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" data-title="轻松玩转 OpenWAF 之入门篇">
+    <span class="leancloud_visitors" id="/2016/08/16/docker从0开始/_visitors" data-url="/2016/08/16/docker从0开始/" data-title="docker从0开始">
         热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
     </span>
@@ -325,7 +325,7 @@
 
 
 
-    <span class="leancloud_likes" id="/2018/12/31/轻松玩转-OpenWAF-之入门篇/_likes" data-url="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" data-title="轻松玩转 OpenWAF 之入门篇" rel="unlike">
+    <span class="leancloud_likes" id="/2016/08/16/docker从0开始/_likes" data-url="/2016/08/16/docker从0开始/" data-title="docker从0开始" rel="unlike">
         喜欢
         <i class="fa fa-heart"></i>
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -334,81 +334,92 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<h1 id="名称"><a href="#名称" class="headerlink" title="名称"></a>名称</h1><p>OpenWAF快速入门，即从安装到上线测试的一个快速体验流程，包括安装，发布应用，查看日志，上线测试</p>
-<h1 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h1><ul>
-<li><a href="#安装">安装</a></li>
-<li><a href="#发布应用">发布应用</a></li>
-<li><a href="#日志">日志</a></li>
-<li><a href="#规则">规则</a></li>
-</ul>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><a href="https://github.com/titansec/OpenWAF/blob/master/doc/%E8%BD%BB%E6%9D%BE%E7%8E%A9%E8%BD%ACOpenWAF%E4%B9%8B%E5%AE%89%E8%A3%85%E7%AF%87.md" target="_blank" rel="noopener">请看 OpenWAF 安装文档</a></p>
-<h1 id="发布应用"><a href="#发布应用" class="headerlink" title="发布应用"></a>发布应用</h1><ul>
-<li><a href="#简介">简介</a>  </li>
-<li><a href="#接入规则配置简要说明">接入规则配置简要说明</a>  </li>
-<li><a href="#发布应用举例">发布应用举例</a>  <ul>
-<li><a href="#初次使用openwaf">初次使用OpenWAF</a>  <ul>
-<li><a href="#使用openwaf提供的nginx配置文件">使用OpenWAF提供的nginx配置文件</a>   </li>
-<li><a href="#使用自己原有的nginx配置">使用自己原有的nginx配置</a>  </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><pre><code>发布应用，需要配置 OpenWAF 的接入规则，配置文件位置：/opt/OpenWAF/conf/twaf_access_rule.json
+		<p>docker 的安装及常用命名</p>
+<h2 id="1-安装-Docker"><a href="#1-安装-Docker" class="headerlink" title="1. 安装 Docker"></a>1. 安装 Docker</h2><p>当前环境为 Debian8<br>在 Ubuntu 14.04 及以上版本安装 Docker</p>
+<h3 id="1-1-方法一：简化版安装-docker"><a href="#1-1-方法一：简化版安装-docker" class="headerlink" title="1.1 方法一：简化版安装 docker"></a>1.1 方法一：简化版安装 docker</h3><pre><code>wget -qO- https://get.docker.com/ | sh
+</code></pre><h3 id="1-2-方法二：从-Docker-官方源安装最新版本"><a href="#1-2-方法二：从-Docker-官方源安装最新版本" class="headerlink" title="1.2 方法二：从 Docker 官方源安装最新版本"></a>1.2 方法二：从 Docker 官方源安装最新版本</h3><pre><code>  $ sudo apt-get install apt-transport-https
+  $ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
+  $ sudo bash -c &quot;echo deb https://get.docker.io/ubuntu docker main &gt; /etc/apt/sources.list.d/docker.list&quot;
+  $ sudo apt-get update
+  $ sudo apt-get install -y lxc-docker
+  $ sudo apt-get update -y lxc-docker​​
+</code></pre><h3 id="1-3-方法三：docker-io"><a href="#1-3-方法三：docker-io" class="headerlink" title="1.3 方法三：docker.io"></a>1.3 方法三：docker.io</h3><pre><code>  $ sudo apt-get update
+  $ sudo apt-get install -y docker.io
+  $ sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker
+  $ sudo sed -i &#39;$acomplete -F _docker docker&#39; /etc/bash_completion.d/docker.io
+</code></pre><p>使用 Ubuntu14.04 系统默认自带 docker.io 安装包安装 Docker，这样安装的Docker 版本相对较旧，并不推荐使用。</p>
+<h2 id="2-镜像"><a href="#2-镜像" class="headerlink" title="2. 镜像"></a>2. 镜像</h2><h3 id="2-1-获取镜像"><a href="#2-1-获取镜像" class="headerlink" title="2.1 获取镜像"></a>2.1 获取镜像</h3><pre><code>  $ sudo docker pull NAME[:TAG]
 
-OpenWAF的接入规则和nginx的配置结合，达到发布应用的目的
-</code></pre><h2 id="接入规则配置简要说明"><a href="#接入规则配置简要说明" class="headerlink" title="接入规则配置简要说明"></a>接入规则配置简要说明</h2><pre><code>{
-    &quot;twaf_access_rule&quot;: [
-        &quot;rules&quot;: [                                 -- 数组，注意先后顺序
-            {                                      
-                &quot;ngx_ssl&quot;: false,                  -- nginx认证的开关
-                &quot;ngx_ssl_cert&quot;: &quot;path&quot;,            -- nginx认证所需PEM证书地址
-                &quot;ngx_ssl_key&quot;: &quot;path&quot;,             -- nginx认证所需PEM私钥地址
-                &quot;host&quot;: &quot;www.baidu.com&quot;,           -- 域名，正则匹配
-                &quot;port&quot;: 80,                        -- 端口号（缺省80）
-                &quot;path&quot;: &quot;\/&quot;,                      -- 路径，正则匹配
-                &quot;server_ssl&quot;: false,               -- 后端服务器ssl开关
-                &quot;forward&quot;: &quot;server_5&quot;,             -- 后端服务器upstream名称
-                &quot;forward_addr&quot;: &quot;1.1.1.2&quot;,         -- 后端服务器ip地址
-                &quot;forward_port&quot;: &quot;8080&quot;,            -- 后端服务器端口号（缺省80）
-                &quot;policy&quot;: &quot;policy_uuid&quot;            -- 安全策略ID
-            }
-        ]
-    }
-}
-</code></pre><h2 id="发布应用举例"><a href="#发布应用举例" class="headerlink" title="发布应用举例"></a>发布应用举例</h2><pre><code>接下来结合nginx配置举例讲解接入规则的使用  
-</code></pre><h3 id="初次使用OpenWAF"><a href="#初次使用OpenWAF" class="headerlink" title="初次使用OpenWAF"></a>初次使用OpenWAF</h3><h4 id="使用OpenWAF提供的nginx配置文件"><a href="#使用OpenWAF提供的nginx配置文件" class="headerlink" title="使用OpenWAF提供的nginx配置文件"></a>使用OpenWAF提供的nginx配置文件</h4><pre><code>如果用 OpenWAF 默认的 /etc/ngx_openwaf.conf 配置文件（默认监听 80 端口）
+  如 &#39;$ sudo docker pull ubuntu&#39;，该命令实际下载的是 ubuntu:lastest 镜像
+  此命令相当于 &#39;$ sudo docker pull registry.hub.docker.com/ubuntu:latest&#39; 命令
+  即从默认的注册服务器 registry.hub.docker.com 中的 ubuntu 仓库来下载标记为 latest 的镜像
+</code></pre><h3 id="2-2-查看镜像信息"><a href="#2-2-查看镜像信息" class="headerlink" title="2.2 查看镜像信息"></a>2.2 查看镜像信息</h3><pre><code>  $ sudo docker images          可以列出本地主机上已有的镜像
+  $ sudo docker inspect IMAGEID 可以获取镜像的详细信息
+</code></pre><h3 id="2-3-搜寻镜像"><a href="#2-3-搜寻镜像" class="headerlink" title="2.3 搜寻镜像"></a>2.3 搜寻镜像</h3><pre><code>  $ sudo docker search OpenWAF
 
-修改 /opt/OpenWAF/conf/twaf_access_rule.json 文件中第一条接入规则的&quot;forward_addr&quot;值  
-</code></pre><pre class="line-numbers language-txt"><code class="language-txt">    要防护的服务器为192.168.3.1:80，配置如下：
-        "forward_addr": "192.168.3.1"
+  默认搜索 Docker Hub官方仓库中的镜像
+  支持的参数：
+    --autometad=false 仅显示自动创建的镜像
+    --no-trunc=false    ​输出信息不截断显示
+</code></pre><h3 id="3-docker-enter"><a href="#3-docker-enter" class="headerlink" title="3. docker-enter"></a>3. docker-enter</h3><p>docker run -d 跑起一个容器后，使用 docker-enter 方便进入管理，代码如下：</p>
+<pre><code>#!/bin/sh
+if [ -e $(dirname &quot;$0&quot;)/nsenter ]; then
+    # with boot2docker, nsenter is not in the PATH but it is in the same folder
+    NSENTER=$(dirname &quot;$0&quot;)/nsenter
+else
+    NSENTER=nsenter
+fi
+if [ -z &quot;$1&quot; ]; then
+    echo &quot;Usage: `basename &quot;$0&quot;` CONTAINER [COMMAND [ARG]...]&quot;
+    echo &quot;&quot;
+    echo &quot;Enters the Docker CONTAINER and executes the specified COMMAND.&quot;
+    echo &quot;If COMMAND is not specified, runs an interactive shell in CONTAINER.&quot;
+else
+    PID=$(docker inspect --format &quot;{{.State.Pid}}&quot; &quot;$1&quot;)
+    if [ -z &quot;$PID&quot; ]; then
+         exit 1
+    fi
+    shift
+    OPTS=&quot;--target $PID --mount --uts --ipc --net --pid --&quot;
+    if [ -z &quot;$1&quot; ]; then
+         # No command given.
+         # Use su to clear all host environment variables except for TERM,
+         # initialize the environment variables HOME, SHELL, USER, LOGNAME, PATH,
+         # and start a login shell.
+         &quot;$NSENTER&quot; $OPTS su - root
+    else
+         # Use env to clear all host environment variables.
+         &quot;$NSENTER&quot; $OPTS env --ignore-environment -- &quot;$@&quot;
+    fi
+fi 
+</code></pre><pre><code>  将 docker-enter 放入 /bin/ 目录下
+  chmod +x docker-enter
+  cp -P docker-enter /bin/
+</code></pre><h2 id="4-docker-常用命令"><a href="#4-docker-常用命令" class="headerlink" title="4. docker 常用命令"></a>4. docker 常用命令</h2><h3 id="4-1-docker-build"><a href="#4-1-docker-build" class="headerlink" title="4.1 docker build"></a>4.1 docker build</h3><p>自己经常写 Dockerfile ，常用到 docker build 命令</p>
+<pre><code>创建 openwaf 仓库下的 debian8 镜像    
+docker build -t openwaf:debian8 .
+有时Dockerfile内容无变化，想要重新生成镜像，却不想用 docker 的cache 
+docker build --no-cache -t openwaf:debian8 .
+</code></pre><h3 id="4-2-docker-rm"><a href="#4-2-docker-rm" class="headerlink" title="4.2 docker rm"></a>4.2 docker rm</h3><pre><code>删除未运行的容器
+docker rm container_id1 container_id2
+强制删除容器
+docker rm -f container_id1 container_id2
+删除所有未运行容器
+docker rm $(docker container ls -a -q)
 
-    要防护的服务器为22.22.22.22:8090，配置如下：
-        "forward_addr": "22.22.22.22",
-        "forward_port": 8090
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre><code>此时启动nginx，进行访问即可    
-</code></pre><pre><code>小提示：
-    启动nginx命令  /usr/local/openresty/nginx/sbin/nginx -c /etc/ngx_openwaf.conf  
-    停止nginx命令  /usr/local/openresty/nginx/sbin/nginx -c /etc/ngx_openwaf.conf -s stop
-</code></pre><pre><code>默认SQLI，CC防护都是开启的，可以进行SQL注入或CC攻击，看防护效果  
-
-深入防护，深入测试，请看其他文档  
-</code></pre><h4 id="使用自己原有的nginx配置"><a href="#使用自己原有的nginx配置" class="headerlink" title="使用自己原有的nginx配置"></a>使用自己原有的nginx配置</h4><pre><code>拥有自己的nginx配置，仅需以下两步即可体验OpenWAF防护
-</code></pre><ol>
-<li><p>nginx配置修改<br> 在 nginx 的 http 级别添加如下两行：</p>
-<pre><code> include /opt/OpenWAF/conf/twaf_main.conf;
- include /opt/OpenWAF/conf/twaf_api.conf;
-</code></pre><p> 要防护的 server 或 location 级别添加如下一行：</p>
-<pre><code> include /opt/OpenWAF/conf/twaf_server.conf;
-</code></pre></li>
-<li><p>OpenWAF接入规则修改<br> 修改/opt/OpenWAF/conf/twaf_access_rule.json文件<br> 将”state”值设为false即可</p>
-</li>
-</ol>
-	
+强制删除所有容器
+docker rm -f $(docker container ls -a -q)
+删除镜像
+docker rmi image_id1 image_id2
+</code></pre><h3 id="4-3-docker-images"><a href="#4-3-docker-images" class="headerlink" title="4.3 docker images"></a>4.3 docker images</h3><p>用于查看 docker 镜像仓库</p>
+<h3 id="4-4-docker-ps"><a href="#4-4-docker-ps" class="headerlink" title="4.4 docker ps"></a>4.4 docker ps</h3><pre><code>查看运行中容器
+docker ps
+查看所有容器
+docker ps -a
+</code></pre>	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/post-cover/5.jpg"></div>
+	<div id="current-post-cover" data-scr="/img/post-cover/12.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -422,12 +433,12 @@ OpenWAF的接入规则和nginx的配置结合，达到发布应用的目的
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
-			<a href="/2018/12/31/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置" rel="prev">
+			<a href="/2017/04/07/轻松玩转-OpenWAF-之入门篇/" title="轻松玩转 OpenWAF 之入门篇" rel="prev">
 				&laquo;上一篇
 			</a>
 		
 		
-			<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇" rel="next">
+			<a href="/2016/02/25/压缩与解压缩/" title="压缩与解压缩" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -445,124 +456,36 @@ OpenWAF的接入规则和nginx的配置结合，达到发布应用的目的
 		
 				<li>
 					<div>
-						<a href="/2018/12/31/轻松玩转-OpenWAF-之-ELK/" title="轻松玩转 OpenWAF 之 ELK">
-							轻松玩转 OpenWAF 之 ELK
+						<a href="/2019/01/08/删除非目录文件/" title="删除非目录文件">
+							删除非目录文件
 						</a>
 						<p>
-							名称ELK 是比较火的开源日志分析系统
-本节主要介绍，ELK 的 docker 部署及与 OpenWAF 的结合
-Table of Contents
-ELK简介
-安装
-Elasticsearch
-Logstash
-Kibana
-
-
-O...
+							linux 下删除一个目录下所有的隐藏文件和非目录文件
+前言在 alpine 基础上编译 OpenWAF，想要达到最简，删除无用文件。
+亮点rm -rf `ls -Fa | grep &#39;^\.\w&#39;`   -- 删除隐...
 						</p>
 					</div>
 
-					<a href="/2018/12/31/轻松玩转-OpenWAF-之-ELK/" title="轻松玩转 OpenWAF 之 ELK">				
-						<img src="/img/post-cover/7.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之 ELK">
+					<a href="/2019/01/08/删除非目录文件/" title="删除非目录文件">				
+						<img src="/img/post-cover/16.jpg" class="relateImg" alt="删除非目录文件">
 					</a>
 				</li>											
 		
 		
 				<li>
 					<div>
-						<a href="/2018/12/31/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">
-							深入研究 OpenWAF 之 nginx 配置
+						<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" title="在 alpine 上编译 openssl 遇到的问题">
+							在 alpine 上编译 openssl 遇到的问题
 						</a>
 						<p>
-							名称此文档将详细描述 OpenWAF 的 nginx 配置文件 /etc/ngx_openwaf.conf 中每一项配置
-以及接入规则（access_rule）与 nginx 配置的关联
-Table of Contents
-twaf_...
+							alpine 上编译 openssl (v1.1.1) 遇到 ucontext 报错
+前言今天在 alpine 基础上编译 openwaf，编到 openssl 时，报 ucontext 相关错误。
+ucontext 报错编译 ope...
 						</p>
 					</div>
 
-					<a href="/2018/12/31/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">				
-						<img src="/img/post-cover/6.jpg" class="relateImg" alt="深入研究 OpenWAF 之 nginx 配置">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇">
-							轻松玩转 OpenWAF 之安装篇
-						</a>
-						<p>
-							名称OpenWAF 支持源码安装和 Docker 安装
-学习、开发、需求变动大、有一定维护能力，建议源码安装仅使用 OpenWAF 进行防护，建议 Docker 安装
-Table of Contents
-源码安装
-Debian&amp...
-						</p>
-					</div>
-
-					<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇">				
-						<img src="/img/post-cover/4.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之安装篇">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">
-							OpenWAF 使用手册
-						</a>
-						<p>
-							NameOpenWAF
-第一个全方位开源的Web应用防护系统（WAF），更全面的防护功能，更多样的防护策略
-Table of Contents
-Name
-Version
-Synopsis
-Description
-Installatio...
-						</p>
-					</div>
-
-					<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">				
-						<img src="/img/post-cover/3.jpg" class="relateImg" alt="OpenWAF 使用手册">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2019/01/07/压缩与解压缩/" title="压缩与解压缩">
-							压缩与解压缩
-						</a>
-						<p>
-							zip格式压缩:  zip filename.zip dirname
-解压:  unzip filename.zip
-tar.gz 或 tgz或格式压缩:  tar -zcvf filename.tar.gz dirname1 dir...
-						</p>
-					</div>
-
-					<a href="/2019/01/07/压缩与解压缩/" title="压缩与解压缩">				
-						<img src="/img/post-cover/13.jpg" class="relateImg" alt="压缩与解压缩">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2019/01/07/docker从0开始/" title="docker从0开始">
-							docker从0开始
-						</a>
-						<p>
-							docker 的安装及常用命名
-1. 安装 Docker当前环境为 Debian8在 Ubuntu 14.04 及以上版本安装 Docker
-1.1 方法一：简化版安装 dockerwget -qO- https://get.dock...
-						</p>
-					</div>
-
-					<a href="/2019/01/07/docker从0开始/" title="docker从0开始">				
-						<img src="/img/post-cover/12.jpg" class="relateImg" alt="docker从0开始">
+					<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" title="在 alpine 上编译 openssl 遇到的问题">				
+						<img src="/img/post-cover/15.jpg" class="relateImg" alt="在 alpine 上编译 openssl 遇到的问题">
 					</a>
 				</li>											
 		
@@ -640,6 +563,79 @@ var zh_choose = &#39;t&#39;;
 
 					<a href="/2019/01/03/解决背景与文字颜色冲突问题/" title="解决背景与文字颜色冲突问题">				
 						<img src="/img/post-cover/8.jpg" class="relateImg" alt="解决背景与文字颜色冲突问题">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">
+							OpenWAF 使用手册
+						</a>
+						<p>
+							NameOpenWAF
+第一个全方位开源的Web应用防护系统（WAF），更全面的防护功能，更多样的防护策略
+Table of Contents
+Name
+Version
+Synopsis
+Description
+Installatio...
+						</p>
+					</div>
+
+					<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">				
+						<img src="/img/post-cover/3.jpg" class="relateImg" alt="OpenWAF 使用手册">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">
+							Microsoft Search 磁盘空间不足
+						</a>
+						<p>
+							Microsoft Search 导致 C 盘空间不足.
+前言Windows Search的功能是为我们电脑中的文件、电子邮件和其他内容提供内容索引、属性缓存和搜索结果。Windows Search默认是开机启动的，它会利用计算机的空...
+						</p>
+					</div>
+
+					<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">				
+						<img src="/img/post-cover/1.jpg" class="relateImg" alt="Microsoft Search 磁盘空间不足">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客">
+							用 hexo 创建自己的博客
+						</a>
+						<p>
+							用 hexo 创建属于自己的博客  
+前言想要创建自己的博客由来已久。之前偶尔写点东西，记录在了新浪和w3cschool。随着需要记录的文章越来越多，下定决心搭建一个属于自己的博客。现在大家用 hexo 比较多，也比较方便，并且能使用...
+						</p>
+					</div>
+
+					<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客">				
+						<img src="/img/post-cover/0.jpg" class="relateImg" alt="用 hexo 创建自己的博客">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/27/hello-world/" title="Hello World">
+							Hello World
+						</a>
+						<p>
+							Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using ...
+						</p>
+					</div>
+
+					<a href="/2018/12/27/hello-world/" title="Hello World">				
+						<img src="/img/post-cover/2.jpg" class="relateImg" alt="Hello World">
 					</a>
 				</li>											
 		

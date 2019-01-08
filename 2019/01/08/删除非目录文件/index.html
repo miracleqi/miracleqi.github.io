@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      压缩与解压缩 | 齐健的博客
+      删除非目录文件 | 齐健的博客
     
   </title>
   <meta name="author" content="MiracleQi-温柔魔君">
@@ -114,7 +114,7 @@
 				<!-- Page title -->
 				<p>
 					
-						当前文章&nbsp;:&nbsp;《压缩与解压缩》
+						当前文章&nbsp;:&nbsp;《删除非目录文件》
 					
 				</p>
 				<!-- Progress bar -->
@@ -277,8 +277,8 @@
 	
 	<div class="article-title">
 		
-	<a href="/2019/01/07/压缩与解压缩/" itemprop="url">
-		压缩与解压缩
+	<a href="/2019/01/08/删除非目录文件/" itemprop="url">
+		删除非目录文件
 	</a>
 
 	</div>
@@ -287,17 +287,17 @@
 		<span>
 			
 	发布于
-	<a href="/2019/01/07/压缩与解压缩/" itemprop="url">
-		<time datetime="2019-01-07T09:50:00.000Z" itemprop="datePublished">
-	  		2019-01-07
+	<a href="/2019/01/08/删除非目录文件/" itemprop="url">
+		<time datetime="2019-01-08T09:14:00.000Z" itemprop="datePublished">
+	  		2019-01-08
 	  </time>
 	</a> 
 
 	/
 	更新于
-	<a href="/2019/01/07/压缩与解压缩/" itemprop="url">
-		<time datetime="2019-01-07T09:50:00.000Z" itemprop="dateUpdated">
-	  		2019-01-07
+	<a href="/2019/01/08/删除非目录文件/" itemprop="url">
+		<time datetime="2019-01-08T09:14:00.000Z" itemprop="dateUpdated">
+	  		2019-01-08
 	  </time>
 	</a> 	
 
@@ -316,7 +316,7 @@
 		/
 		
 
-    <span class="leancloud_visitors" id="/2019/01/07/压缩与解压缩/_visitors" data-url="/2019/01/07/压缩与解压缩/" data-title="压缩与解压缩">
+    <span class="leancloud_visitors" id="/2019/01/08/删除非目录文件/_visitors" data-url="/2019/01/08/删除非目录文件/" data-title="删除非目录文件">
         热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
     </span>
@@ -325,7 +325,7 @@
 
 
 
-    <span class="leancloud_likes" id="/2019/01/07/压缩与解压缩/_likes" data-url="/2019/01/07/压缩与解压缩/" data-title="压缩与解压缩" rel="unlike">
+    <span class="leancloud_likes" id="/2019/01/08/删除非目录文件/_likes" data-url="/2019/01/08/删除非目录文件/" data-title="删除非目录文件" rel="unlike">
         喜欢
         <i class="fa fa-heart"></i>
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -334,28 +334,121 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<h3 id="zip格式"><a href="#zip格式" class="headerlink" title="zip格式"></a>zip格式</h3><pre><code>压缩:  zip filename.zip dirname
-解压:  unzip filename.zip
-</code></pre><h3 id="tar-gz-或-tgz或格式"><a href="#tar-gz-或-tgz或格式" class="headerlink" title="tar.gz 或 tgz或格式"></a>tar.gz 或 tgz或格式</h3><pre><code>压缩:  tar -zcvf filename.tar.gz dirname1 dirname2 dirname3 ...
-解压:  tar -zxvf filename.tar.gz
-</code></pre><h3 id="tar-Z格式"><a href="#tar-Z格式" class="headerlink" title="tar.Z格式"></a>tar.Z格式</h3><pre><code>压缩:  tar -Zcvf filename.tar.Z dirname
-解压:  tar -Zxvf filename.tar.Z
-</code></pre><h3 id="tar-bz-或-tar-bz2格式"><a href="#tar-bz-或-tar-bz2格式" class="headerlink" title="tar.bz 或 tar.bz2格式"></a>tar.bz 或 tar.bz2格式</h3><pre><code>压缩:  tar -jcvf filename.tar.bz dirname
-解压:  tar -jxvf filename.tar.bz
-</code></pre><h3 id="gz格式"><a href="#gz格式" class="headerlink" title="gz格式"></a>gz格式</h3><pre><code>压缩:  gzip filename
-解压:  gunzip filename.gz   或  gzip -d filename.gz
-</code></pre><h3 id="Z格式"><a href="#Z格式" class="headerlink" title="Z格式"></a>Z格式</h3><pre><code>压缩:  compress filename
-解压:  uncompress filename.Z
-</code></pre><h3 id="bz格式"><a href="#bz格式" class="headerlink" title="bz格式"></a>bz格式</h3><pre><code> 压缩: 
- 解压:  bunzip2 filename.bz 或 bzip2 -d filename.bz
-</code></pre><h3 id="bz2格式"><a href="#bz2格式" class="headerlink" title="bz2格式"></a>bz2格式</h3><pre><code> 压缩:  bzip2 filename 或 bzip2 -z filename (force compression)
- 解压:  bunzip2 filename.bz2 或 bzip2 -d filename.bz2  (force decompression)
-</code></pre><h3 id="unzip解压时报错，提示文件名过长"><a href="#unzip解压时报错，提示文件名过长" class="headerlink" title="unzip解压时报错，提示文件名过长"></a>unzip解压时报错，提示文件名过长</h3><pre><code>使用7za  xx.zip即可
-详见http://blog.sina.com.cn/s/blog_7d96c7380102wan2.html
-</code></pre>	
+		<p>linux 下删除一个目录下所有的隐藏文件和非目录文件</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 alpine 基础上编译 OpenWAF，想要达到最简，删除无用文件。</p>
+<h2 id="亮点"><a href="#亮点" class="headerlink" title="亮点"></a>亮点</h2><pre><code>rm -rf `ls -Fa | grep &#39;^\.\w&#39;`   -- 删除隐藏文件（包含目录）
+rm -f `ls -F | grep -v &#39;/$&#39;`     -- 删除非目录文件（不包含子目录）
+</code></pre><ol>
+<li>自由定义 grep 后的正则，已达到不同的目的</li>
+<li>` 是 TAB 键上的反引号</li>
+</ol>
+<h2 id="ls-grep-rm-删除多余文件"><a href="#ls-grep-rm-删除多余文件" class="headerlink" title="ls+grep+rm 删除多余文件"></a>ls+grep+rm 删除多余文件</h2><h3 id="当前目录结构"><a href="#当前目录结构" class="headerlink" title="当前目录结构"></a>当前目录结构</h3><pre><code>root@iZ94tcbc871Z:/opt/OpenWAF# ls -la
+total 236
+drwxr-xr-x 8 root root  4096 Jan  8 17:42 .
+drwxr-xr-x 4 root root  4096 Jan  8 17:42 ..
+drwxr-xr-x 2 root root  4096 Jan  8 17:42 app
+-rw-r--r-- 1 root root  2716 Jan  8 17:42 Changelog
+-rw-r--r-- 1 root root  5470 Jan  8 17:42 CODE_OF_CONDUCT.md
+drwxr-xr-x 3 root root  4096 Jan  8 17:42 conf
+-rw-r--r-- 1 root root   369 Jan  8 17:42 CONTRIBUTING.md
+-rw-r--r-- 1 root root   267 Jan  8 17:42 dist.ini
+drwxr-xr-x 2 root root  4096 Jan  8 17:42 doc
+-rw-r--r-- 1 root root  2702 Jan  8 17:42 Dockerfile
+drwxr-xr-x 8 root root  4096 Jan  8 17:42 .git
+drwxr-xr-x 3 root root  4096 Jan  8 17:42 .github
+-rw-r--r-- 1 root root   324 Jan  8 17:42 .gitignore
+drwxr-xr-x 5 root root  4096 Jan  8 17:42 lib
+-rw-r--r-- 1 root root 11357 Jan  8 17:42 LICENSE
+-rw-r--r-- 1 root root   627 Jan  8 17:42 Makefile
+-rw-r--r-- 1 root root 79083 Jan  8 17:42 README_CN.md
+-rw-r--r-- 1 root root 79371 Jan  8 17:42 README.md
+
+</code></pre><h3 id="当前目录大小"><a href="#当前目录大小" class="headerlink" title="当前目录大小"></a>当前目录大小</h3><pre><code>root@iZ94tcbc871Z:/opt/OpenWAF# du -h | grep &quot;\.$&quot;
+43M     .
+
+</code></pre><h3 id="去除多余文件"><a href="#去除多余文件" class="headerlink" title="去除多余文件"></a>去除多余文件</h3><p>目录中仅有 app、conf、lib 三个目录有用<br>其中 lib/openresty 目录也可删除  </p>
+<pre><code>rm -rf doc lib/openresty
+</code></pre><p>目录结构变为：</p>
+<pre><code>root@iZ94tcbc871Z:/opt/OpenWAF# ls -la
+total 232
+drwxr-xr-x 7 root root  4096 Jan  8 17:56 .
+drwxr-xr-x 4 root root  4096 Jan  8 17:42 ..
+drwxr-xr-x 2 root root  4096 Jan  8 17:42 app
+-rw-r--r-- 1 root root  2716 Jan  8 17:42 Changelog
+-rw-r--r-- 1 root root  5470 Jan  8 17:42 CODE_OF_CONDUCT.md
+drwxr-xr-x 3 root root  4096 Jan  8 17:42 conf
+-rw-r--r-- 1 root root   369 Jan  8 17:42 CONTRIBUTING.md
+-rw-r--r-- 1 root root   267 Jan  8 17:42 dist.ini
+-rw-r--r-- 1 root root  2702 Jan  8 17:42 Dockerfile
+drwxr-xr-x 8 root root  4096 Jan  8 17:42 .git
+drwxr-xr-x 3 root root  4096 Jan  8 17:42 .github
+-rw-r--r-- 1 root root   324 Jan  8 17:42 .gitignore
+drwxr-xr-x 4 root root  4096 Jan  8 17:56 lib
+-rw-r--r-- 1 root root 11357 Jan  8 17:42 LICENSE
+-rw-r--r-- 1 root root   627 Jan  8 17:42 Makefile
+-rw-r--r-- 1 root root 79083 Jan  8 17:42 README_CN.md
+-rw-r--r-- 1 root root 79371 Jan  8 17:42 README.md
+</code></pre><p>仅有 app、conf、lib 三个目录有用<br>因此，第一步删除所有因此文件（包含目录）</p>
+<pre><code>root@iZ94tcbc871Z:/opt/OpenWAF# ls -Fa | grep &#39;^\.\w&#39;    --查看隐藏文件
+.git/
+.github/
+.gitignore
+root@iZ94tcbc871Z:/opt/OpenWAF# rm -rf `ls -Fa | grep &#39;^\.\w&#39;`  --删除隐藏文件
+root@iZ94tcbc871Z:/opt/OpenWAF# ls -la     -- 剩下的文件
+total 220
+drwxr-xr-x 5 root root  4096 Jan  8 18:00 .
+drwxr-xr-x 4 root root  4096 Jan  8 17:42 ..
+drwxr-xr-x 2 root root  4096 Jan  8 17:42 app
+-rw-r--r-- 1 root root  2716 Jan  8 17:42 Changelog
+-rw-r--r-- 1 root root  5470 Jan  8 17:42 CODE_OF_CONDUCT.md
+drwxr-xr-x 3 root root  4096 Jan  8 17:42 conf
+-rw-r--r-- 1 root root   369 Jan  8 17:42 CONTRIBUTING.md
+-rw-r--r-- 1 root root   267 Jan  8 17:42 dist.ini
+-rw-r--r-- 1 root root  2702 Jan  8 17:42 Dockerfile
+drwxr-xr-x 4 root root  4096 Jan  8 17:56 lib
+-rw-r--r-- 1 root root 11357 Jan  8 17:42 LICENSE
+-rw-r--r-- 1 root root   627 Jan  8 17:42 Makefile
+-rw-r--r-- 1 root root 79083 Jan  8 17:42 README_CN.md
+-rw-r--r-- 1 root root 79371 Jan  8 17:42 README.m
+
+</code></pre><p>再删除非目录的文件</p>
+<pre><code>root@iZ94tcbc871Z:/opt/OpenWAF# ls -F | grep -v &#39;/$&#39;   -- 查看非目录文件
+Changelog
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+dist.ini
+Dockerfile
+LICENSE
+Makefile
+README_CN.md
+README.md
+root@iZ94tcbc871Z:/opt/OpenWAF# rm -f `ls -F | grep -v &#39;/$&#39;`  -- 删除非目录文件
+root@iZ94tcbc871Z:/opt/OpenWAF# ls -la    -- 剩余文件
+total 20
+drwxr-xr-x 5 root root 4096 Jan  8 18:03 .
+drwxr-xr-x 4 root root 4096 Jan  8 17:42 ..
+drwxr-xr-x 2 root root 4096 Jan  8 17:42 app
+drwxr-xr-x 3 root root 4096 Jan  8 17:42 conf
+drwxr-xr-x 4 root root 4096 Jan  8 17:56 lib
+</code></pre><h3 id="再次查看目录大小"><a href="#再次查看目录大小" class="headerlink" title="再次查看目录大小"></a>再次查看目录大小</h3><pre><code>root@iZ94tcbc871Z:/opt/OpenWAF# du -h | grep &quot;\.$&quot;
+7.7M    .
+</code></pre><h2 id="为何用-ls-和-grep"><a href="#为何用-ls-和-grep" class="headerlink" title="为何用 ls 和 grep"></a>为何用 ls 和 grep</h2><pre><code>rm -rf `ls -Fa | grep &#39;^\.\w&#39;`   -- 删除隐藏文件（包含目录）
+rm -f `ls -F | grep -v &#39;/$&#39;`     -- 删除非目录文件（不包含子目录）
+</code></pre><p>上面最后这两步，完全可以用下文代替：</p>
+<pre><code>rm -f * .*
+</code></pre><p>但会出现如下提示：</p>
+<pre><code>rm: &#39;app&#39; is a directory
+rm: &#39;conf&#39; is a directory
+rm: &#39;lib&#39; is a directory
+rm: can&#39;t remove &#39;.&#39; or &#39;..&#39;
+rm: can&#39;t remove &#39;.&#39; or &#39;..&#39;
+rm: &#39;.git&#39; is a directory
+rm: &#39;.github&#39; is a directory
+</code></pre><p>平时可忽略此提示，但在用 dockerfile 编译时，此提示会中断编译。<br>因此需先用 ls 和 grep 过滤出要删除的文件。</p>
+	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/post-cover/13.jpg"></div>
+	<div id="current-post-cover" data-scr="/img/post-cover/16.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -370,7 +463,7 @@
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
 		
-			<a href="/2019/01/07/docker从0开始/" title="docker从0开始" rel="next">
+			<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" title="在 alpine 上编译 openssl 遇到的问题" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -409,18 +502,36 @@
 		
 				<li>
 					<div>
-						<a href="/2019/01/07/docker从0开始/" title="docker从0开始">
-							docker从0开始
+						<a href="/2016/02/25/压缩与解压缩/" title="压缩与解压缩">
+							压缩与解压缩
 						</a>
 						<p>
-							docker 的安装及常用命名
-1. 安装 Docker当前环境为 Debian8在 Ubuntu 14.04 及以上版本安装 Docker
-1.1 方法一：简化版安装 dockerwget -qO- https://get.dock...
+							zip格式压缩:  zip filename.zip dirname
+解压:  unzip filename.zip
+tar.gz 或 tgz或格式压缩:  tar -zcvf filename.tar.gz dirname1 dir...
 						</p>
 					</div>
 
-					<a href="/2019/01/07/docker从0开始/" title="docker从0开始">				
-						<img src="/img/post-cover/12.jpg" class="relateImg" alt="docker从0开始">
+					<a href="/2016/02/25/压缩与解压缩/" title="压缩与解压缩">				
+						<img src="/img/post-cover/13.jpg" class="relateImg" alt="压缩与解压缩">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" title="在 alpine 上编译 openssl 遇到的问题">
+							在 alpine 上编译 openssl 遇到的问题
+						</a>
+						<p>
+							alpine 上编译 openssl (v1.1.1) 遇到 ucontext 报错
+前言今天在 alpine 基础上编译 openwaf，编到 openssl 时，报 ucontext 相关错误。
+ucontext 报错编译 ope...
+						</p>
+					</div>
+
+					<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" title="在 alpine 上编译 openssl 遇到的问题">				
+						<img src="/img/post-cover/15.jpg" class="relateImg" alt="在 alpine 上编译 openssl 遇到的问题">
 					</a>
 				</li>											
 		
@@ -483,97 +594,6 @@ var zh_choose = &#39;t&#39;;
 		
 				<li>
 					<div>
-						<a href="/2018/12/31/轻松玩转-OpenWAF-之-ELK/" title="轻松玩转 OpenWAF 之 ELK">
-							轻松玩转 OpenWAF 之 ELK
-						</a>
-						<p>
-							名称ELK 是比较火的开源日志分析系统
-本节主要介绍，ELK 的 docker 部署及与 OpenWAF 的结合
-Table of Contents
-ELK简介
-安装
-Elasticsearch
-Logstash
-Kibana
-
-
-O...
-						</p>
-					</div>
-
-					<a href="/2018/12/31/轻松玩转-OpenWAF-之-ELK/" title="轻松玩转 OpenWAF 之 ELK">				
-						<img src="/img/post-cover/7.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之 ELK">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2018/12/31/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">
-							深入研究 OpenWAF 之 nginx 配置
-						</a>
-						<p>
-							名称此文档将详细描述 OpenWAF 的 nginx 配置文件 /etc/ngx_openwaf.conf 中每一项配置
-以及接入规则（access_rule）与 nginx 配置的关联
-Table of Contents
-twaf_...
-						</p>
-					</div>
-
-					<a href="/2018/12/31/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">				
-						<img src="/img/post-cover/6.jpg" class="relateImg" alt="深入研究 OpenWAF 之 nginx 配置">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" title="轻松玩转 OpenWAF 之入门篇">
-							轻松玩转 OpenWAF 之入门篇
-						</a>
-						<p>
-							名称OpenWAF快速入门，即从安装到上线测试的一个快速体验流程，包括安装，发布应用，查看日志，上线测试
-Table of Contents
-安装
-发布应用
-日志
-规则
-
-安装请看 OpenWAF 安装文档
-发布应用
-简介  
-接入规...
-						</p>
-					</div>
-
-					<a href="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" title="轻松玩转 OpenWAF 之入门篇">				
-						<img src="/img/post-cover/5.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之入门篇">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇">
-							轻松玩转 OpenWAF 之安装篇
-						</a>
-						<p>
-							名称OpenWAF 支持源码安装和 Docker 安装
-学习、开发、需求变动大、有一定维护能力，建议源码安装仅使用 OpenWAF 进行防护，建议 Docker 安装
-Table of Contents
-源码安装
-Debian&amp...
-						</p>
-					</div>
-
-					<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇">				
-						<img src="/img/post-cover/4.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之安装篇">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
 						<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">
 							OpenWAF 使用手册
 						</a>
@@ -591,6 +611,56 @@ Installatio...
 
 					<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">				
 						<img src="/img/post-cover/3.jpg" class="relateImg" alt="OpenWAF 使用手册">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">
+							Microsoft Search 磁盘空间不足
+						</a>
+						<p>
+							Microsoft Search 导致 C 盘空间不足.
+前言Windows Search的功能是为我们电脑中的文件、电子邮件和其他内容提供内容索引、属性缓存和搜索结果。Windows Search默认是开机启动的，它会利用计算机的空...
+						</p>
+					</div>
+
+					<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">				
+						<img src="/img/post-cover/1.jpg" class="relateImg" alt="Microsoft Search 磁盘空间不足">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客">
+							用 hexo 创建自己的博客
+						</a>
+						<p>
+							用 hexo 创建属于自己的博客  
+前言想要创建自己的博客由来已久。之前偶尔写点东西，记录在了新浪和w3cschool。随着需要记录的文章越来越多，下定决心搭建一个属于自己的博客。现在大家用 hexo 比较多，也比较方便，并且能使用...
+						</p>
+					</div>
+
+					<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客">				
+						<img src="/img/post-cover/0.jpg" class="relateImg" alt="用 hexo 创建自己的博客">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/27/hello-world/" title="Hello World">
+							Hello World
+						</a>
+						<p>
+							Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using ...
+						</p>
+					</div>
+
+					<a href="/2018/12/27/hello-world/" title="Hello World">				
+						<img src="/img/post-cover/2.jpg" class="relateImg" alt="Hello World">
 					</a>
 				</li>											
 		

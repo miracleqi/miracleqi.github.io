@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      轻松玩转 OpenWAF 之 ELK | 齐健的博客
+      在 alpine 上编译 openssl 遇到的问题 | 齐健的博客
     
   </title>
   <meta name="author" content="MiracleQi-温柔魔君">
@@ -114,7 +114,7 @@
 				<!-- Page title -->
 				<p>
 					
-						当前文章&nbsp;:&nbsp;《轻松玩转 OpenWAF 之 ELK》
+						当前文章&nbsp;:&nbsp;《在 alpine 上编译 openssl 遇到的问题》
 					
 				</p>
 				<!-- Progress bar -->
@@ -277,8 +277,8 @@
 	
 	<div class="article-title">
 		
-	<a href="/2018/12/31/轻松玩转-OpenWAF-之-ELK/" itemprop="url">
-		轻松玩转 OpenWAF 之 ELK
+	<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" itemprop="url">
+		在 alpine 上编译 openssl 遇到的问题
 	</a>
 
 	</div>
@@ -287,17 +287,17 @@
 		<span>
 			
 	发布于
-	<a href="/2018/12/31/轻松玩转-OpenWAF-之-ELK/" itemprop="url">
-		<time datetime="2018-12-30T19:38:00.000Z" itemprop="datePublished">
-	  		2018-12-31
+	<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" itemprop="url">
+		<time datetime="2019-01-08T02:38:00.000Z" itemprop="datePublished">
+	  		2019-01-08
 	  </time>
 	</a> 
 
 	/
 	更新于
-	<a href="/2018/12/31/轻松玩转-OpenWAF-之-ELK/" itemprop="url">
-		<time datetime="2018-12-30T19:38:00.000Z" itemprop="dateUpdated">
-	  		2018-12-31
+	<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" itemprop="url">
+		<time datetime="2019-01-08T02:38:00.000Z" itemprop="dateUpdated">
+	  		2019-01-08
 	  </time>
 	</a> 	
 
@@ -307,12 +307,12 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/OpenWAF/" class=" ">
-			OpenWAF
+		<a href="/tags/openssl/" class=" ">
+			openssl
 		</a>
 	
-		<a href="/tags/ELK/" class=" ">
-			ELK
+		<a href="/tags/openwaf/" class=" ">
+			openwaf
 		</a>
 	
 		
@@ -320,7 +320,7 @@
 		/
 		
 
-    <span class="leancloud_visitors" id="/2018/12/31/轻松玩转-OpenWAF-之-ELK/_visitors" data-url="/2018/12/31/轻松玩转-OpenWAF-之-ELK/" data-title="轻松玩转 OpenWAF 之 ELK">
+    <span class="leancloud_visitors" id="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/_visitors" data-url="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" data-title="在 alpine 上编译 openssl 遇到的问题">
         热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
     </span>
@@ -329,7 +329,7 @@
 
 
 
-    <span class="leancloud_likes" id="/2018/12/31/轻松玩转-OpenWAF-之-ELK/_likes" data-url="/2018/12/31/轻松玩转-OpenWAF-之-ELK/" data-title="轻松玩转 OpenWAF 之 ELK" rel="unlike">
+    <span class="leancloud_likes" id="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/_likes" data-url="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" data-title="在 alpine 上编译 openssl 遇到的问题" rel="unlike">
         喜欢
         <i class="fa fa-heart"></i>
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -338,109 +338,31 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<h1 id="名称"><a href="#名称" class="headerlink" title="名称"></a>名称</h1><p>ELK 是比较火的开源日志分析系统</p>
-<p>本节主要介绍，ELK 的 docker 部署及与 OpenWAF 的结合</p>
-<h1 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h1><ul>
-<li><a href="#elk简介">ELK简介</a></li>
-<li><a href="#安装">安装</a><ul>
-<li><a href="#elasticsearch">Elasticsearch</a></li>
-<li><a href="#logstash">Logstash</a></li>
-<li><a href="#kibana">Kibana</a></li>
-</ul>
-</li>
-<li><a href="#openwaf配置">OpenWAF配置</a></li>
-<li><a href="#测试">测试</a></li>
-</ul>
-<h1 id="ELK简介"><a href="#ELK简介" class="headerlink" title="ELK简介"></a>ELK简介</h1><p>ELK是三个不同工具的简称,组合使用可以完成各种日志分析</p>
-<p>Elasticsearch: 是一个基于 Apache Lucene(TM) 的开源搜索引擎,简单点说就是用于建立索引并存储日志的工具</p>
-<p>Logstash: 是一个应用程序,它可以对日志的传输、过滤、管理和搜索提供支持。我们一般用它来统一对应用程序日志进行收集管理，提供Web接口用于查询和统计</p>
-<p>Kibana: 用于更友好的展示分析日志的web平台,简单点说就是有图有真相,可以在上面生成各种各样的图表更直观的显示日志分析的成果</p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>ELK 的安装，网上有很多，这里只描述 docker 方式的部署</p>
-<h2 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h2><ol>
-<li><p>拉取 elasticsearch docker 镜像  </p>
-<pre><code> docker pull elasticsearch  
-</code></pre></li>
-<li><p>启动 elasticsearch 容器  </p>
-<pre><code> docker run -d --name openwaf_es elasticsearch  
-</code></pre></li>
-<li><p>获取 openwaf_es 地址  </p>
-<pre><code> docker inspect openwaf_es | grep IPAddress  
- 得到地址为：192.168.39.17
-
- PS: elasticsearch 服务端口为 9200
-</code></pre></li>
-</ol>
-<h2 id="Logstash"><a href="#Logstash" class="headerlink" title="Logstash"></a>Logstash</h2><ol>
-<li><p>拉取 logstash docker 镜像  </p>
-<pre><code> docker pull logstash
-</code></pre></li>
-<li><p>启动 logstash 容器<br><code>`</code><br> docker run -it –name openwaf_logstash -v /root/logstash.conf:/usr/share/logstash/config/logstash.conf logstash -f /usr/share/logstash/config/logstash.conf</p>
-</li>
-</ol>
-<p>PS:<br>    /root/logstash.conf 文件内容如下：</p>
-<pre><code>input{
-    udp {                  # udp 服务配置
-        port =&gt; 60099      # 表示日志服务器监听在 60099 端口
-        codec =&gt; &quot;json&quot;    # 接收 json 格式信息
-    }
-}
-output {
-    elasticsearch {
-        hosts =&gt; [&quot;192.168.39.17:9200&quot;] # elasticsearch 的地址为 39.17，且端口为 9200
-    }
-}
-
-上面的配置表示：openwaf 向 logstash 的 60099 端口，发送 udp 协议的 json 日志，然后 logstash 将其存入 Elasticsearch
-</code></pre><pre><code>
-3. 获取 openwaf_logstash 地址  
-</code></pre><pre><code>docker inspect openwaf_logstash | grep IPAddress  
-得到地址为：192.168.39.18
-</code></pre><pre><code>
-Kibana
-------
-
-1. 拉取 kibana docker 镜像  
-</code></pre><pre><code>docker pull kibana
-</code></pre><pre><code>
-2. 启动 logstash 容器
-</code></pre><pre><code>docker run -d --name openwaf_kibana -e ELASTICSEARCH_URL=http://192.168.39.17:9200 kibana
-</code></pre><pre><code>
-3. 获取 openwaf_kibana 地址  
-</code></pre><pre><code>docker inspect openwaf_kibana | grep IPAddress  
-得到地址为：192.168.39.19
-
-PS: kibana 服务端口为 5601
-</code></pre><pre><code>
-OpenWAF配置
-===========
-
-    conf/twaf_default_conf.json 中 twaf_log 模块
-
-</code></pre><pre><code>&quot;twaf_log&quot;: {
-    &quot;sock_type&quot;:&quot;udp&quot;,
-    &quot;content_type&quot;:&quot;JSON&quot;,
-    &quot;host&quot;:&quot;192.168.39.18&quot;,
-    &quot;port&quot;:60099,
-    ...
-}
-</code></pre><p><code>`</code></p>
-<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><pre><code>测试版 OpenWAF 地址 192.168.36.44，反向代理后端服务器 192.168.39.216
-
-现访问 192.168.36.44/?a=1 order by 1
-
-访问结果如下：
-</code></pre><p><img src="http://i.imgur.com/BPYPBfB.png"></p>
-<pre><code>此时，访问 192.168.39.19:5601，在 kibana 上查看日志
-
-若第一次使用 kibana，需要生成一个索引，如下（使用默认）：
-</code></pre><p><img src="http://i.imgur.com/oH2toG6.png"></p>
-<pre><code>kibana 日志显示如下：
-</code></pre><p><img src="http://i.imgur.com/jzDlUuu.png"></p>
-<p>kibana 功能强大，可以做各种视图，用来分析日志，生成报表，更多功能请看 <a href="https://www.elastic.co/guide/en/kibana/current/index.html" target="_blank" rel="noopener">kibana官方文档</a></p>
-	
+		<p>alpine 上编译 openssl (v1.1.1) 遇到 ucontext 报错</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天在 alpine 基础上编译 <a href="#https://github.com/titansec/openwaf">openwaf</a>，编到 openssl 时，报 ucontext 相关错误。</p>
+<h2 id="ucontext-报错"><a href="#ucontext-报错" class="headerlink" title="ucontext 报错"></a>ucontext 报错</h2><p>编译 openssl</p>
+<pre><code># ./config
+# make &amp;&amp; make install
+</code></pre><p>错误描述：</p>
+<pre><code>./libcrypto.so: warning: gethostbyname is obsolescent, use getnameinfo() instead.
+./libcrypto.so: undefined reference to getcontext&#39; 
+./libcrypto.so: undefined reference to setcontext&#39;
+./libcrypto.so: undefined reference to `makecontext&#39;
+</code></pre><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>没有使用 no-async 参数，加上之后就可以了。</p>
+<pre><code># ./config no-async
+# make &amp;&amp; make install
+</code></pre><p>no-async: 交叉编译工具链没有提供GNU C的ucontext库</p>
+<p>PS：<a href="#https://github.com/openssl/openssl/issues/1607">openssl 相关 issue</a></p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>openssl 交叉编译过程中会遇到很多问题，这里罗列其他几个参数：</p>
+<pre><code>no-asm:    在交叉编译过程中不使用汇编代码代码加速编译过程.原因是它的汇编代码是对arm格式不支持的。
+shared: 生成动态连接库。
+no-async: 交叉编译工具链没有提供GNU C的ucontext库
+-–prefix=: 安装路径，编译完成install后将有bin，lib，include等文件夹
+-–cross-compile-prefix=: 交叉编译工具
+</code></pre>	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/post-cover/7.jpg"></div>
+	<div id="current-post-cover" data-scr="/img/post-cover/15.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -454,12 +376,12 @@ OpenWAF配置
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
-			<a href="/2019/01/03/解决背景与文字颜色冲突问题/" title="解决背景与文字颜色冲突问题" rel="prev">
+			<a href="/2019/01/08/删除非目录文件/" title="删除非目录文件" rel="prev">
 				&laquo;上一篇
 			</a>
 		
 		
-			<a href="/2018/12/31/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置" rel="next">
+			<a href="/2019/01/04/用-hugo-创建自己的博客/" title="用 hugo 创建自己的博客" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -477,95 +399,7 @@ OpenWAF配置
 		
 				<li>
 					<div>
-						<a href="/2018/12/31/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">
-							深入研究 OpenWAF 之 nginx 配置
-						</a>
-						<p>
-							名称此文档将详细描述 OpenWAF 的 nginx 配置文件 /etc/ngx_openwaf.conf 中每一项配置
-以及接入规则（access_rule）与 nginx 配置的关联
-Table of Contents
-twaf_...
-						</p>
-					</div>
-
-					<a href="/2018/12/31/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">				
-						<img src="/img/post-cover/6.jpg" class="relateImg" alt="深入研究 OpenWAF 之 nginx 配置">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" title="轻松玩转 OpenWAF 之入门篇">
-							轻松玩转 OpenWAF 之入门篇
-						</a>
-						<p>
-							名称OpenWAF快速入门，即从安装到上线测试的一个快速体验流程，包括安装，发布应用，查看日志，上线测试
-Table of Contents
-安装
-发布应用
-日志
-规则
-
-安装请看 OpenWAF 安装文档
-发布应用
-简介  
-接入规...
-						</p>
-					</div>
-
-					<a href="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" title="轻松玩转 OpenWAF 之入门篇">				
-						<img src="/img/post-cover/5.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之入门篇">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇">
-							轻松玩转 OpenWAF 之安装篇
-						</a>
-						<p>
-							名称OpenWAF 支持源码安装和 Docker 安装
-学习、开发、需求变动大、有一定维护能力，建议源码安装仅使用 OpenWAF 进行防护，建议 Docker 安装
-Table of Contents
-源码安装
-Debian&amp...
-						</p>
-					</div>
-
-					<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇">				
-						<img src="/img/post-cover/4.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之安装篇">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">
-							OpenWAF 使用手册
-						</a>
-						<p>
-							NameOpenWAF
-第一个全方位开源的Web应用防护系统（WAF），更全面的防护功能，更多样的防护策略
-Table of Contents
-Name
-Version
-Synopsis
-Description
-Installatio...
-						</p>
-					</div>
-
-					<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">				
-						<img src="/img/post-cover/3.jpg" class="relateImg" alt="OpenWAF 使用手册">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2019/01/07/压缩与解压缩/" title="压缩与解压缩">
+						<a href="/2016/02/25/压缩与解压缩/" title="压缩与解压缩">
 							压缩与解压缩
 						</a>
 						<p>
@@ -575,7 +409,7 @@ tar.gz 或 tgz或格式压缩:  tar -zcvf filename.tar.gz dirname1 dir...
 						</p>
 					</div>
 
-					<a href="/2019/01/07/压缩与解压缩/" title="压缩与解压缩">				
+					<a href="/2016/02/25/压缩与解压缩/" title="压缩与解压缩">				
 						<img src="/img/post-cover/13.jpg" class="relateImg" alt="压缩与解压缩">
 					</a>
 				</li>											
@@ -583,18 +417,18 @@ tar.gz 或 tgz或格式压缩:  tar -zcvf filename.tar.gz dirname1 dir...
 		
 				<li>
 					<div>
-						<a href="/2019/01/07/docker从0开始/" title="docker从0开始">
-							docker从0开始
+						<a href="/2019/01/08/删除非目录文件/" title="删除非目录文件">
+							删除非目录文件
 						</a>
 						<p>
-							docker 的安装及常用命名
-1. 安装 Docker当前环境为 Debian8在 Ubuntu 14.04 及以上版本安装 Docker
-1.1 方法一：简化版安装 dockerwget -qO- https://get.dock...
+							linux 下删除一个目录下所有的隐藏文件和非目录文件
+前言在 alpine 基础上编译 OpenWAF，想要达到最简，删除无用文件。
+亮点rm -rf `ls -Fa | grep &#39;^\.\w&#39;`   -- 删除隐...
 						</p>
 					</div>
 
-					<a href="/2019/01/07/docker从0开始/" title="docker从0开始">				
-						<img src="/img/post-cover/12.jpg" class="relateImg" alt="docker从0开始">
+					<a href="/2019/01/08/删除非目录文件/" title="删除非目录文件">				
+						<img src="/img/post-cover/16.jpg" class="relateImg" alt="删除非目录文件">
 					</a>
 				</li>											
 		
@@ -672,6 +506,79 @@ var zh_choose = &#39;t&#39;;
 
 					<a href="/2019/01/03/解决背景与文字颜色冲突问题/" title="解决背景与文字颜色冲突问题">				
 						<img src="/img/post-cover/8.jpg" class="relateImg" alt="解决背景与文字颜色冲突问题">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">
+							OpenWAF 使用手册
+						</a>
+						<p>
+							NameOpenWAF
+第一个全方位开源的Web应用防护系统（WAF），更全面的防护功能，更多样的防护策略
+Table of Contents
+Name
+Version
+Synopsis
+Description
+Installatio...
+						</p>
+					</div>
+
+					<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">				
+						<img src="/img/post-cover/3.jpg" class="relateImg" alt="OpenWAF 使用手册">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">
+							Microsoft Search 磁盘空间不足
+						</a>
+						<p>
+							Microsoft Search 导致 C 盘空间不足.
+前言Windows Search的功能是为我们电脑中的文件、电子邮件和其他内容提供内容索引、属性缓存和搜索结果。Windows Search默认是开机启动的，它会利用计算机的空...
+						</p>
+					</div>
+
+					<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">				
+						<img src="/img/post-cover/1.jpg" class="relateImg" alt="Microsoft Search 磁盘空间不足">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客">
+							用 hexo 创建自己的博客
+						</a>
+						<p>
+							用 hexo 创建属于自己的博客  
+前言想要创建自己的博客由来已久。之前偶尔写点东西，记录在了新浪和w3cschool。随着需要记录的文章越来越多，下定决心搭建一个属于自己的博客。现在大家用 hexo 比较多，也比较方便，并且能使用...
+						</p>
+					</div>
+
+					<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客">				
+						<img src="/img/post-cover/0.jpg" class="relateImg" alt="用 hexo 创建自己的博客">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/12/27/hello-world/" title="Hello World">
+							Hello World
+						</a>
+						<p>
+							Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using ...
+						</p>
+					</div>
+
+					<a href="/2018/12/27/hello-world/" title="Hello World">				
+						<img src="/img/post-cover/2.jpg" class="relateImg" alt="Hello World">
 					</a>
 				</li>											
 		

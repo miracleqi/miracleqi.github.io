@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      轻松玩转 OpenWAF 之安装篇 | 齐健的博客
+      轻松玩转 OpenWAF 之入门篇 | 齐健的博客
     
   </title>
   <meta name="author" content="MiracleQi-温柔魔君">
@@ -114,7 +114,7 @@
 				<!-- Page title -->
 				<p>
 					
-						当前文章&nbsp;:&nbsp;《轻松玩转 OpenWAF 之安装篇》
+						当前文章&nbsp;:&nbsp;《轻松玩转 OpenWAF 之入门篇》
 					
 				</p>
 				<!-- Progress bar -->
@@ -277,8 +277,8 @@
 	
 	<div class="article-title">
 		
-	<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" itemprop="url">
-		轻松玩转 OpenWAF 之安装篇
+	<a href="/2017/04/07/轻松玩转-OpenWAF-之入门篇/" itemprop="url">
+		轻松玩转 OpenWAF 之入门篇
 	</a>
 
 	</div>
@@ -287,17 +287,17 @@
 		<span>
 			
 	发布于
-	<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" itemprop="url">
-		<time datetime="2018-12-30T19:18:00.000Z" itemprop="datePublished">
-	  		2018-12-31
+	<a href="/2017/04/07/轻松玩转-OpenWAF-之入门篇/" itemprop="url">
+		<time datetime="2017-04-06T19:22:00.000Z" itemprop="datePublished">
+	  		2017-04-07
 	  </time>
 	</a> 
 
 	/
 	更新于
-	<a href="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" itemprop="url">
-		<time datetime="2018-12-30T19:18:00.000Z" itemprop="dateUpdated">
-	  		2018-12-31
+	<a href="/2017/04/07/轻松玩转-OpenWAF-之入门篇/" itemprop="url">
+		<time datetime="2017-04-06T19:22:00.000Z" itemprop="dateUpdated">
+	  		2019-01-08
 	  </time>
 	</a> 	
 
@@ -316,7 +316,7 @@
 		/
 		
 
-    <span class="leancloud_visitors" id="/2018/12/31/轻松玩转-OpenWAF-之安装篇/_visitors" data-url="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" data-title="轻松玩转 OpenWAF 之安装篇">
+    <span class="leancloud_visitors" id="/2017/04/07/轻松玩转-OpenWAF-之入门篇/_visitors" data-url="/2017/04/07/轻松玩转-OpenWAF-之入门篇/" data-title="轻松玩转 OpenWAF 之入门篇">
         热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
     </span>
@@ -325,7 +325,7 @@
 
 
 
-    <span class="leancloud_likes" id="/2018/12/31/轻松玩转-OpenWAF-之安装篇/_likes" data-url="/2018/12/31/轻松玩转-OpenWAF-之安装篇/" data-title="轻松玩转 OpenWAF 之安装篇" rel="unlike">
+    <span class="leancloud_likes" id="/2017/04/07/轻松玩转-OpenWAF-之入门篇/_likes" data-url="/2017/04/07/轻松玩转-OpenWAF-之入门篇/" data-title="轻松玩转 OpenWAF 之入门篇" rel="unlike">
         喜欢
         <i class="fa fa-heart"></i>
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -334,155 +334,81 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<h1 id="名称"><a href="#名称" class="headerlink" title="名称"></a>名称</h1><p>OpenWAF 支持源码安装和 Docker 安装</p>
-<p>学习、开发、需求变动大、有一定维护能力，建议源码安装<br>仅使用 OpenWAF 进行防护，建议 Docker 安装</p>
+		<h1 id="名称"><a href="#名称" class="headerlink" title="名称"></a>名称</h1><p>OpenWAF快速入门，即从安装到上线测试的一个快速体验流程，包括安装，发布应用，查看日志，上线测试</p>
 <h1 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h1><ul>
-<li><a href="#源码安装">源码安装</a><ul>
-<li><a href="#debianubuntu">Debian&amp;Ubuntu</a></li>
-<li><a href="#centos">CentOS</a></li>
-<li><a href="#others">Others</a></li>
+<li><a href="#安装">安装</a></li>
+<li><a href="#发布应用">发布应用</a></li>
+<li><a href="#日志">日志</a></li>
+<li><a href="#规则">规则</a></li>
+</ul>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><a href="https://github.com/titansec/OpenWAF/blob/master/doc/%E8%BD%BB%E6%9D%BE%E7%8E%A9%E8%BD%ACOpenWAF%E4%B9%8B%E5%AE%89%E8%A3%85%E7%AF%87.md" target="_blank" rel="noopener">请看 OpenWAF 安装文档</a></p>
+<h1 id="发布应用"><a href="#发布应用" class="headerlink" title="发布应用"></a>发布应用</h1><ul>
+<li><a href="#简介">简介</a>  </li>
+<li><a href="#接入规则配置简要说明">接入规则配置简要说明</a>  </li>
+<li><a href="#发布应用举例">发布应用举例</a>  <ul>
+<li><a href="#初次使用openwaf">初次使用OpenWAF</a>  <ul>
+<li><a href="#使用openwaf提供的nginx配置文件">使用OpenWAF提供的nginx配置文件</a>   </li>
+<li><a href="#使用自己原有的nginx配置">使用自己原有的nginx配置</a>  </li>
 </ul>
 </li>
-<li><a href="#docker容器安装">Docker容器安装</a></li>
 </ul>
-<h2 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h2><h3 id="Debian-amp-Ubuntu"><a href="#Debian-amp-Ubuntu" class="headerlink" title="Debian&amp;Ubuntu"></a>Debian&amp;Ubuntu</h3><ol>
-<li>安装OpenWAF依赖</li>
+</li>
+</ul>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><pre><code>发布应用，需要配置 OpenWAF 的接入规则，配置文件位置：/opt/OpenWAF/conf/twaf_access_rule.json
+
+OpenWAF的接入规则和nginx的配置结合，达到发布应用的目的
+</code></pre><h2 id="接入规则配置简要说明"><a href="#接入规则配置简要说明" class="headerlink" title="接入规则配置简要说明"></a>接入规则配置简要说明</h2><pre><code>{
+    &quot;twaf_access_rule&quot;: [
+        &quot;rules&quot;: [                                 -- 数组，注意先后顺序
+            {                                      
+                &quot;ngx_ssl&quot;: false,                  -- nginx认证的开关
+                &quot;ngx_ssl_cert&quot;: &quot;path&quot;,            -- nginx认证所需PEM证书地址
+                &quot;ngx_ssl_key&quot;: &quot;path&quot;,             -- nginx认证所需PEM私钥地址
+                &quot;host&quot;: &quot;www.baidu.com&quot;,           -- 域名，正则匹配
+                &quot;port&quot;: 80,                        -- 端口号（缺省80）
+                &quot;path&quot;: &quot;\/&quot;,                      -- 路径，正则匹配
+                &quot;server_ssl&quot;: false,               -- 后端服务器ssl开关
+                &quot;forward&quot;: &quot;server_5&quot;,             -- 后端服务器upstream名称
+                &quot;forward_addr&quot;: &quot;1.1.1.2&quot;,         -- 后端服务器ip地址
+                &quot;forward_port&quot;: &quot;8080&quot;,            -- 后端服务器端口号（缺省80）
+                &quot;policy&quot;: &quot;policy_uuid&quot;            -- 安全策略ID
+            }
+        ]
+    }
+}
+</code></pre><h2 id="发布应用举例"><a href="#发布应用举例" class="headerlink" title="发布应用举例"></a>发布应用举例</h2><pre><code>接下来结合nginx配置举例讲解接入规则的使用  
+</code></pre><h3 id="初次使用OpenWAF"><a href="#初次使用OpenWAF" class="headerlink" title="初次使用OpenWAF"></a>初次使用OpenWAF</h3><h4 id="使用OpenWAF提供的nginx配置文件"><a href="#使用OpenWAF提供的nginx配置文件" class="headerlink" title="使用OpenWAF提供的nginx配置文件"></a>使用OpenWAF提供的nginx配置文件</h4><pre><code>如果用 OpenWAF 默认的 /etc/ngx_openwaf.conf 配置文件（默认监听 80 端口）
+
+修改 /opt/OpenWAF/conf/twaf_access_rule.json 文件中第一条接入规则的&quot;forward_addr&quot;值  
+</code></pre><pre class="line-numbers language-txt"><code class="language-txt">    要防护的服务器为192.168.3.1:80，配置如下：
+        "forward_addr": "192.168.3.1"
+
+    要防护的服务器为22.22.22.22:8090，配置如下：
+        "forward_addr": "22.22.22.22",
+        "forward_port": 8090
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre><code>此时启动nginx，进行访问即可    
+</code></pre><pre><code>小提示：
+    启动nginx命令  /usr/local/openresty/nginx/sbin/nginx -c /etc/ngx_openwaf.conf  
+    停止nginx命令  /usr/local/openresty/nginx/sbin/nginx -c /etc/ngx_openwaf.conf -s stop
+</code></pre><pre><code>默认SQLI，CC防护都是开启的，可以进行SQL注入或CC攻击，看防护效果  
+
+深入防护，深入测试，请看其他文档  
+</code></pre><h4 id="使用自己原有的nginx配置"><a href="#使用自己原有的nginx配置" class="headerlink" title="使用自己原有的nginx配置"></a>使用自己原有的nginx配置</h4><pre><code>拥有自己的nginx配置，仅需以下两步即可体验OpenWAF防护
+</code></pre><ol>
+<li><p>nginx配置修改<br> 在 nginx 的 http 级别添加如下两行：</p>
+<pre><code> include /opt/OpenWAF/conf/twaf_main.conf;
+ include /opt/OpenWAF/conf/twaf_api.conf;
+</code></pre><p> 要防护的 server 或 location 级别添加如下一行：</p>
+<pre><code> include /opt/OpenWAF/conf/twaf_server.conf;
+</code></pre></li>
+<li><p>OpenWAF接入规则修改<br> 修改/opt/OpenWAF/conf/twaf_access_rule.json文件<br> 将”state”值设为false即可</p>
+</li>
 </ol>
-<pre class="line-numbers language-txt"><code class="language-txt">    cd /opt
-    apt-get install gcc wget git swig make perl build-essential zlib1g-dev libgeoip-dev libncurses5-dev libreadline-dev -y
-    wget https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz
-    wget https://www.openssl.org/source/openssl-1.1.0h.tar.gz
-    wget https://openresty.org/download/openresty-1.13.6.2.tar.gz
-    tar -zxvf pcre-8.42.tar.gz
-    tar -zxvf openssl-1.1.0h.tar.gz
-    tar -zxvf openresty-1.13.6.2.tar.gz
-    rm -rf pcre-8.42.tar.gz \
-           openssl-1.1.0h.tar.gz \
-           openresty-1.13.6.2.tar.gz
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-txt"><code class="language-txt">PS: 
-    1.1 OpenSSL 版本要求
-
-        OpenResty 要求 OpenSSL 最低版本在 1.0.2e 以上，但 apt-get 安装 openssl 并不满足此版本，因此提供解决方法如下：
-
-        方法 1. apt-get 使用 backports 源安装 openssl，如 jessie-backports  
-            echo "deb http://mirrors.163.com/debian/ jessie-backports main" >> /etc/apt/sources.list  
-            apt-get update  
-            apt-get install -t jessie-backports openssl  
-
-        方法 2. 下载 openssl 源代码，如 1.1.0h 版本  
-            wget -c http://www.openssl.org/source/openssl-1.1.0h.tar.gz  
-            tar -zxvf openssl-1.1.0h.tar.gz
-            ./config  
-            make && make install  
-
-        若用方法 1 和 方法 2 后， openssl version 命令显示的版本依旧低于 1.0.2e 版本，请求方法 3
-
-        方法 3. 编译 openresty 时指定 openssl 安装目录
-            wget -c http://www.openssl.org/source/openssl-1.1.0h.tar.gz
-            tar -zxvf openssl-1.1.0h.tar.gz
-            编译 openresty 时通过 --with-openssl=/path/to/openssl-xxx/ 指定 openssl 安装路径  
-
-        本示例使用方法 3
-
-    1.2 pcre-jit
-
-        OpenResty 依赖 PCRE ，但通过 apt-get 安装无法开启 pcre-jit，解决方法：  
-
-        方法 1. 源码编译
-            wget https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz  
-            tar -zxvf pcre-8.42.tar.gz  
-            cd pcre-8.42  
-            ./configure --enable-jit  
-            make && make install  
-
-        方法 2. 编译 openresty 时指定 pcre 安装目录
-            wget https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz  
-            tar -zxvf pcre-8.42.tar.gz  
-            编译 openresty 时通过 --with-pcre=/path/to/pcre-xxx/ 指定 pcre 安装路径 
-
-        本示例使用方法 2
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol start="2">
-<li>安装 OpenWAF  </li>
-</ol>
-<pre class="line-numbers language-txt"><code class="language-txt">    cd /opt  
-    git clone https://github.com/titansec/OpenWAF.git
-    mv /opt/OpenWAF/lib/openresty/ngx_openwaf.conf /etc
-    mv /opt/OpenWAF/lib/openresty/configure /opt/openresty-1.13.6.2
-    cp -RP /opt/OpenWAF/lib/openresty/* /opt/openresty-1.13.6.2/bundle/
-    cd /opt/OpenWAF
-    make install
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-txt"><code class="language-txt">PS:
-    2.1 ngx_openwaf.conf
-        ngx_openwaf.conf 是 OpenResty 的 [nginx](http://nginx.org/en/docs/) 配置文件
-
-    2.2 configure 
-        configure 是 OpenResty 的编译文件
-        OpenWAF 修改了此文件，用于编译 OpenWAF 所依赖的第三方模块
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol start="3">
-<li>编译 openresty  </li>
-</ol>
-<pre class="line-numbers language-txt"><code class="language-txt">    cd /opt/openresty-1.13.6.2/  
-    ./configure --with-pcre-jit --with-ipv6 \  
-                --with-http_stub_status_module \  
-                --with-http_ssl_module \  
-                --with-http_realip_module \  
-                --with-http_sub_module  \  
-                --with-http_geoip_module \  
-                --with-openssl=/opt/openssl-1.1.0h \ 
-                --with-pcre=/opt/pcre-8.42
-    make && make install 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h3><pre><code>与 [Debian](#debianubuntu) 安装几乎一致，只需在安装依赖时，将 apt-get 一行命令换成以下命令即可：
-</code></pre><pre class="line-numbers language-txt"><code class="language-txt">    yum install gcc gcc-c++ wget GeoIP-devel git swig make perl perl-ExtUtils-Embed readline-devel zlib-devel -y
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h3><pre><code>其他操作系统安装 OpenWAF，可参考 [OpenResty](https://openresty.org/cn/installation.html) 安装  
-再安装 OpenWAF 依赖的 swig 即可  
-</code></pre><h2 id="Docker容器安装"><a href="#Docker容器安装" class="headerlink" title="Docker容器安装"></a>Docker容器安装</h2><pre class="line-numbers language-txt"><code class="language-txt">1. pull docker images from repository
-   docker pull titansec/openwaf
-
-2. start-up docker 
-    docker run -d --name openwaf \
-               -p 80:80 -p 443:443 \
-               -v /opt/openwaf/conf/ngx_openwaf.conf:/etc/ngx_openwaf.conf \
-               -v /opt/openwaf/conf/twaf_access_rule.json:/opt/OpenWAF/conf/twaf_access_rule.json \
-               -v /opt/openwaf/log/openwaf_error.log:/var/log/openwaf_error.log \
-               titansec/openwaf 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-txt"><code class="language-txt">PS:
-    1. docker pull titansec/openwaf 
-        docker pull titansec/openwaf 获取 jessie 的 OpenWAF 最新版
-        docker pull titansec/openwaf:latest 获取 jessie 的 OpenWAF 最新版
-        docker pull titansec/openwaf:jessie 获取 jessie 的 OpenWAF 最新版
-        docker pull titansec/openwaf:centos 获取 centos 的 OpenWAF 最新版
-
-        获取历史版本：
-        docker pull titansec/openwaf:x.x.x-jessie 获取 jessie 的 OpenWAF x.x.x 版
-        docker pull titansec/openwaf:x.x.x-centos 获取 centos 的 OpenWAF x.x.x 版
-
-        历史版本列表：https://hub.docker.com/r/titansec/openwaf/tags/
-
-    2. 挂载配置文件和日志
-        将配置文件保留在宿主机中，更新 OpenWAF 只需更新 Docker 镜像即可
-        2.1 挂载 nginx 配置文件
-            如，事先将 ngx_openwaf.conf 放在宿主机 /opt/openwaf/conf/ 目录下，然后启动 docker 容器时添加参数如下：
-            -v /opt/openwaf/conf/ngx_openwaf.conf:/etc/ngx_openwaf.conf
-        2.2 挂载 twaf_access_rule.json 接入规则配置文件
-            如，事先将 twaf_access_rule.json 放在宿主机 /opt/openwaf/conf/ 目录下，然后启动 docker 容器时添加参数如下：
-            -v /opt/openwaf/conf/twaf_access_rule.json:/opt/OpenWAF/conf/twaf_access_rule.json
-        2.3 挂载 nginx 错误日志
-            -v /opt/openwaf/log/openwaf_error.log:/var/log/openwaf_error.log
-
-    3. restart 
-        修改宿主机中的配置文件后，执行 docker restart openwaf(容器名称) 即可
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/post-cover/4.jpg"></div>
+	<div id="current-post-cover" data-scr="/img/post-cover/5.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -496,12 +422,12 @@
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
-			<a href="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" title="轻松玩转 OpenWAF 之入门篇" rel="prev">
+			<a href="/2017/04/19/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置" rel="prev">
 				&laquo;上一篇
 			</a>
 		
 		
-			<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册" rel="next">
+			<a href="/2016/08/16/docker从0开始/" title="docker从0开始" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -516,77 +442,6 @@
 
 <div class="relate-post">
 	<ul>
-		
-				<li>
-					<div>
-						<a href="/2018/12/31/轻松玩转-OpenWAF-之-ELK/" title="轻松玩转 OpenWAF 之 ELK">
-							轻松玩转 OpenWAF 之 ELK
-						</a>
-						<p>
-							名称ELK 是比较火的开源日志分析系统
-本节主要介绍，ELK 的 docker 部署及与 OpenWAF 的结合
-Table of Contents
-ELK简介
-安装
-Elasticsearch
-Logstash
-Kibana
-
-
-O...
-						</p>
-					</div>
-
-					<a href="/2018/12/31/轻松玩转-OpenWAF-之-ELK/" title="轻松玩转 OpenWAF 之 ELK">				
-						<img src="/img/post-cover/7.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之 ELK">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2018/12/31/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">
-							深入研究 OpenWAF 之 nginx 配置
-						</a>
-						<p>
-							名称此文档将详细描述 OpenWAF 的 nginx 配置文件 /etc/ngx_openwaf.conf 中每一项配置
-以及接入规则（access_rule）与 nginx 配置的关联
-Table of Contents
-twaf_...
-						</p>
-					</div>
-
-					<a href="/2018/12/31/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">				
-						<img src="/img/post-cover/6.jpg" class="relateImg" alt="深入研究 OpenWAF 之 nginx 配置">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" title="轻松玩转 OpenWAF 之入门篇">
-							轻松玩转 OpenWAF 之入门篇
-						</a>
-						<p>
-							名称OpenWAF快速入门，即从安装到上线测试的一个快速体验流程，包括安装，发布应用，查看日志，上线测试
-Table of Contents
-安装
-发布应用
-日志
-规则
-
-安装请看 OpenWAF 安装文档
-发布应用
-简介  
-接入规...
-						</p>
-					</div>
-
-					<a href="/2018/12/31/轻松玩转-OpenWAF-之入门篇/" title="轻松玩转 OpenWAF 之入门篇">				
-						<img src="/img/post-cover/5.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之入门篇">
-					</a>
-				</li>											
-		
 		
 				<li>
 					<div>
@@ -613,36 +468,101 @@ Installatio...
 		
 				<li>
 					<div>
-						<a href="/2019/01/07/压缩与解压缩/" title="压缩与解压缩">
-							压缩与解压缩
+						<a href="/2017/07/04/轻松玩转-OpenWAF-之-ELK/" title="轻松玩转 OpenWAF 之 ELK">
+							轻松玩转 OpenWAF 之 ELK
 						</a>
 						<p>
-							zip格式压缩:  zip filename.zip dirname
-解压:  unzip filename.zip
-tar.gz 或 tgz或格式压缩:  tar -zcvf filename.tar.gz dirname1 dir...
+							名称ELK 是比较火的开源日志分析系统
+本节主要介绍，ELK 的 docker 部署及与 OpenWAF 的结合
+Table of Contents
+ELK简介
+安装
+Elasticsearch
+Logstash
+Kibana
+
+
+O...
 						</p>
 					</div>
 
-					<a href="/2019/01/07/压缩与解压缩/" title="压缩与解压缩">				
-						<img src="/img/post-cover/13.jpg" class="relateImg" alt="压缩与解压缩">
+					<a href="/2017/07/04/轻松玩转-OpenWAF-之-ELK/" title="轻松玩转 OpenWAF 之 ELK">				
+						<img src="/img/post-cover/7.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之 ELK">
 					</a>
 				</li>											
 		
 		
 				<li>
 					<div>
-						<a href="/2019/01/07/docker从0开始/" title="docker从0开始">
-							docker从0开始
+						<a href="/2017/06/02/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇">
+							轻松玩转 OpenWAF 之安装篇
 						</a>
 						<p>
-							docker 的安装及常用命名
-1. 安装 Docker当前环境为 Debian8在 Ubuntu 14.04 及以上版本安装 Docker
-1.1 方法一：简化版安装 dockerwget -qO- https://get.dock...
+							名称OpenWAF 支持源码安装和 Docker 安装
+学习、开发、需求变动大、有一定维护能力，建议源码安装仅使用 OpenWAF 进行防护，建议 Docker 安装
+Table of Contents
+源码安装
+Debian&amp...
 						</p>
 					</div>
 
-					<a href="/2019/01/07/docker从0开始/" title="docker从0开始">				
-						<img src="/img/post-cover/12.jpg" class="relateImg" alt="docker从0开始">
+					<a href="/2017/06/02/轻松玩转-OpenWAF-之安装篇/" title="轻松玩转 OpenWAF 之安装篇">				
+						<img src="/img/post-cover/4.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之安装篇">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2017/04/19/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">
+							深入研究 OpenWAF 之 nginx 配置
+						</a>
+						<p>
+							名称此文档将详细描述 OpenWAF 的 nginx 配置文件 /etc/ngx_openwaf.conf 中每一项配置
+以及接入规则（access_rule）与 nginx 配置的关联
+Table of Contents
+twaf_...
+						</p>
+					</div>
+
+					<a href="/2017/04/19/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">				
+						<img src="/img/post-cover/6.jpg" class="relateImg" alt="深入研究 OpenWAF 之 nginx 配置">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2019/01/08/删除非目录文件/" title="删除非目录文件">
+							删除非目录文件
+						</a>
+						<p>
+							linux 下删除一个目录下所有的隐藏文件和非目录文件
+前言在 alpine 基础上编译 OpenWAF，想要达到最简，删除无用文件。
+亮点rm -rf `ls -Fa | grep &#39;^\.\w&#39;`   -- 删除隐...
+						</p>
+					</div>
+
+					<a href="/2019/01/08/删除非目录文件/" title="删除非目录文件">				
+						<img src="/img/post-cover/16.jpg" class="relateImg" alt="删除非目录文件">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" title="在 alpine 上编译 openssl 遇到的问题">
+							在 alpine 上编译 openssl 遇到的问题
+						</a>
+						<p>
+							alpine 上编译 openssl (v1.1.1) 遇到 ucontext 报错
+前言今天在 alpine 基础上编译 openwaf，编到 openssl 时，报 ucontext 相关错误。
+ucontext 报错编译 ope...
+						</p>
+					</div>
+
+					<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" title="在 alpine 上编译 openssl 遇到的问题">				
+						<img src="/img/post-cover/15.jpg" class="relateImg" alt="在 alpine 上编译 openssl 遇到的问题">
 					</a>
 				</li>											
 		
