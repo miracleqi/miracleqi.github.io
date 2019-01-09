@@ -307,12 +307,12 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/nginx/" class=" ">
-			nginx
-		</a>
-	
 		<a href="/tags/openresty/" class=" ">
 			openresty
+		</a>
+	
+		<a href="/tags/nginx/" class=" ">
+			nginx
 		</a>
 	
 		<a href="/tags/modsecurity/" class=" ">
@@ -573,6 +573,62 @@ ucontext 报错编译 ope...
 		
 				<li>
 					<div>
+						<a href="/2016/06/21/utrace-安装/" title="utrace 安装">
+							utrace 安装
+						</a>
+						<p>
+							debian 上安装 utrace
+背景今天安装 nginx-systemtap-toolkit 时需要安装 utrace （内核版本为 debian3.2，无内嵌的 utrace）
+安装下载 https://github.com/u...
+						</p>
+					</div>
+
+					<a href="/2016/06/21/utrace-安装/" title="utrace 安装">				
+						<img src="/img/post-cover/22.jpg" class="relateImg" alt="utrace 安装">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2016/06/21/Linux-磁盘空间不足提示-No-space-left-on-device/" title="Linux 磁盘空间不足提示 No space left on device">
+							Linux 磁盘空间不足提示 No space left on device
+						</a>
+						<p>
+							Linux 提示 No space left on device 使用 du 排查原因
+df 显示确实磁盘空间已满
+这种情况下最快速的解决办法就是：
+1.进入根目录
+du -h --max-depth=1|grep G|sort -n...
+						</p>
+					</div>
+
+					<a href="/2016/06/21/Linux-磁盘空间不足提示-No-space-left-on-device/" title="Linux 磁盘空间不足提示 No space left on device">				
+						<img src="/img/post-cover/21.jpg" class="relateImg" alt="Linux 磁盘空间不足提示 No space left on device">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2016/06/21/lua-的-string-函数引发的血案/" title="lua 的 string 函数引发的血案">
+							lua 的 string 函数引发的血案
+						</a>
+						<p>
+							背景用 lua 的 string.gmatch 封装了一个字符串分割函数 string_split(str, sep)文件上传时，解析请求体，有时解析正常，有时卡住十几秒，并不报错，但解析失败
+分析原因代码如下：
+function s...
+						</p>
+					</div>
+
+					<a href="/2016/06/21/lua-的-string-函数引发的血案/" title="lua 的 string 函数引发的血案">				
+						<img src="/img/post-cover/20.jpg" class="relateImg" alt="lua 的 string 函数引发的血案">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
 						<a href="/2016/02/25/压缩与解压缩/" title="压缩与解压缩">
 							压缩与解压缩
 						</a>
@@ -607,6 +663,23 @@ tar.gz 或 tgz或格式压缩:  tar -zcvf filename.tar.gz dirname1 dir...
 		
 				<li>
 					<div>
+						<a href="/2016/06/21/nginx-add-dynamic-module/" title="nginx add dynamic module">
+							nginx add dynamic module
+						</a>
+						<p>
+							nginx 动态添加模块
+前言1.9.11 版本前的 nginx 增加一个第三方模块，需要重新编译源代码，所有的模块都是用静态链接的形式组织起来的。而 Tengine 可以实现运行时动态加载模块，而不用每次都要重新编译Tengine。...
+						</p>
+					</div>
+
+					<a href="/2016/06/21/nginx-add-dynamic-module/" title="nginx add dynamic module">				
+						<img src="/img/post-cover/19.jpg" class="relateImg" alt="nginx add dynamic module">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
 						<a href="/2017/04/19/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">
 							深入研究 OpenWAF 之 nginx 配置
 						</a>
@@ -620,79 +693,6 @@ twaf_...
 
 					<a href="/2017/04/19/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">				
 						<img src="/img/post-cover/6.jpg" class="relateImg" alt="深入研究 OpenWAF 之 nginx 配置">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2016/06/21/nginx-add-dynamic-module/" title="nginx add dynamic module">
-							nginx add dynamic module
-						</a>
-						<p>
-							nginx 动态添加模块
-前言1.9.11 版本前的 nginx 增加一个第三方模块，需要重新编译源代码，所有的模块都是用静态链接的形式组织起来的。而 Tengine 可以实现运行时动态加载模块，而不用每次都要重新编译Tengine。...
-						</p>
-					</div>
-
-					<a href="/2016/06/21/nginx-add-dynamic-module/" title="nginx add dynamic module">				
-						<img src="/img/cart_cover.jpg" class="relateImg" alt="nginx add dynamic module">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2019/01/04/用-hugo-创建自己的博客/" title="用 hugo 创建自己的博客">
-							用 hugo 创建自己的博客
-						</a>
-						<p>
-							如何用 hugo 搭建自己的博客
-前言前两天，hexo 打开了自建博客的道路。今天看到了 hugo，准备研究一下。hugo 是用 go 语言开发的，优势在于编译速度快。如果博客文章达到七八百篇，hexo 可能要几十分钟，但 hugo“...
-						</p>
-					</div>
-
-					<a href="/2019/01/04/用-hugo-创建自己的博客/" title="用 hugo 创建自己的博客">				
-						<img src="/img/post-cover/11.jpg" class="relateImg" alt="用 hugo 创建自己的博客">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2019/01/03/对于-hexo-Annie-主题部分修改/" title="对于 hexo Annie 主题部分修改">
-							对于 hexo Annie 主题部分修改
-						</a>
-						<p>
-							修改部分 Annie 主题的设置
-字体默认字体Annie 默认是繁体字，改为默认是简体字
-修改 Annie\source\js\chinese.js 文件的第五行
-原文：
-var zh_choose = &#39;t&#39;;
-改为...
-						</p>
-					</div>
-
-					<a href="/2019/01/03/对于-hexo-Annie-主题部分修改/" title="对于 hexo Annie 主题部分修改">				
-						<img src="/img/post-cover/10.jpg" class="relateImg" alt="对于 hexo Annie 主题部分修改">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2019/01/03/解决背景与文字颜色冲突问题/" title="解决背景与文字颜色冲突问题">
-							解决背景与文字颜色冲突问题
-						</a>
-						<p>
-							解决因背景图颜色，导致文字看不清晰的问题
-前言刚刚创建此博客，被随机背景图和散文诗集吸引。但常常因为背景图颜色过浅，导致白色的文字看不清晰。  
-方法本来想把所有的背景图都换成黑色的。但当我下载了 1500 多张图，准备从中挑出所有的...
-						</p>
-					</div>
-
-					<a href="/2019/01/03/解决背景与文字颜色冲突问题/" title="解决背景与文字颜色冲突问题">				
-						<img src="/img/post-cover/8.jpg" class="relateImg" alt="解决背景与文字颜色冲突问题">
 					</a>
 				</li>											
 		

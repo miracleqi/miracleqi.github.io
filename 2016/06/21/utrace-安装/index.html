@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      docker从0开始 | 齐健的博客
+      utrace 安装 | 齐健的博客
     
   </title>
   <meta name="author" content="MiracleQi-温柔魔君">
@@ -114,7 +114,7 @@
 				<!-- Page title -->
 				<p>
 					
-						当前文章&nbsp;:&nbsp;《docker从0开始》
+						当前文章&nbsp;:&nbsp;《utrace 安装》
 					
 				</p>
 				<!-- Progress bar -->
@@ -277,8 +277,8 @@
 	
 	<div class="article-title">
 		
-	<a href="/2016/08/16/docker从0开始/" itemprop="url">
-		docker从0开始
+	<a href="/2016/06/21/utrace-安装/" itemprop="url">
+		utrace 安装
 	</a>
 
 	</div>
@@ -287,17 +287,17 @@
 		<span>
 			
 	发布于
-	<a href="/2016/08/16/docker从0开始/" itemprop="url">
-		<time datetime="2016-08-16T01:33:00.000Z" itemprop="datePublished">
-	  		2016-08-16
+	<a href="/2016/06/21/utrace-安装/" itemprop="url">
+		<time datetime="2016-06-21T09:55:00.000Z" itemprop="datePublished">
+	  		2016-06-21
 	  </time>
 	</a> 
 
 	/
 	更新于
-	<a href="/2016/08/16/docker从0开始/" itemprop="url">
-		<time datetime="2016-08-16T01:33:00.000Z" itemprop="dateUpdated">
-	  		2019-01-08
+	<a href="/2016/06/21/utrace-安装/" itemprop="url">
+		<time datetime="2016-06-21T09:55:00.000Z" itemprop="dateUpdated">
+	  		2019-01-10
 	  </time>
 	</a> 	
 
@@ -307,8 +307,12 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/Docker/" class=" ">
-			Docker
+		<a href="/tags/nginx/" class=" ">
+			nginx
+		</a>
+	
+		<a href="/tags/utrace/" class=" ">
+			utrace
 		</a>
 	
 		
@@ -316,7 +320,7 @@
 		/
 		
 
-    <span class="leancloud_visitors" id="/2016/08/16/docker从0开始/_visitors" data-url="/2016/08/16/docker从0开始/" data-title="docker从0开始">
+    <span class="leancloud_visitors" id="/2016/06/21/utrace-安装/_visitors" data-url="/2016/06/21/utrace-安装/" data-title="utrace 安装">
         热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
     </span>
@@ -325,7 +329,7 @@
 
 
 
-    <span class="leancloud_likes" id="/2016/08/16/docker从0开始/_likes" data-url="/2016/08/16/docker从0开始/" data-title="docker从0开始" rel="unlike">
+    <span class="leancloud_likes" id="/2016/06/21/utrace-安装/_likes" data-url="/2016/06/21/utrace-安装/" data-title="utrace 安装" rel="unlike">
         喜欢
         <i class="fa fa-heart"></i>
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -334,92 +338,31 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<p>docker 的安装及常用命名</p>
-<h2 id="1-安装-Docker"><a href="#1-安装-Docker" class="headerlink" title="1. 安装 Docker"></a>1. 安装 Docker</h2><p>当前环境为 Debian8<br>在 Ubuntu 14.04 及以上版本安装 Docker</p>
-<h3 id="1-1-方法一：简化版安装-docker"><a href="#1-1-方法一：简化版安装-docker" class="headerlink" title="1.1 方法一：简化版安装 docker"></a>1.1 方法一：简化版安装 docker</h3><pre><code>wget -qO- https://get.docker.com/ | sh
-</code></pre><h3 id="1-2-方法二：从-Docker-官方源安装最新版本"><a href="#1-2-方法二：从-Docker-官方源安装最新版本" class="headerlink" title="1.2 方法二：从 Docker 官方源安装最新版本"></a>1.2 方法二：从 Docker 官方源安装最新版本</h3><pre><code>  $ sudo apt-get install apt-transport-https
-  $ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
-  $ sudo bash -c &quot;echo deb https://get.docker.io/ubuntu docker main &gt; /etc/apt/sources.list.d/docker.list&quot;
-  $ sudo apt-get update
-  $ sudo apt-get install -y lxc-docker
-  $ sudo apt-get update -y lxc-docker​​
-</code></pre><h3 id="1-3-方法三：docker-io"><a href="#1-3-方法三：docker-io" class="headerlink" title="1.3 方法三：docker.io"></a>1.3 方法三：docker.io</h3><pre><code>  $ sudo apt-get update
-  $ sudo apt-get install -y docker.io
-  $ sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker
-  $ sudo sed -i &#39;$acomplete -F _docker docker&#39; /etc/bash_completion.d/docker.io
-</code></pre><p>使用 Ubuntu14.04 系统默认自带 docker.io 安装包安装 Docker，这样安装的Docker 版本相对较旧，并不推荐使用。</p>
-<h2 id="2-镜像"><a href="#2-镜像" class="headerlink" title="2. 镜像"></a>2. 镜像</h2><h3 id="2-1-获取镜像"><a href="#2-1-获取镜像" class="headerlink" title="2.1 获取镜像"></a>2.1 获取镜像</h3><pre><code>  $ sudo docker pull NAME[:TAG]
-
-  如 &#39;$ sudo docker pull ubuntu&#39;，该命令实际下载的是 ubuntu:lastest 镜像
-  此命令相当于 &#39;$ sudo docker pull registry.hub.docker.com/ubuntu:latest&#39; 命令
-  即从默认的注册服务器 registry.hub.docker.com 中的 ubuntu 仓库来下载标记为 latest 的镜像
-</code></pre><h3 id="2-2-查看镜像信息"><a href="#2-2-查看镜像信息" class="headerlink" title="2.2 查看镜像信息"></a>2.2 查看镜像信息</h3><pre><code>  $ sudo docker images          可以列出本地主机上已有的镜像
-  $ sudo docker inspect IMAGEID 可以获取镜像的详细信息
-</code></pre><h3 id="2-3-搜寻镜像"><a href="#2-3-搜寻镜像" class="headerlink" title="2.3 搜寻镜像"></a>2.3 搜寻镜像</h3><pre><code>  $ sudo docker search OpenWAF
-
-  默认搜索 Docker Hub官方仓库中的镜像
-  支持的参数：
-    --autometad=false 仅显示自动创建的镜像
-    --no-trunc=false    ​输出信息不截断显示
-</code></pre><h3 id="3-docker-enter"><a href="#3-docker-enter" class="headerlink" title="3. docker-enter"></a>3. docker-enter</h3><p>docker run -d 跑起一个容器后，使用 docker-enter 方便进入管理，代码如下：</p>
-<pre><code>#!/bin/sh
-if [ -e $(dirname &quot;$0&quot;)/nsenter ]; then
-    # with boot2docker, nsenter is not in the PATH but it is in the same folder
-    NSENTER=$(dirname &quot;$0&quot;)/nsenter
-else
-    NSENTER=nsenter
-fi
-if [ -z &quot;$1&quot; ]; then
-    echo &quot;Usage: `basename &quot;$0&quot;` CONTAINER [COMMAND [ARG]...]&quot;
-    echo &quot;&quot;
-    echo &quot;Enters the Docker CONTAINER and executes the specified COMMAND.&quot;
-    echo &quot;If COMMAND is not specified, runs an interactive shell in CONTAINER.&quot;
-else
-    PID=$(docker inspect --format &quot;{{.State.Pid}}&quot; &quot;$1&quot;)
-    if [ -z &quot;$PID&quot; ]; then
-         exit 1
-    fi
-    shift
-    OPTS=&quot;--target $PID --mount --uts --ipc --net --pid --&quot;
-    if [ -z &quot;$1&quot; ]; then
-         # No command given.
-         # Use su to clear all host environment variables except for TERM,
-         # initialize the environment variables HOME, SHELL, USER, LOGNAME, PATH,
-         # and start a login shell.
-         &quot;$NSENTER&quot; $OPTS su - root
-    else
-         # Use env to clear all host environment variables.
-         &quot;$NSENTER&quot; $OPTS env --ignore-environment -- &quot;$@&quot;
-    fi
-fi 
-</code></pre><pre><code>  将 docker-enter 放入 /bin/ 目录下
-  chmod +x docker-enter
-  cp -P docker-enter /bin/
-</code></pre><h2 id="4-docker-常用命令"><a href="#4-docker-常用命令" class="headerlink" title="4. docker 常用命令"></a>4. docker 常用命令</h2><h3 id="4-1-docker-build"><a href="#4-1-docker-build" class="headerlink" title="4.1 docker build"></a>4.1 docker build</h3><p>自己经常写 Dockerfile ，常用到 docker build 命令</p>
-<pre><code>创建 openwaf 仓库下的 debian8 镜像    
-docker build -t openwaf:debian8 .
-有时Dockerfile内容无变化，想要重新生成镜像，却不想用 docker 的cache 
-docker build --no-cache -t openwaf:debian8 .
-</code></pre><h3 id="4-2-docker-rm"><a href="#4-2-docker-rm" class="headerlink" title="4.2 docker rm"></a>4.2 docker rm</h3><pre><code>删除未运行的容器
-docker rm container_id1 container_id2
-强制删除容器
-docker rm -f container_id1 container_id2
-删除所有未运行容器
-docker rm $(docker container ls -a -q)
-
-强制删除所有容器
-docker rm -f $(docker container ls -a -q)
-删除镜像
-docker rmi image_id1 image_id2
-</code></pre><h3 id="4-3-docker-images"><a href="#4-3-docker-images" class="headerlink" title="4.3 docker images"></a>4.3 docker images</h3><p>用于查看 docker 镜像仓库</p>
-<h3 id="4-4-docker-ps"><a href="#4-4-docker-ps" class="headerlink" title="4.4 docker ps"></a>4.4 docker ps</h3><pre><code>查看运行中容器
-docker ps
-查看所有容器
-docker ps -a
-</code></pre>	
+		<p>debian 上安装 utrace</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>今天安装 nginx-systemtap-toolkit 时需要安装 utrace （内核版本为 debian3.2，无内嵌的 utrace）</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>下载 <a href="https://github.com/utrace/linux/branches" target="_blank" rel="noopener">https://github.com/utrace/linux/branches</a> 对应的 linux-utrace-3.2 版本</p>
+<pre><code>7za x linux-utrace-3.2.zip
+cd linux-utrace-3.2
+make allyesconfig     -- 用来生成 .config 文件
+cp .config include/config/auto.conf
+make oldconfig &amp;&amp; make prepare
+make &amp;&amp; make install
+</code></pre><h2 id="安装时遇到的问题"><a href="#安装时遇到的问题" class="headerlink" title="安装时遇到的问题"></a>安装时遇到的问题</h2><p>下载 <a href="https://github.com/utrace/linux/branches" target="_blank" rel="noopener">https://github.com/utrace/linux/branches</a> 对应的 linux-utrace-3.2 版本</p>
+<pre><code>7za x linux-utrace-3.2.zip
+</code></pre><p>PS: 第一次用 unzip 时报错，提示文件名过长，改用 7za 问题解决</p>
+<pre><code>cd linux-utrace-3.2
+make 
+</code></pre><p>此时提示无 <code>include/config/auto.conf</code></p>
+<p><code>make oldconfig</code> 又会有很多新的选项（上千条）需要手动选择</p>
+<p>因此执行 <code>make allyesconfig</code> 生成 <code>.config</code></p>
+<pre><code>cp .config include/config/auto.conf
+</code></pre><p>此时再 <code>make</code>，提示 <code>generated/autoconf.h: No such file or directory</code></p>
+<p>运行 <code>make oldconfig &amp;&amp; make prepare</code> 进行修复</p>
+<p>再次 <code>make &amp;&amp; make install</code> 成功</p>
+	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/post-cover/12.jpg"></div>
+	<div id="current-post-cover" data-scr="/img/post-cover/22.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -433,12 +376,12 @@ docker ps -a
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
-			<a href="/2017/04/07/轻松玩转-OpenWAF-之入门篇/" title="轻松玩转 OpenWAF 之入门篇" rel="prev">
+			<a href="/2016/08/16/docker从0开始/" title="docker从0开始" rel="prev">
 				&laquo;上一篇
 			</a>
 		
 		
-			<a href="/2016/06/21/utrace-安装/" title="utrace 安装" rel="next">
+			<a href="/2016/06/21/Linux-磁盘空间不足提示-No-space-left-on-device/" title="Linux 磁盘空间不足提示 No space left on device" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -492,44 +435,6 @@ ucontext 报错编译 ope...
 		
 				<li>
 					<div>
-						<a href="/2019/01/04/用-hugo-创建自己的博客/" title="用 hugo 创建自己的博客">
-							用 hugo 创建自己的博客
-						</a>
-						<p>
-							如何用 hugo 搭建自己的博客
-前言前两天，hexo 打开了自建博客的道路。今天看到了 hugo，准备研究一下。hugo 是用 go 语言开发的，优势在于编译速度快。如果博客文章达到七八百篇，hexo 可能要几十分钟，但 hugo“...
-						</p>
-					</div>
-
-					<a href="/2019/01/04/用-hugo-创建自己的博客/" title="用 hugo 创建自己的博客">				
-						<img src="/img/post-cover/11.jpg" class="relateImg" alt="用 hugo 创建自己的博客">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2019/01/03/对于-hexo-Annie-主题部分修改/" title="对于 hexo Annie 主题部分修改">
-							对于 hexo Annie 主题部分修改
-						</a>
-						<p>
-							修改部分 Annie 主题的设置
-字体默认字体Annie 默认是繁体字，改为默认是简体字
-修改 Annie\source\js\chinese.js 文件的第五行
-原文：
-var zh_choose = &#39;t&#39;;
-改为...
-						</p>
-					</div>
-
-					<a href="/2019/01/03/对于-hexo-Annie-主题部分修改/" title="对于 hexo Annie 主题部分修改">				
-						<img src="/img/post-cover/10.jpg" class="relateImg" alt="对于 hexo Annie 主题部分修改">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
 						<a href="/2019/01/03/批量修改或添加文件后缀名/" title="批量修改或添加文件后缀名">
 							批量修改或添加文件后缀名
 						</a>
@@ -551,91 +456,125 @@ var zh_choose = &#39;t&#39;;
 		
 				<li>
 					<div>
-						<a href="/2019/01/03/解决背景与文字颜色冲突问题/" title="解决背景与文字颜色冲突问题">
-							解决背景与文字颜色冲突问题
+						<a href="/2016/06/21/Linux-磁盘空间不足提示-No-space-left-on-device/" title="Linux 磁盘空间不足提示 No space left on device">
+							Linux 磁盘空间不足提示 No space left on device
 						</a>
 						<p>
-							解决因背景图颜色，导致文字看不清晰的问题
-前言刚刚创建此博客，被随机背景图和散文诗集吸引。但常常因为背景图颜色过浅，导致白色的文字看不清晰。  
-方法本来想把所有的背景图都换成黑色的。但当我下载了 1500 多张图，准备从中挑出所有的...
+							Linux 提示 No space left on device 使用 du 排查原因
+df 显示确实磁盘空间已满
+这种情况下最快速的解决办法就是：
+1.进入根目录
+du -h --max-depth=1|grep G|sort -n...
 						</p>
 					</div>
 
-					<a href="/2019/01/03/解决背景与文字颜色冲突问题/" title="解决背景与文字颜色冲突问题">				
-						<img src="/img/post-cover/8.jpg" class="relateImg" alt="解决背景与文字颜色冲突问题">
+					<a href="/2016/06/21/Linux-磁盘空间不足提示-No-space-left-on-device/" title="Linux 磁盘空间不足提示 No space left on device">				
+						<img src="/img/post-cover/21.jpg" class="relateImg" alt="Linux 磁盘空间不足提示 No space left on device">
 					</a>
 				</li>											
 		
 		
 				<li>
 					<div>
-						<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">
-							OpenWAF 使用手册
+						<a href="/2016/06/21/lua-的-string-函数引发的血案/" title="lua 的 string 函数引发的血案">
+							lua 的 string 函数引发的血案
 						</a>
 						<p>
-							NameOpenWAF
-第一个全方位开源的Web应用防护系统（WAF），更全面的防护功能，更多样的防护策略
+							背景用 lua 的 string.gmatch 封装了一个字符串分割函数 string_split(str, sep)文件上传时，解析请求体，有时解析正常，有时卡住十几秒，并不报错，但解析失败
+分析原因代码如下：
+function s...
+						</p>
+					</div>
+
+					<a href="/2016/06/21/lua-的-string-函数引发的血案/" title="lua 的 string 函数引发的血案">				
+						<img src="/img/post-cover/20.jpg" class="relateImg" alt="lua 的 string 函数引发的血案">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2016/06/17/openresty-各组件依赖/" title="openresty 各组件依赖">
+							openresty 各组件依赖
+						</a>
+						<p>
+							openresty 各组件(modsecurity、zlib、openssl、pcre、lua、gd、tools等)安装。
+openrestyhttps://openresty.org/download/openresty-1.9.1...
+						</p>
+					</div>
+
+					<a href="/2016/06/17/openresty-各组件依赖/" title="openresty 各组件依赖">				
+						<img src="/img/post-cover/18.jpg" class="relateImg" alt="openresty 各组件依赖">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2016/02/25/压缩与解压缩/" title="压缩与解压缩">
+							压缩与解压缩
+						</a>
+						<p>
+							zip格式压缩:  zip filename.zip dirname
+解压:  unzip filename.zip
+tar.gz 或 tgz或格式压缩:  tar -zcvf filename.tar.gz dirname1 dir...
+						</p>
+					</div>
+
+					<a href="/2016/02/25/压缩与解压缩/" title="压缩与解压缩">				
+						<img src="/img/post-cover/13.jpg" class="relateImg" alt="压缩与解压缩">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2016/02/25/要想-lua-中调用-c-函数，c-文件如何修改？/" title="要想 lua 中调用 c 函数，c 文件如何修改？">
+							要想 lua 中调用 c 函数，c 文件如何修改？
+						</a>
+						<p>
+							背景想要像 cjson，gd，libinjection 一样，代码是用 c 实现的，却在 openresty 的 lua 模块中被调用。下面以添加 ssdeep.so 为例，其中有 fuzzy_hash_buf 和 fuzzy_com...
+						</p>
+					</div>
+
+					<a href="/2016/02/25/要想-lua-中调用-c-函数，c-文件如何修改？/" title="要想 lua 中调用 c 函数，c 文件如何修改？">				
+						<img src="/img/post-cover/17.jpg" class="relateImg" alt="要想 lua 中调用 c 函数，c 文件如何修改？">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2017/04/19/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">
+							深入研究 OpenWAF 之 nginx 配置
+						</a>
+						<p>
+							名称此文档将详细描述 OpenWAF 的 nginx 配置文件 /etc/ngx_openwaf.conf 中每一项配置
+以及接入规则（access_rule）与 nginx 配置的关联
 Table of Contents
-Name
-Version
-Synopsis
-Description
-Installatio...
+twaf_...
 						</p>
 					</div>
 
-					<a href="/2018/12/31/OpenWAF-使用手册/" title="OpenWAF 使用手册">				
-						<img src="/img/post-cover/3.jpg" class="relateImg" alt="OpenWAF 使用手册">
+					<a href="/2017/04/19/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">				
+						<img src="/img/post-cover/6.jpg" class="relateImg" alt="深入研究 OpenWAF 之 nginx 配置">
 					</a>
 				</li>											
 		
 		
 				<li>
 					<div>
-						<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">
-							Microsoft Search 磁盘空间不足
+						<a href="/2016/06/21/nginx-add-dynamic-module/" title="nginx add dynamic module">
+							nginx add dynamic module
 						</a>
 						<p>
-							Microsoft Search 导致 C 盘空间不足.
-前言Windows Search的功能是为我们电脑中的文件、电子邮件和其他内容提供内容索引、属性缓存和搜索结果。Windows Search默认是开机启动的，它会利用计算机的空...
+							nginx 动态添加模块
+前言1.9.11 版本前的 nginx 增加一个第三方模块，需要重新编译源代码，所有的模块都是用静态链接的形式组织起来的。而 Tengine 可以实现运行时动态加载模块，而不用每次都要重新编译Tengine。...
 						</p>
 					</div>
 
-					<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">				
-						<img src="/img/post-cover/1.jpg" class="relateImg" alt="Microsoft Search 磁盘空间不足">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客">
-							用 hexo 创建自己的博客
-						</a>
-						<p>
-							用 hexo 创建属于自己的博客  
-前言想要创建自己的博客由来已久。之前偶尔写点东西，记录在了新浪和w3cschool。随着需要记录的文章越来越多，下定决心搭建一个属于自己的博客。现在大家用 hexo 比较多，也比较方便，并且能使用...
-						</p>
-					</div>
-
-					<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客">				
-						<img src="/img/post-cover/0.jpg" class="relateImg" alt="用 hexo 创建自己的博客">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2018/12/27/hello-world/" title="Hello World">
-							Hello World
-						</a>
-						<p>
-							Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using ...
-						</p>
-					</div>
-
-					<a href="/2018/12/27/hello-world/" title="Hello World">				
-						<img src="/img/post-cover/2.jpg" class="relateImg" alt="Hello World">
+					<a href="/2016/06/21/nginx-add-dynamic-module/" title="nginx add dynamic module">				
+						<img src="/img/post-cover/19.jpg" class="relateImg" alt="nginx add dynamic module">
 					</a>
 				</li>											
 		
