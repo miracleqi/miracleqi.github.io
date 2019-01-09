@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      docker从0开始 | 齐健的博客
+      nginx add dynamic module | 齐健的博客
     
   </title>
   <meta name="author" content="MiracleQi-温柔魔君">
@@ -114,7 +114,7 @@
 				<!-- Page title -->
 				<p>
 					
-						当前文章&nbsp;:&nbsp;《docker从0开始》
+						当前文章&nbsp;:&nbsp;《nginx add dynamic module》
 					
 				</p>
 				<!-- Progress bar -->
@@ -277,8 +277,8 @@
 	
 	<div class="article-title">
 		
-	<a href="/2016/08/16/docker从0开始/" itemprop="url">
-		docker从0开始
+	<a href="/2016/06/21/nginx-add-dynamic-module/" itemprop="url">
+		nginx add dynamic module
 	</a>
 
 	</div>
@@ -287,17 +287,17 @@
 		<span>
 			
 	发布于
-	<a href="/2016/08/16/docker从0开始/" itemprop="url">
-		<time datetime="2016-08-16T01:33:00.000Z" itemprop="datePublished">
-	  		2016-08-16
+	<a href="/2016/06/21/nginx-add-dynamic-module/" itemprop="url">
+		<time datetime="2016-06-21T01:56:00.000Z" itemprop="datePublished">
+	  		2016-06-21
 	  </time>
 	</a> 
 
 	/
 	更新于
-	<a href="/2016/08/16/docker从0开始/" itemprop="url">
-		<time datetime="2016-08-16T01:33:00.000Z" itemprop="dateUpdated">
-	  		2019-01-08
+	<a href="/2016/06/21/nginx-add-dynamic-module/" itemprop="url">
+		<time datetime="2016-06-21T01:56:00.000Z" itemprop="dateUpdated">
+	  		2019-01-09
 	  </time>
 	</a> 	
 
@@ -307,8 +307,12 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/Docker/" class=" ">
-			Docker
+		<a href="/tags/nginx/" class=" ">
+			nginx
+		</a>
+	
+		<a href="/tags/openresty/" class=" ">
+			openresty
 		</a>
 	
 		
@@ -316,7 +320,7 @@
 		/
 		
 
-    <span class="leancloud_visitors" id="/2016/08/16/docker从0开始/_visitors" data-url="/2016/08/16/docker从0开始/" data-title="docker从0开始">
+    <span class="leancloud_visitors" id="/2016/06/21/nginx-add-dynamic-module/_visitors" data-url="/2016/06/21/nginx-add-dynamic-module/" data-title="nginx add dynamic module">
         热度
         <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
     </span>
@@ -325,7 +329,7 @@
 
 
 
-    <span class="leancloud_likes" id="/2016/08/16/docker从0开始/_likes" data-url="/2016/08/16/docker从0开始/" data-title="docker从0开始" rel="unlike">
+    <span class="leancloud_likes" id="/2016/06/21/nginx-add-dynamic-module/_likes" data-url="/2016/06/21/nginx-add-dynamic-module/" data-title="nginx add dynamic module" rel="unlike">
         喜欢
         <i class="fa fa-heart"></i>
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -334,92 +338,77 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<p>docker 的安装及常用命名</p>
-<h2 id="1-安装-Docker"><a href="#1-安装-Docker" class="headerlink" title="1. 安装 Docker"></a>1. 安装 Docker</h2><p>当前环境为 Debian8<br>在 Ubuntu 14.04 及以上版本安装 Docker</p>
-<h3 id="1-1-方法一：简化版安装-docker"><a href="#1-1-方法一：简化版安装-docker" class="headerlink" title="1.1 方法一：简化版安装 docker"></a>1.1 方法一：简化版安装 docker</h3><pre><code>wget -qO- https://get.docker.com/ | sh
-</code></pre><h3 id="1-2-方法二：从-Docker-官方源安装最新版本"><a href="#1-2-方法二：从-Docker-官方源安装最新版本" class="headerlink" title="1.2 方法二：从 Docker 官方源安装最新版本"></a>1.2 方法二：从 Docker 官方源安装最新版本</h3><pre><code>  $ sudo apt-get install apt-transport-https
-  $ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
-  $ sudo bash -c &quot;echo deb https://get.docker.io/ubuntu docker main &gt; /etc/apt/sources.list.d/docker.list&quot;
-  $ sudo apt-get update
-  $ sudo apt-get install -y lxc-docker
-  $ sudo apt-get update -y lxc-docker​​
-</code></pre><h3 id="1-3-方法三：docker-io"><a href="#1-3-方法三：docker-io" class="headerlink" title="1.3 方法三：docker.io"></a>1.3 方法三：docker.io</h3><pre><code>  $ sudo apt-get update
-  $ sudo apt-get install -y docker.io
-  $ sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker
-  $ sudo sed -i &#39;$acomplete -F _docker docker&#39; /etc/bash_completion.d/docker.io
-</code></pre><p>使用 Ubuntu14.04 系统默认自带 docker.io 安装包安装 Docker，这样安装的Docker 版本相对较旧，并不推荐使用。</p>
-<h2 id="2-镜像"><a href="#2-镜像" class="headerlink" title="2. 镜像"></a>2. 镜像</h2><h3 id="2-1-获取镜像"><a href="#2-1-获取镜像" class="headerlink" title="2.1 获取镜像"></a>2.1 获取镜像</h3><pre><code>  $ sudo docker pull NAME[:TAG]
-
-  如 &#39;$ sudo docker pull ubuntu&#39;，该命令实际下载的是 ubuntu:lastest 镜像
-  此命令相当于 &#39;$ sudo docker pull registry.hub.docker.com/ubuntu:latest&#39; 命令
-  即从默认的注册服务器 registry.hub.docker.com 中的 ubuntu 仓库来下载标记为 latest 的镜像
-</code></pre><h3 id="2-2-查看镜像信息"><a href="#2-2-查看镜像信息" class="headerlink" title="2.2 查看镜像信息"></a>2.2 查看镜像信息</h3><pre><code>  $ sudo docker images          可以列出本地主机上已有的镜像
-  $ sudo docker inspect IMAGEID 可以获取镜像的详细信息
-</code></pre><h3 id="2-3-搜寻镜像"><a href="#2-3-搜寻镜像" class="headerlink" title="2.3 搜寻镜像"></a>2.3 搜寻镜像</h3><pre><code>  $ sudo docker search OpenWAF
-
-  默认搜索 Docker Hub官方仓库中的镜像
-  支持的参数：
-    --autometad=false 仅显示自动创建的镜像
-    --no-trunc=false    ​输出信息不截断显示
-</code></pre><h3 id="3-docker-enter"><a href="#3-docker-enter" class="headerlink" title="3. docker-enter"></a>3. docker-enter</h3><p>docker run -d 跑起一个容器后，使用 docker-enter 方便进入管理，代码如下：</p>
-<pre><code>#!/bin/sh
-if [ -e $(dirname &quot;$0&quot;)/nsenter ]; then
-    # with boot2docker, nsenter is not in the PATH but it is in the same folder
-    NSENTER=$(dirname &quot;$0&quot;)/nsenter
-else
-    NSENTER=nsenter
+		<p>nginx 动态添加模块</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>1.9.11 版本前的 nginx 增加一个第三方模块，需要重新编译源代码，所有的模块都是用静态链接的形式组织起来的。而 Tengine 可以实现运行时动态加载模块，而不用每次都要重新编译Tengine。<br>Nginx 官方发布的 Nginx-1.9.11 版本，增加了此<a href="#http://nginx.org/en/CHANGES">功能</a>。<br>openresty 的 1.9.15.1 版本增加了此<a href="#http://openresty.org/cn/changelog-1009015.html">功能</a>。</p>
+<p>今天我将代码也更新到了 1.9.15.1 版本，试着动态加载自己编写的第三方模块</p>
+<p>参考官方文档：</p>
+<p><a href="#https://www.nginx.com/resources/wiki/extending/converting">Converting Static Modules to Dynamic Modules</a></p>
+<p><a href="#https://www.nginx.com/resources/wiki/extending/old_config">Old Config Shell File</a></p>
+<p><a href="#https://www.nginx.com/resources/wiki/extending/new_config">New Config Shell File</a></p>
+<h2 id="Converting-a-config-file"><a href="#Converting-a-config-file" class="headerlink" title="Converting a config file"></a>Converting a config file</h2><h3 id="old-config"><a href="#old-config" class="headerlink" title="old-config"></a>old-config</h3><pre><code>ngx_addon_name=ngx_http_xxx_filter_module
+HTTP_AUX_FILTER_MODULES=&quot;$HTTP_AUX_FILTER_MODULES\              
+                    ngx_http_xxx_filter_module&quot;
+NGX_ADDON_SRCS=&quot;$NGX_ADDON_SRCS \
+                   $ngx_addon_dir/ngx_http_xxx_filter_module.c&quot;
+</code></pre><h3 id="new-config"><a href="#new-config" class="headerlink" title="new-config"></a>new-config</h3><p>要考虑nginx版本，也要考虑是否为动态模块</p>
+<pre><code>ngx_addon_name=ngx_http_xxx_filter_module
+#nginx version &gt;= 1.9.11
+if test -n &quot;$ngx_module_link&quot;; then   
+    if [ $ngx_module_link = ADDON ] ; then          
+        ngx_module_type=HTTP_AUX_FILTER   
+    fi       
+    ngx_module_name=ngx_http_xxx_filter_module    
+ ngx_module_srcs=&quot;$ngx_addon_dir/ngx_http_xxx_filter_module.c&quot;       
+    . auto/module  
+#nginx version &lt; 1.9.11
+else   
+    HTTP_AUX_FILTER_MODULES=&quot;$HTTP_AUX_FILTER_MODULES \               
+                     ngx_http_xxx_filter_module&quot;    
+     NGX_ADDON_SRCS=&quot;$NGX_ADDON_SRCS \           
+                    $ngx_addon_dir/ngx_http_xxx_filter_module.c&quot;
 fi
-if [ -z &quot;$1&quot; ]; then
-    echo &quot;Usage: `basename &quot;$0&quot;` CONTAINER [COMMAND [ARG]...]&quot;
-    echo &quot;&quot;
-    echo &quot;Enters the Docker CONTAINER and executes the specified COMMAND.&quot;
-    echo &quot;If COMMAND is not specified, runs an interactive shell in CONTAINER.&quot;
-else
-    PID=$(docker inspect --format &quot;{{.State.Pid}}&quot; &quot;$1&quot;)
-    if [ -z &quot;$PID&quot; ]; then
-         exit 1
-    fi
-    shift
-    OPTS=&quot;--target $PID --mount --uts --ipc --net --pid --&quot;
-    if [ -z &quot;$1&quot; ]; then
-         # No command given.
-         # Use su to clear all host environment variables except for TERM,
-         # initialize the environment variables HOME, SHELL, USER, LOGNAME, PATH,
-         # and start a login shell.
-         &quot;$NSENTER&quot; $OPTS su - root
-    else
-         # Use env to clear all host environment variables.
-         &quot;$NSENTER&quot; $OPTS env --ignore-environment -- &quot;$@&quot;
-    fi
-fi 
-</code></pre><pre><code>  将 docker-enter 放入 /bin/ 目录下
-  chmod +x docker-enter
-  cp -P docker-enter /bin/
-</code></pre><h2 id="4-docker-常用命令"><a href="#4-docker-常用命令" class="headerlink" title="4. docker 常用命令"></a>4. docker 常用命令</h2><h3 id="4-1-docker-build"><a href="#4-1-docker-build" class="headerlink" title="4.1 docker build"></a>4.1 docker build</h3><p>自己经常写 Dockerfile ，常用到 docker build 命令</p>
-<pre><code>创建 openwaf 仓库下的 debian8 镜像    
-docker build -t openwaf:debian8 .
-有时Dockerfile内容无变化，想要重新生成镜像，却不想用 docker 的cache 
-docker build --no-cache -t openwaf:debian8 .
-</code></pre><h3 id="4-2-docker-rm"><a href="#4-2-docker-rm" class="headerlink" title="4.2 docker rm"></a>4.2 docker rm</h3><pre><code>删除未运行的容器
-docker rm container_id1 container_id2
-强制删除容器
-docker rm -f container_id1 container_id2
-删除所有未运行容器
-docker rm $(docker container ls -a -q)
+</code></pre><h2 id="Compiling-a-Dynamic-Module"><a href="#Compiling-a-Dynamic-Module" class="headerlink" title="Compiling a Dynamic Module"></a>Compiling a Dynamic Module</h2><p>A new configure option has been created to add a module as a dynamic module. Instead of using <code>--add-module</code> you use <code>--add-dynamic-module</code>. For example:</p>
+<pre><code>./configure --add-dynamic-module=/opt/source/ngx_http_xxx_filter_module/
+</code></pre><p>Modules are compiled along with NGINX by running the <code>make</code> command. Alternatively you can ask NGINX to just build the modules by doing:</p>
+<pre><code>$ make -f objs/Makefile modules
+</code></pre><p>With NGINX 1.9.13 the following is another way of doing this:</p>
+<pre><code>$ make modules
+</code></pre><h2 id="Loading-a-Dynamic-Module"><a href="#Loading-a-Dynamic-Module" class="headerlink" title="Loading a Dynamic Module"></a>Loading a Dynamic Module</h2><p>Modules can be loaded into NGINX with the new <code>load_module</code> directive.</p>
+<p>For example:(main级别)</p>
+<pre><code>load_module modules/ngx_http_xxx_filter_module.so;
+</code></pre><p>ps: 虽说是 main 级别的，但是要其他块之上，如：</p>
+<pre><code>    user root root;
+    worker_processes 2;
+    pid /var/run/nginx.pid;
 
-强制删除所有容器
-docker rm -f $(docker container ls -a -q)
-删除镜像
-docker rmi image_id1 image_id2
-</code></pre><h3 id="4-3-docker-images"><a href="#4-3-docker-images" class="headerlink" title="4.3 docker images"></a>4.3 docker images</h3><p>用于查看 docker 镜像仓库</p>
-<h3 id="4-4-docker-ps"><a href="#4-4-docker-ps" class="headerlink" title="4.4 docker ps"></a>4.4 docker ps</h3><pre><code>查看运行中容器
-docker ps
-查看所有容器
-docker ps -a
-</code></pre>	
+    load_module modules/ngx_http_xxx_filter_module.so;
+
+    events {
+        ...​
+    }​
+    http {
+        ...​
+    }​
+</code></pre><p>若 load_module 用在 events 与 http 之间，则会提示：</p>
+<pre><code>&quot;load_module&quot; directive is specified too late
+</code></pre><h2 id="note"><a href="#note" class="headerlink" title="note"></a>note</h2><ol>
+<li><p>There is a hard limit of 128 dynamic modules that can be loaded at one time, as defined by NGX_MAX_DYNAMIC_MODULES in the NGINX source. This hard limit can be increased by editing this constant.</p>
+</li>
+<li><p>新旧模块的兼容</p>
+<p>上面已经提到了新旧模块编译脚本的兼容</p>
+<p>同时也要考虑 c 语言层面的兼容，要关注动态模块对于 Nginx 框架的调整</p>
+<p>例如之前凡是用到全局变量 ngx_modules 的地方，要修改为 cycle-&gt;modules</p>
+<pre><code> #if defined(nginx_version) &amp;&amp; nginx_version &gt;= 1009011
+     modules = cf-&gt;cycle-&gt;modules;
+ #else
+     modules = ngx_modules;
+ #endif
+</code></pre></li>
+</ol>
+	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/post-cover/12.jpg"></div>
+	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -433,12 +422,12 @@ docker ps -a
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
-			<a href="/2017/04/07/轻松玩转-OpenWAF-之入门篇/" title="轻松玩转 OpenWAF 之入门篇" rel="prev">
+			<a href="/2016/08/16/docker从0开始/" title="docker从0开始" rel="prev">
 				&laquo;上一篇
 			</a>
 		
 		
-			<a href="/2016/06/21/nginx-add-dynamic-module/" title="nginx add dynamic module" rel="next">
+			<a href="/2016/06/17/openresty-各组件依赖/" title="openresty 各组件依赖" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -453,6 +442,42 @@ docker ps -a
 
 <div class="relate-post">
 	<ul>
+		
+				<li>
+					<div>
+						<a href="/2017/04/19/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">
+							深入研究 OpenWAF 之 nginx 配置
+						</a>
+						<p>
+							名称此文档将详细描述 OpenWAF 的 nginx 配置文件 /etc/ngx_openwaf.conf 中每一项配置
+以及接入规则（access_rule）与 nginx 配置的关联
+Table of Contents
+twaf_...
+						</p>
+					</div>
+
+					<a href="/2017/04/19/深入研究-OpenWAF-之-nginx-配置/" title="深入研究 OpenWAF 之 nginx 配置">				
+						<img src="/img/post-cover/6.jpg" class="relateImg" alt="深入研究 OpenWAF 之 nginx 配置">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2016/06/17/openresty-各组件依赖/" title="openresty 各组件依赖">
+							openresty 各组件依赖
+						</a>
+						<p>
+							openresty 各组件(modsecurity、zlib、openssl、pcre、lua、gd、tools等)安装。
+openrestyhttps://openresty.org/download/openresty-1.9.1...
+						</p>
+					</div>
+
+					<a href="/2016/06/17/openresty-各组件依赖/" title="openresty 各组件依赖">				
+						<img src="/img/post-cover/18.jpg" class="relateImg" alt="openresty 各组件依赖">
+					</a>
+				</li>											
+		
 		
 				<li>
 					<div>
@@ -603,39 +628,6 @@ Installatio...
 
 					<a href="/2018/12/30/Microsoft-Search-磁盘空间不足/" title="Microsoft Search 磁盘空间不足">				
 						<img src="/img/post-cover/1.jpg" class="relateImg" alt="Microsoft Search 磁盘空间不足">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客">
-							用 hexo 创建自己的博客
-						</a>
-						<p>
-							用 hexo 创建属于自己的博客  
-前言想要创建自己的博客由来已久。之前偶尔写点东西，记录在了新浪和w3cschool。随着需要记录的文章越来越多，下定决心搭建一个属于自己的博客。现在大家用 hexo 比较多，也比较方便，并且能使用...
-						</p>
-					</div>
-
-					<a href="/2018/12/29/用-hexo-创建自己的博客/" title="用 hexo 创建自己的博客">				
-						<img src="/img/post-cover/0.jpg" class="relateImg" alt="用 hexo 创建自己的博客">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2018/12/27/hello-world/" title="Hello World">
-							Hello World
-						</a>
-						<p>
-							Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using ...
-						</p>
-					</div>
-
-					<a href="/2018/12/27/hello-world/" title="Hello World">				
-						<img src="/img/post-cover/2.jpg" class="relateImg" alt="Hello World">
 					</a>
 				</li>											
 		
