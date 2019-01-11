@@ -297,7 +297,7 @@
 	更新于
 	<a href="/2016/02/25/要想-lua-中调用-c-函数，c-文件如何修改？/" itemprop="url">
 		<time datetime="2016-02-25T01:27:00.000Z" itemprop="dateUpdated">
-	  		2019-01-08
+	  		2019-01-11
 	  </time>
 	</a> 	
 
@@ -336,9 +336,7 @@
 	<div class="article-content" id="article-content">
 		<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>想要像 cjson，gd，libinjection 一样，代码是用 c 实现的，却在 openresty 的 lua 模块中被调用。<br>下面以添加 ssdeep.so 为例，其中有 fuzzy_hash_buf 和 fuzzy_compare 两个接口函数。<br>lua 版本为 5.1.4，openresty 版本为 1.9.7.1  </p>
 <h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h3 id="添加头文件"><a href="#添加头文件" class="headerlink" title="添加头文件"></a>添加头文件</h3><pre><code>//#include &lt;lua.hpp&gt;
-
 #include &lt;lauxlib.h&gt;
-
 //#include &lt;lualib.h&gt;
 </code></pre><p>某些资料中显示要添加三个头，不过编译时显示lua.hpp找不到</p>
 <p>我添加的 ssdeep 只需要 lauxlib.h 即可</p>
@@ -364,7 +362,7 @@
     {&quot;fuzzy_hash_buf&quot;, fuzzy_hash_buf},  
     {NULL, NULL} 
 
-}
+};
 </code></pre><h3 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h3><pre><code>int luaopen_ssdeep(lua_State* L)  
 {  
     const char* libName = &quot;ssdeep&quot;;    
@@ -461,6 +459,24 @@ ucontext 报错编译 ope...
 
 					<a href="/2019/01/03/批量修改或添加文件后缀名/" title="批量修改或添加文件后缀名">				
 						<img src="/img/post-cover/9.jpg" class="relateImg" alt="批量修改或添加文件后缀名">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2016/09/09/license-授权机制/" title="license 授权机制">
+							license 授权机制
+						</a>
+						<p>
+							1、创建私钥openssl genrsa -out rsa_private_key.pem 1024   
+//密钥长度，1024 觉得不够安全的话可以用 2048，但是代价也相应增大
+2、创建公钥openssl rsa -in pr...
+						</p>
+					</div>
+
+					<a href="/2016/09/09/license-授权机制/" title="license 授权机制">				
+						<img src="/img/post-cover/30.jpg" class="relateImg" alt="license 授权机制">
 					</a>
 				</li>											
 		
@@ -580,23 +596,6 @@ function s...
 
 					<a href="/2016/06/21/lua-的-string-函数引发的血案/" title="lua 的 string 函数引发的血案">				
 						<img src="/img/post-cover/20.jpg" class="relateImg" alt="lua 的 string 函数引发的血案">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2016/06/17/openresty-各组件依赖/" title="openresty 各组件依赖">
-							openresty 各组件依赖
-						</a>
-						<p>
-							openresty 各组件(modsecurity、zlib、openssl、pcre、lua、gd、tools等)安装。
-openrestyhttps://openresty.org/download/openresty-1.9.1...
-						</p>
-					</div>
-
-					<a href="/2016/06/17/openresty-各组件依赖/" title="openresty 各组件依赖">				
-						<img src="/img/post-cover/18.jpg" class="relateImg" alt="openresty 各组件依赖">
 					</a>
 				</li>											
 		
