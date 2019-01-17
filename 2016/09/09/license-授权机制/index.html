@@ -447,136 +447,128 @@ ucontext 报错编译 ope...
 		
 				<li>
 					<div>
-						<a href="/2016/07/11/nginx-http2-0/" title="nginx http2.0">
-							nginx http2.0
+						<a href="/2018/01/31/suricata-从-0-开始/" title="suricata 从 0 开始">
+							suricata 从 0 开始
 						</a>
 						<p>
-							nginx 有关 http2.0 的配置
-背景今天在 openresty 测试 http2.0
-编译参数首先需要编译时指定 v2 模块，--with-http_v2_module
-配置
-listen 指定 http2
-
-ssl_pro...
+							背景OpenWAF 是在 openresty 基础上发布的，但安全不仅仅是针对 HTTP 协议的防护，而是全方位立体化的防护。因此，为了防护更多的协议，开始接触 suricata，用熟后，争取将 OpenWAF 集成到 suricat...
 						</p>
 					</div>
 
-					<a href="/2016/07/11/nginx-http2-0/" title="nginx http2.0">				
-						<img src="/img/post-cover/25.jpg" class="relateImg" alt="nginx http2.0">
+					<a href="/2018/01/31/suricata-从-0-开始/" title="suricata 从 0 开始">				
+						<img src="/img/post-cover/43.jpg" class="relateImg" alt="suricata 从 0 开始">
 					</a>
 				</li>											
 		
 		
 				<li>
 					<div>
-						<a href="/2016/07/01/github-历险记/" title="github 历险记">
-							github 历险记
+						<a href="/2017/03/28/svn-游记/" title="svn 游记">
+							svn 游记
 						</a>
 						<p>
-							最近公司准备将 WAF4 代码开源
-这里将学习 github 步骤及进度记录一下（只记录必要过程）
-环境
-创建github账户
-
-客户端安装git
-
-初步设置 git
-$ git config --global user.name &...
+							前言公司之前用 svn 管理项目代码，我一直用的 windows 版本
+近期想要搭建知识库云平台，需要在 linux 上使用 svn 管理代码，因此做些笔记
+直接使用公司搭建好的 svn服务器
+1. 客户端安装yum install ...
 						</p>
 					</div>
 
-					<a href="/2016/07/01/github-历险记/" title="github 历险记">				
-						<img src="/img/post-cover/24.jpg" class="relateImg" alt="github 历险记">
+					<a href="/2017/03/28/svn-游记/" title="svn 游记">				
+						<img src="/img/post-cover/41.jpg" class="relateImg" alt="svn 游记">
 					</a>
 				</li>											
 		
 		
 				<li>
 					<div>
-						<a href="/2016/06/22/CURL/" title="CURL">
-							CURL
+						<a href="/2017/03/15/saltstack-从-0-开始/" title="saltstack 从 0 开始">
+							saltstack 从 0 开始
 						</a>
 						<p>
-							curl 参考手册及示例
-前言curl 是很方便的 Rest 客戶端，可以很方便的完成許多 Rest API 測試的需求，甚至，如果是需要先登入或認證的 rest api，也可以進行測試，利用 curl 指令，可以送出 HTTP GE...
+							1. 安装//salt-master安装（环境：OS-debian，IP-120.25.255.213）
+# apt-get install -t jessie-backports salt-master
+//salt-minion安...
 						</p>
 					</div>
 
-					<a href="/2016/06/22/CURL/" title="CURL">				
-						<img src="/img/post-cover/23.jpg" class="relateImg" alt="CURL">
+					<a href="/2017/03/15/saltstack-从-0-开始/" title="saltstack 从 0 开始">				
+						<img src="/img/post-cover/40.jpg" class="relateImg" alt="saltstack 从 0 开始">
 					</a>
 				</li>											
 		
 		
 				<li>
 					<div>
-						<a href="/2016/06/21/utrace-安装/" title="utrace 安装">
-							utrace 安装
+						<a href="/2016/12/30/Linux-内核参数/" title="Linux 内核参数">
+							Linux 内核参数
 						</a>
 						<p>
-							debian 上安装 utrace
-背景今天安装 nginx-systemtap-toolkit 时需要安装 utrace （内核版本为 debian3.2，无内嵌的 utrace）
-安装下载 https://github.com/u...
+							
+net.core.somaxconn
+
+freebsd版本中对应的参数为 kern.ipc.somaxconn
+作用：限制接收新 TCP 连接侦听队列的大小
+关注点：nginx debug: accept() not ready (...
 						</p>
 					</div>
 
-					<a href="/2016/06/21/utrace-安装/" title="utrace 安装">				
-						<img src="/img/post-cover/22.jpg" class="relateImg" alt="utrace 安装">
+					<a href="/2016/12/30/Linux-内核参数/" title="Linux 内核参数">				
+						<img src="/img/post-cover/38.jpg" class="relateImg" alt="Linux 内核参数">
 					</a>
 				</li>											
 		
 		
 				<li>
 					<div>
-						<a href="/2016/06/21/Linux-磁盘空间不足提示-No-space-left-on-device/" title="Linux 磁盘空间不足提示 No space left on device">
-							Linux 磁盘空间不足提示 No space left on device
+						<a href="/2016/12/20/test-nginx-lua/" title="test nginx lua">
+							test nginx lua
 						</a>
 						<p>
-							Linux 提示 No space left on device 使用 du 排查原因
-df 显示确实磁盘空间已满
-这种情况下最快速的解决办法就是：
-1.进入根目录
-du -h --max-depth=1|grep G|sort -n...
+							
+安装test nginx
+git clone https://github.com/openresty/test-nginx.git
+cd test-nginx
+perl Makefile.PL
+make &amp;&amp; ma...
 						</p>
 					</div>
 
-					<a href="/2016/06/21/Linux-磁盘空间不足提示-No-space-left-on-device/" title="Linux 磁盘空间不足提示 No space left on device">				
-						<img src="/img/post-cover/21.jpg" class="relateImg" alt="Linux 磁盘空间不足提示 No space left on device">
+					<a href="/2016/12/20/test-nginx-lua/" title="test nginx lua">				
+						<img src="/img/post-cover/37.jpg" class="relateImg" alt="test nginx lua">
 					</a>
 				</li>											
 		
 		
 				<li>
 					<div>
-						<a href="/2016/06/21/lua-的-string-函数引发的血案/" title="lua 的 string 函数引发的血案">
-							lua 的 string 函数引发的血案
+						<a href="/2016/11/30/apt-get-t-jessie-backports/" title="apt-get -t jessie-backports">
+							apt-get -t jessie-backports
 						</a>
 						<p>
-							背景用 lua 的 string.gmatch 封装了一个字符串分割函数 string_split(str, sep)文件上传时，解析请求体，有时解析正常，有时卡住十几秒，并不报错，但解析失败
-分析原因代码如下：
-function s...
+							背景最近有个需求，openssl 需要在 1.0.2e 版本以上但是 apt-get 默认最新版才是 1.0.1h 版debian8 更新软件不仅有 jessie 版，还有 jessie-backports 版jessie-backp...
 						</p>
 					</div>
 
-					<a href="/2016/06/21/lua-的-string-函数引发的血案/" title="lua 的 string 函数引发的血案">				
-						<img src="/img/post-cover/20.jpg" class="relateImg" alt="lua 的 string 函数引发的血案">
+					<a href="/2016/11/30/apt-get-t-jessie-backports/" title="apt-get -t jessie-backports">				
+						<img src="/img/post-cover/36.jpg" class="relateImg" alt="apt-get -t jessie-backports">
 					</a>
 				</li>											
 		
 		
 				<li>
 					<div>
-						<a href="/2016/06/17/openresty-各组件依赖/" title="openresty 各组件依赖">
-							openresty 各组件依赖
+						<a href="/2016/11/10/ngx-re-match-正则表达式长度限制/" title="ngx.re.match 正则表达式长度限制">
+							ngx.re.match 正则表达式长度限制
 						</a>
 						<p>
-							openresty 各组件(modsecurity、zlib、openssl、pcre、lua、gd、tools等)安装。
-openrestyhttps://openresty.org/download/openresty-1.9.1...
+							captures, err = ngx.re.match(subject, regex, options?, ctx?, res_table?)
+今天用 ngx.re.match，结果返回nil，查看err发现，regex正则表达式过...
 						</p>
 					</div>
 
-					<a href="/2016/06/17/openresty-各组件依赖/" title="openresty 各组件依赖">				
-						<img src="/img/post-cover/18.jpg" class="relateImg" alt="openresty 各组件依赖">
+					<a href="/2016/11/10/ngx-re-match-正则表达式长度限制/" title="ngx.re.match 正则表达式长度限制">				
+						<img src="/img/post-cover/35.jpg" class="relateImg" alt="ngx.re.match 正则表达式长度限制">
 					</a>
 				</li>											
 		
