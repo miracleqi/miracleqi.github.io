@@ -442,6 +442,59 @@ ucontext 报错编译 ope...
 		
 				<li>
 					<div>
+						<a href="/2018/11/24/hyperscan-安装/" title="hyperscan 安装">
+							hyperscan 安装
+						</a>
+						<p>
+							1. 前言本文在 Debian8 中安装 hyperscan 5.0.0内存至少 2 G，不然编译慢而且失败
+2. 依赖2.1 C/C++编译器hyperscan使用C++开发，且需要C99和C++11支持，目前支持的编译器有
+
+GC...
+						</p>
+					</div>
+
+					<a href="/2018/11/24/hyperscan-安装/" title="hyperscan 安装">				
+						<img src="/img/post-cover/53.jpg" class="relateImg" alt="hyperscan 安装">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/07/10/linux-查看系统开机时间/" title="linux 查看系统开机时间">
+							linux 查看系统开机时间
+						</a>
+						<p>
+							有时候需要查看Linux系统运行了多久时间，此时需要知道上次开机启动时间；有时候由于断电或供电故障突然停机，需要查看Linux开机时间/重启时间；下面总结一些查看Linux开机关机时间的方法（非常全面）
+1. who 命令查看who ...
+						</p>
+					</div>
+
+					<a href="/2018/07/10/linux-查看系统开机时间/" title="linux 查看系统开机时间">				
+						<img src="/img/post-cover/51.jpg" class="relateImg" alt="linux 查看系统开机时间">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2018/03/21/GDB-多线程-（non-stop）/" title="GDB 多线程 （non-stop）">
+							GDB 多线程 （non-stop）
+						</a>
+						<p>
+							1. 背景这几天在扩展 ngx_lua 模块，但 gdb 定位时，提示：Thread debugging using libthread_db enabled。
+2. GDB non-stop 配置把以下3行添加到 ~/.gdbini...
+						</p>
+					</div>
+
+					<a href="/2018/03/21/GDB-多线程-（non-stop）/" title="GDB 多线程 （non-stop）">				
+						<img src="/img/post-cover/45.jpg" class="relateImg" alt="GDB 多线程 （non-stop）">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
 						<a href="/2018/01/31/suricata-从-0-开始/" title="suricata 从 0 开始">
 							suricata 从 0 开始
 						</a>
@@ -452,6 +505,24 @@ ucontext 报错编译 ope...
 
 					<a href="/2018/01/31/suricata-从-0-开始/" title="suricata 从 0 开始">				
 						<img src="/img/post-cover/43.jpg" class="relateImg" alt="suricata 从 0 开始">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2017/07/25/clear-command-not-found-命令无法找到/" title="clear: command not found 命令无法找到">
+							clear: command not found 命令无法找到
+						</a>
+						<p>
+							1. 安装 ncurses-binsudo apt-get install ncurses-bin
+此时尝试执行 ‘clear’ 命令，若失败，执行第二步（重新安装 ncurses-bin）
+2. 重新安装 ncurses-binsu...
+						</p>
+					</div>
+
+					<a href="/2017/07/25/clear-command-not-found-命令无法找到/" title="clear: command not found 命令无法找到">				
+						<img src="/img/post-cover/44.jpg" class="relateImg" alt="clear: command not found 命令无法找到">
 					</a>
 				</li>											
 		
@@ -510,79 +581,6 @@ freebsd版本中对应的参数为 kern.ipc.somaxconn
 
 					<a href="/2016/12/30/Linux-内核参数/" title="Linux 内核参数">				
 						<img src="/img/post-cover/38.jpg" class="relateImg" alt="Linux 内核参数">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2016/12/20/test-nginx-lua/" title="test nginx lua">
-							test nginx lua
-						</a>
-						<p>
-							
-安装test nginx
-git clone https://github.com/openresty/test-nginx.git
-cd test-nginx
-perl Makefile.PL
-make &amp;&amp; ma...
-						</p>
-					</div>
-
-					<a href="/2016/12/20/test-nginx-lua/" title="test nginx lua">				
-						<img src="/img/post-cover/37.jpg" class="relateImg" alt="test nginx lua">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2016/11/30/apt-get-t-jessie-backports/" title="apt-get -t jessie-backports">
-							apt-get -t jessie-backports
-						</a>
-						<p>
-							背景最近有个需求，openssl 需要在 1.0.2e 版本以上但是 apt-get 默认最新版才是 1.0.1h 版debian8 更新软件不仅有 jessie 版，还有 jessie-backports 版jessie-backp...
-						</p>
-					</div>
-
-					<a href="/2016/11/30/apt-get-t-jessie-backports/" title="apt-get -t jessie-backports">				
-						<img src="/img/post-cover/36.jpg" class="relateImg" alt="apt-get -t jessie-backports">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2016/11/10/ngx-re-match-正则表达式长度限制/" title="ngx.re.match 正则表达式长度限制">
-							ngx.re.match 正则表达式长度限制
-						</a>
-						<p>
-							captures, err = ngx.re.match(subject, regex, options?, ctx?, res_table?)
-今天用 ngx.re.match，结果返回nil，查看err发现，regex正则表达式过...
-						</p>
-					</div>
-
-					<a href="/2016/11/10/ngx-re-match-正则表达式长度限制/" title="ngx.re.match 正则表达式长度限制">				
-						<img src="/img/post-cover/35.jpg" class="relateImg" alt="ngx.re.match 正则表达式长度限制">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/2016/10/10/TERM-environment-variable-not-set/" title="TERM environment variable not set">
-							TERM environment variable not set
-						</a>
-						<p>
-							这几天装的 debian docker 发现没有 clear 指令
-安装 ncurses-bin，发现已经是最新的了
-which clear，结果是 /usr/bin/clear
-此时 clear 指令报错如下：TERM enviro...
-						</p>
-					</div>
-
-					<a href="/2016/10/10/TERM-environment-variable-not-set/" title="TERM environment variable not set">				
-						<img src="/img/post-cover/33.jpg" class="relateImg" alt="TERM environment variable not set">
 					</a>
 				</li>											
 		
@@ -826,6 +824,7 @@ which clear，结果是 /usr/bin/clear
 			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay. 		
 			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
 			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>		
+            <a href="http://shcainfo.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank">沪ICP备16011274号</a>
 		</p>
 	</div>		
 </footer>
