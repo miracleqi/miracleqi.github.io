@@ -297,7 +297,7 @@
 	更新于
 	<a href="/2019/01/08/在-alpine-上编译-openssl-遇到的问题/" itemprop="url">
 		<time datetime="2019-01-08T02:38:00.000Z" itemprop="dateUpdated">
-	  		2019-01-08
+	  		2019-01-29
 	  </time>
 	</a> 	
 
@@ -339,7 +339,7 @@
 
 	<div class="article-content" id="article-content">
 		<p>alpine 上编译 openssl (v1.1.1) 遇到 ucontext 报错</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天在 alpine 基础上编译 <a href="#https://github.com/titansec/openwaf">openwaf</a>，编到 openssl 时，报 ucontext 相关错误。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天在 alpine 基础上编译 <a href="https://github.com/titansec/openwaf" target="_blank" rel="noopener">openwaf</a>，编到 openssl 时，报 ucontext 相关错误。</p>
 <h2 id="ucontext-报错"><a href="#ucontext-报错" class="headerlink" title="ucontext 报错"></a>ucontext 报错</h2><p>编译 openssl</p>
 <pre><code># ./config
 # make &amp;&amp; make install
@@ -352,7 +352,7 @@
 <pre><code># ./config no-async
 # make &amp;&amp; make install
 </code></pre><p>no-async: 交叉编译工具链没有提供GNU C的ucontext库</p>
-<p>PS：<a href="#https://github.com/openssl/openssl/issues/1607">openssl 相关 issue</a></p>
+<p>PS：<a href="https://github.com/openssl/openssl/issues/1607" target="_blank" rel="noopener">openssl 相关 issue</a></p>
 <h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>openssl 交叉编译过程中会遇到很多问题，这里罗列其他几个参数：</p>
 <pre><code>no-asm:    在交叉编译过程中不使用汇编代码代码加速编译过程.原因是它的汇编代码是对arm格式不支持的。
 shared: 生成动态连接库。

@@ -297,7 +297,7 @@
 	更新于
 	<a href="/2016/08/30/influxdb-注意事项/" itemprop="url">
 		<time datetime="2016-08-30T03:35:00.000Z" itemprop="dateUpdated">
-	  		2019-01-11
+	  		2019-01-29
 	  </time>
 	</a> 	
 
@@ -335,7 +335,7 @@
 
 	<div class="article-content" id="article-content">
 		<p>剖析 influxdb 日志记录失败原因</p>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近公司想让引擎日志通过 udp 直接发送至 influxdb<br>influxdb <a href="#https://docs.influxdata.com/influxdb">使用文档</a>在此，不详细描述了<br>期间遇到几个需要注意的事项，会使日志记录失败。</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近公司想让引擎日志通过 udp 直接发送至 influxdb<br>influxdb <a href="https://docs.influxdata.com/influxdb" target="_blank" rel="noopener">使用文档</a>在此，不详细描述了<br>期间遇到几个需要注意的事项，会使日志记录失败。</p>
 <h1 id="同一时间仅有一条日志记录成功"><a href="#同一时间仅有一条日志记录成功" class="headerlink" title="同一时间仅有一条日志记录成功"></a>同一时间仅有一条日志记录成功</h1><p>中间遇到一个坑，一条日志中多个 points，结果日志入库后，只有最后一个 point，</p>
 <p>多次测试后得出结论：</p>
 <p>一条日志多个 points，给的时间戳都是一致的，必须保证 tags 中不一致才可都入库</p>

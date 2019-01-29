@@ -297,7 +297,7 @@
 	更新于
 	<a href="/2016/06/21/nginx-add-dynamic-module/" itemprop="url">
 		<time datetime="2016-06-21T01:56:00.000Z" itemprop="dateUpdated">
-	  		2019-01-09
+	  		2019-01-29
 	  </time>
 	</a> 	
 
@@ -339,12 +339,12 @@
 
 	<div class="article-content" id="article-content">
 		<p>nginx 动态添加模块</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>1.9.11 版本前的 nginx 增加一个第三方模块，需要重新编译源代码，所有的模块都是用静态链接的形式组织起来的。而 Tengine 可以实现运行时动态加载模块，而不用每次都要重新编译Tengine。<br>Nginx 官方发布的 Nginx-1.9.11 版本，增加了此<a href="#http://nginx.org/en/CHANGES">功能</a>。<br>openresty 的 1.9.15.1 版本增加了此<a href="#http://openresty.org/cn/changelog-1009015.html">功能</a>。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>1.9.11 版本前的 nginx 增加一个第三方模块，需要重新编译源代码，所有的模块都是用静态链接的形式组织起来的。而 Tengine 可以实现运行时动态加载模块，而不用每次都要重新编译Tengine。<br>Nginx 官方发布的 Nginx-1.9.11 版本，增加了此<a href="http://nginx.org/en/CHANGES" target="_blank" rel="noopener">功能</a>。<br>openresty 的 1.9.15.1 版本增加了此<a href="http://openresty.org/cn/changelog-1009015.html" target="_blank" rel="noopener">功能</a>。</p>
 <p>今天我将代码也更新到了 1.9.15.1 版本，试着动态加载自己编写的第三方模块</p>
 <p>参考官方文档：</p>
-<p><a href="#https://www.nginx.com/resources/wiki/extending/converting">Converting Static Modules to Dynamic Modules</a></p>
-<p><a href="#https://www.nginx.com/resources/wiki/extending/old_config">Old Config Shell File</a></p>
-<p><a href="#https://www.nginx.com/resources/wiki/extending/new_config">New Config Shell File</a></p>
+<p><a href="https://www.nginx.com/resources/wiki/extending/converting" target="_blank" rel="noopener">Converting Static Modules to Dynamic Modules</a></p>
+<p><a href="https://www.nginx.com/resources/wiki/extending/old_config" target="_blank" rel="noopener">Old Config Shell File</a></p>
+<p><a href="https://www.nginx.com/resources/wiki/extending/new_config" target="_blank" rel="noopener">New Config Shell File</a></p>
 <h2 id="Converting-a-config-file"><a href="#Converting-a-config-file" class="headerlink" title="Converting a config file"></a>Converting a config file</h2><h3 id="old-config"><a href="#old-config" class="headerlink" title="old-config"></a>old-config</h3><pre><code>ngx_addon_name=ngx_http_xxx_filter_module
 HTTP_AUX_FILTER_MODULES=&quot;$HTTP_AUX_FILTER_MODULES\              
                     ngx_http_xxx_filter_module&quot;
@@ -489,7 +489,8 @@ function s...
 						</a>
 						<p>
 							openresty 各组件(modsecurity、zlib、openssl、pcre、lua、gd、tools等)安装。
-openrestyhttps://openresty.org/download/openresty-1.9.1...
+openresty目前最新版本 1.9.15.1 支持动态加载模块
+nginx 依赖openssl – ssl...
 						</p>
 					</div>
 
