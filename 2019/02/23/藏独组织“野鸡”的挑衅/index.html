@@ -38,18 +38,6 @@
 	<body>
 		<!-- Preloader -->
 
-	<div id="preloader">
-		<div class="pre-container">
-			
-				<div class="transition">
-					<div class="three-bounce1"></div>
-					<div class="three-bounce2"></div>
-					<div class="three-bounce3"></div>
-				</div>
-						
-		</div>
-	</div>
-
 
 <!-- header -->
 <header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="110" data-random-src="/img/background/">
@@ -1091,74 +1079,23 @@ Installatio...
 	
 
 		
-
-			<!-- comment gitalk -->
-			<!-- show gitalk comment -->
-<div id="gitalk-container"></div>
-
-<!-- gitalk`s css & js -->
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<link rel="stylesheet" href="/css/comment.css">
-<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-
-<script type="text/javascript">
-	//Thanks O-R
-	//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
-	//去除尾部匹配正则数组的字符串  
-	//Remove redundant characters
-	String.prototype.trimEnd = function(regStr) {
-		var result = this;
-		if(regStr == undefined || regStr == null || regStr == "") {
-			return result;
-		}
-		var array = regStr.split(',');
-
-		if(array.length > 0) {
-
-			var c = array.shift();
-			var str = this;
-			var i = str.length;
-			var rg = new RegExp(c);
-			var matchArr = str.match(rg);
-
-			if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
-				var matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
-					.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
-					.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
-					.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
-					.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
-					.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
-					.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
-					.replace(/\./g, "\\.").replace(/\&/g, "\\&");
-				matchStr = matchStr + '$';
-				result = str.replace(new RegExp(matchStr), "");
-			}
-
-			if(array.length > 0) {
-				return result.trimEnd(array.join())
-			} else {
-				return result;
-			}
-		}
-	};
-
-	//Create gitalk
-	var gitalk = new Gitalk({
-		clientID: '1c4a9c51912861df1489',
-		clientSecret: 'de2039c0832657f5fa14b8fca2a8e45e0f82fdba',
-		//id: window.location.pathname,
-		//id: decodeURI(window.location.pathname),
-		//id: (window.location.pathname).split("/").pop().substring(0, 49),
-		id: decodeURI( md5( location.href.trimEnd('#.*$,\\?.*$,index.html$') ) ),
-		repo: 'Blog-Comment-Repo',
-		owner: 'miracleqi',
-		admin: 'miracleqi',
-		distractionFreeMode: 'true',
-	})
-	gitalk.render('gitalk-container');
-</script>
-
+			
+			<!-- comment valine -->
+			<!-- show livere comment -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MjQ2MC8xOTAwNw==">
+	<script type="text/javascript">
+	   (function(d, s) {
+	       var j, e = d.getElementsByTagName(s)[0];
+ 	       if (typeof LivereTower === 'function') { return; }
+ 	       j = d.createElement(s);
+	       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+	       j.async = true;
+ 	       e.parentNode.insertBefore(j, e);
+	   })(document, 'script');
+	</script>
+	<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+			
 		
 		
 	
@@ -1205,6 +1142,59 @@ Installatio...
 <!-- show math formula -->
 
 
+
+<script>
+	//Refer to https://xinyo.org/archives/66226, thanks xinyo!
+	function codeCopy() {
+		var copyContainerId = 'copy-nav';
+						
+		$("pre").before(" <nav class=' " + copyContainerId + " '><i class='code-language'></i></nav> ");
+		
+		$('.' + copyContainerId).append("<i class='fa fa-clipboard copy-btn' aria-hidden='true'></i>");
+		
+		$('#article-content').find('pre').each( function () {
+			var language = $(this).children('code').attr('class').substr(9);//why 9? Need to check language?
+			$(this).prev().find('.code-language').text( language );	
+		});
+				
+		//为复制按钮添加click事件
+		$('.copy-btn').on("click", function() {
+			//初始化
+			$("textarea").remove("#targetId");
+			
+			//获取对应的代码
+			var codePre = $(this).parent().next(),
+				codeText = codePre[0].textContent,
+				target = document.createElement("textarea");
+			target.style.position = "absolute";
+			target.style.left = "-9999px";
+			target.style.top = "0";
+			target.id = "targetId";
+			codePre.append(target);
+			target.textContent = codeText;
+
+			//选中textarea内的代码
+			target.focus();
+			target.setSelectionRange(0, target.value.length);
+
+			// 复制选中的内容
+			document.execCommand("copy");
+			
+			//删除添加的节点
+			$("textarea").remove("#targetId");
+			
+			var thisCopied = $(this);
+			thisCopied.addClass('copy-status');	
+			setTimeout( function() {
+				thisCopied.removeClass('copy-status');
+			}, 2000)
+		});	
+	}
+	
+	if( $('.layout-post').length )	{
+		codeCopy();
+	}
+</script>
 
 
 <!-- TODO: There seems to be a bug when you close the post gallery! -->

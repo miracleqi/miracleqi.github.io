@@ -38,18 +38,6 @@
 	<body>
 		<!-- Preloader -->
 
-	<div id="preloader">
-		<div class="pre-container">
-			
-				<div class="transition">
-					<div class="three-bounce1"></div>
-					<div class="three-bounce2"></div>
-					<div class="three-bounce3"></div>
-				</div>
-						
-		</div>
-	</div>
-
 
 <!-- header -->
 <header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="110" data-random-src="/img/background/">
@@ -297,7 +285,7 @@
 	更新于
 	<a href="/2016/06/21/Linux-磁盘空间不足提示-No-space-left-on-device/" itemprop="url">
 		<time datetime="2016-06-21T09:50:00.000Z" itemprop="dateUpdated">
-	  		2019-01-10
+	  		2019-01-29
 	  </time>
 	</a> 	
 
@@ -309,6 +297,10 @@
 	
 		<a href="/tags/du/" class=" ">
 			du
+		</a>
+	
+		<a href="/tags/lsof/" class=" ">
+			lsof
 		</a>
 	
 		
@@ -334,8 +326,8 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<p>Linux 提示 No space left on device 使用 du 排查原因</p>
-<p>df 显示确实磁盘空间已满</p>
+		<p>Linux 提示 No space left on device 使用 du 和 lsof 排查原因</p>
+<h1 id="du"><a href="#du" class="headerlink" title="du"></a>du</h1><p>df 显示确实磁盘空间已满</p>
 <p>这种情况下最快速的解决办法就是：</p>
 <p>1.进入根目录</p>
 <pre><code>du -h --max-depth=1|grep G|sort -n  找不到结果还可以把 grep G 换成 grep M
@@ -354,6 +346,14 @@
 14G     .
 </code></pre><p>瞬间减少了4G (/usr和/soft并未处理)</p>
 <p>PS: 若报错，可去除 –max-depth 参数</p>
+<h1 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a>lsof</h1><p>前两天，一个设备根目录下的 2T 空间被占满，使用 du，发现所有文件大小只有几百兆而已。那么 2T 的空间被谁占用了？<br>随即想到，可能文件已经删掉了，但某进程打开的文件句柄还在，导致资源未释放。<br><code>lsof | more</code>可查看打开的文件句柄及文件大小<br><img src="/images/pasted-57.png" alt="upload successful"></p>
+<p>只查看输出第 8 列 SIZE 和第 10 列 NAME，倒序排列</p>
+<pre><code># lsof -n | awk &#39;{print $8,$10}&#39; | sort -nr | more
+</code></pre><p>示意图：<br><img src="/images/pasted-58.png" alt="upload successful"></p>
+<p>或用如下命令：</p>
+<pre><code>lsof -s | awk &#39;$5 == &quot;REG&quot;&#39; | sort -n -r -k 7,7 | head -n 25
+</code></pre><p>示意图：<br><img src="/images/pasted-59.png" alt="upload successful"></p>
+<p>快速定位至占用进程，重启进程，释放资源即可。</p>
 	
 	</div>
 	
@@ -582,74 +582,23 @@ GC...
 	
 
 		
-
-			<!-- comment gitalk -->
-			<!-- show gitalk comment -->
-<div id="gitalk-container"></div>
-
-<!-- gitalk`s css & js -->
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<link rel="stylesheet" href="/css/comment.css">
-<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-
-<script type="text/javascript">
-	//Thanks O-R
-	//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
-	//去除尾部匹配正则数组的字符串  
-	//Remove redundant characters
-	String.prototype.trimEnd = function(regStr) {
-		var result = this;
-		if(regStr == undefined || regStr == null || regStr == "") {
-			return result;
-		}
-		var array = regStr.split(',');
-
-		if(array.length > 0) {
-
-			var c = array.shift();
-			var str = this;
-			var i = str.length;
-			var rg = new RegExp(c);
-			var matchArr = str.match(rg);
-
-			if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
-				var matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
-					.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
-					.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
-					.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
-					.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
-					.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
-					.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
-					.replace(/\./g, "\\.").replace(/\&/g, "\\&");
-				matchStr = matchStr + '$';
-				result = str.replace(new RegExp(matchStr), "");
-			}
-
-			if(array.length > 0) {
-				return result.trimEnd(array.join())
-			} else {
-				return result;
-			}
-		}
-	};
-
-	//Create gitalk
-	var gitalk = new Gitalk({
-		clientID: '1c4a9c51912861df1489',
-		clientSecret: 'de2039c0832657f5fa14b8fca2a8e45e0f82fdba',
-		//id: window.location.pathname,
-		//id: decodeURI(window.location.pathname),
-		//id: (window.location.pathname).split("/").pop().substring(0, 49),
-		id: decodeURI( md5( location.href.trimEnd('#.*$,\\?.*$,index.html$') ) ),
-		repo: 'Blog-Comment-Repo',
-		owner: 'miracleqi',
-		admin: 'miracleqi',
-		distractionFreeMode: 'true',
-	})
-	gitalk.render('gitalk-container');
-</script>
-
+			
+			<!-- comment valine -->
+			<!-- show livere comment -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MjQ2MC8xOTAwNw==">
+	<script type="text/javascript">
+	   (function(d, s) {
+	       var j, e = d.getElementsByTagName(s)[0];
+ 	       if (typeof LivereTower === 'function') { return; }
+ 	       j = d.createElement(s);
+	       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+	       j.async = true;
+ 	       e.parentNode.insertBefore(j, e);
+	   })(document, 'script');
+	</script>
+	<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+			
 		
 		
 	
@@ -697,6 +646,59 @@ GC...
 
 
 
+<script>
+	//Refer to https://xinyo.org/archives/66226, thanks xinyo!
+	function codeCopy() {
+		var copyContainerId = 'copy-nav';
+						
+		$("pre").before(" <nav class=' " + copyContainerId + " '><i class='code-language'></i></nav> ");
+		
+		$('.' + copyContainerId).append("<i class='fa fa-clipboard copy-btn' aria-hidden='true'></i>");
+		
+		$('#article-content').find('pre').each( function () {
+			var language = $(this).children('code').attr('class').substr(9);//why 9? Need to check language?
+			$(this).prev().find('.code-language').text( language );	
+		});
+				
+		//为复制按钮添加click事件
+		$('.copy-btn').on("click", function() {
+			//初始化
+			$("textarea").remove("#targetId");
+			
+			//获取对应的代码
+			var codePre = $(this).parent().next(),
+				codeText = codePre[0].textContent,
+				target = document.createElement("textarea");
+			target.style.position = "absolute";
+			target.style.left = "-9999px";
+			target.style.top = "0";
+			target.id = "targetId";
+			codePre.append(target);
+			target.textContent = codeText;
+
+			//选中textarea内的代码
+			target.focus();
+			target.setSelectionRange(0, target.value.length);
+
+			// 复制选中的内容
+			document.execCommand("copy");
+			
+			//删除添加的节点
+			$("textarea").remove("#targetId");
+			
+			var thisCopied = $(this);
+			thisCopied.addClass('copy-status');	
+			setTimeout( function() {
+				thisCopied.removeClass('copy-status');
+			}, 2000)
+		});	
+	}
+	
+	if( $('.layout-post').length )	{
+		codeCopy();
+	}
+</script>
+
 
 <!-- TODO: There seems to be a bug when you close the post gallery! -->
 <link rel="stylesheet" href="/plugin/lightgallery/css/lightgallery.css">
@@ -728,6 +730,13 @@ GC...
 		插件作者：KELEN
 		插件来源: https://github.com/KELEN/katelog
 -->
+
+		
+
+		<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
 	
 		</main>
 		
