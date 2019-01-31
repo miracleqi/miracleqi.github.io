@@ -1,0 +1,1004 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+	<!DOCTYPE html>
+	<html class="scrollbar">
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      openresty 各组件依赖 | 齐健的博客
+    
+  </title>
+  <meta name="author" content="MiracleQi-温柔魔君">
+  <meta name="keywords" content="openwaf,nginx,openresty,程序员,极客,开源,IT,Geek">
+  <meta name="description" content="温柔魔君">
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+    <!-- jquery -->
+	<script src="/js/jquery-2.1.1.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="110" data-random-src="/img/background/">
+	<div class="mask">
+		<div class="h-header">
+			<div id="logo-S">
+				
+					<a href="/">
+						<img src="/img/logo.png" alt="Logo">
+					</a>
+				
+			</div>
+			<!-- Navigation in header(id="navigation-S") -->
+			<div id="navigation-S">
+				<ul>
+					
+						<li class="menu-home">
+							<a href="/" class="menu-item-home">主页</a>
+						</li>
+					
+						<li class="menu-archive">
+							<a href="/archives" class="menu-item-archive">归档</a>
+						</li>
+					
+						<li class="menu-categories">
+							<a href="/categories" class="menu-item-categories">分类</a>
+						</li>
+					
+						<li class="menu-tags">
+							<a href="/tags" class="menu-item-tags">标签</a>
+						</li>
+					
+						<li class="menu-about">
+							<a href="/about" class="menu-item-about">关于</a>
+						</li>
+					
+						<li class="menu-gallery">
+							<a href="/gallery" class="menu-item-gallery">相册</a>
+						</li>
+					
+
+					
+						<li class="menu-search">
+							<a href="javascript:;" class="popup-trigger" title="Search">搜索</a>
+						</li>
+					
+				</ul>			
+			</div>				
+		</div>
+
+		<div class="h-body">	
+			<!-- motto -->
+			
+				<div id="page-motto">
+					<p class="motto">
+						
+					</p>
+				</div>
+			
+
+			<div id="navigation-H">
+				<!-- Page title -->
+				<p>
+					
+						当前文章&nbsp;:&nbsp;《openresty 各组件依赖》
+					
+				</p>
+				<!-- Progress bar -->
+				<div id="progress-bar"></div>
+
+				<!-- Progress percent -->
+				<div id="progress-percentage">
+					<h1>0.0%</h1>
+				</div>
+			</div>
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<ul>
+				<li>
+					<a><i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>切换背景</a>
+				</li>
+				<li>
+					<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down"></i>继续阅读</a>
+				</li>
+				<li>
+					<a href="https://github.com/Sariay/hexo-theme-Annie" target="_blank"><i class="fa fa-download"></i>克隆主题</a>
+				</li>
+			</ul>
+		</div>
+		
+		<!-- This is only a demo, please go to "https://time.is" to set your city time! -->
+<style type="text/css">
+	.header-date {
+		position: absolute;
+		left: 40px;
+		bottom: 30px;
+		writing-mode: tb-rl;
+		font-size: 36px;
+	}	
+	.header-date a {
+		border-bottom: none;
+	}
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			position: absolute;
+			left: 40px;
+			bottom: 30px;
+			writing-mode: tb-rl;
+			font-size: 20px;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow"></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+</div></header>
+
+<!-- Navigation in div(id="navigation-H") -->
+<a class="nav-trigger">
+	<span></span>
+</a>
+
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+			
+				<li class="menu-home">
+					<a href="/" class="menu-item-home">主页</a>
+				</li>
+			
+				<li class="menu-archive">
+					<a href="/archives" class="menu-item-archive">归档</a>
+				</li>
+			
+				<li class="menu-categories">
+					<a href="/categories" class="menu-item-categories">分类</a>
+				</li>
+			
+				<li class="menu-tags">
+					<a href="/tags" class="menu-item-tags">标签</a>
+				</li>
+			
+				<li class="menu-about">
+					<a href="/about" class="menu-item-about">关于</a>
+				</li>
+			
+				<li class="menu-gallery">
+					<a href="/gallery" class="menu-item-gallery">相册</a>
+				</li>
+			
+
+			
+				<li class="menu-search">
+					<a href="javascript:;" class="popup-trigger" title="Search">搜索</a>
+				</li>
+			
+		</ul>
+	</div>
+
+	<div class="nav-footer">
+		<ul>
+	
+		
+			<li>
+				<a href="https://github.com/miracleqi" title="Github" target="_blank">
+					<i class="fa fa-github"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="https://weibo.com/miracleqi25" title="Weibo" target="_blank">
+					<i class="fa fa-weibo"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="mailto:290557551@qq.com" title="Email" target="_blank">
+					<i class="fa fa-envelope-o"></i>
+				</a>
+			</li>
+		
+
+		
+			<li>
+				<a href="http://wpa.qq.com/msgrd?v=3&uin=290557551&site=qq&menu=yes" title="QQ" target="_blank">
+					<i class="fa fa-qq"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="http://github.com/" title="Twitter" target="_blank">
+					<i class="fa fa-twitter"></i>
+				</a>
+			</li>
+		
+	 
+</ul>
+	</div>
+</nav>
+
+		
+		<!--main-->
+		<main>
+			<div class="layout-post">
+	
+	
+	<div class="article-title">
+		
+	<a href="/81d62413/" itemprop="url">
+		openresty 各组件依赖
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			
+	发布于
+	<a href="/81d62413/" itemprop="url">
+		<time datetime="2016-06-17T02:45:00.000Z" itemprop="datePublished">
+	  		2016-06-17
+	  </time>
+	</a> 
+
+	/
+	更新于
+	<a href="/81d62413/" itemprop="url">
+		<time datetime="2016-06-17T02:45:00.000Z" itemprop="dateUpdated">
+	  		2019-01-31
+	  </time>
+	</a> 	
+
+		</span>
+		/
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/openresty/" class=" ">
+			openresty
+		</a>
+	
+		<a href="/tags/nginx/" class=" ">
+			nginx
+		</a>
+	
+		<a href="/tags/modsecurity/" class=" ">
+			modsecurity
+		</a>
+	
+		<a href="/tags/gd/" class=" ">
+			gd
+		</a>
+	
+		
+		</span>
+		/
+		
+
+    <span class="leancloud_visitors" id="/81d62413/_visitors" data-url="/81d62413/" data-title="openresty 各组件依赖">
+        热度
+        <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
+    </span>
+    
+    /
+
+
+
+    <span class="leancloud_likes" id="/81d62413/_likes" data-url="/81d62413/" data-title="openresty 各组件依赖" rel="unlike">
+        喜欢
+        <i class="fa fa-heart"></i>
+        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+    </span>
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<p>openresty 各组件(modsecurity、zlib、openssl、pcre、lua、gd、tools等)安装。</p>
+<h2 id="openresty"><a href="#openresty" class="headerlink" title="openresty"></a>openresty</h2><p>目前最新版本 <a href="https://openresty.org/download/openresty-1.9.15.1.tar.gz" target="_blank" rel="noopener">1.9.15.1</a> 支持动态加载模块</p>
+<h2 id="nginx-依赖"><a href="#nginx-依赖" class="headerlink" title="nginx 依赖"></a>nginx 依赖</h2><h3 id="openssl-–-ssl依赖"><a href="#openssl-–-ssl依赖" class="headerlink" title="openssl – ssl依赖"></a>openssl – ssl依赖</h3><p>目前最新版本 <a href="http://www.openssl.org/source/openssl-1.0.2h.tar.gz" target="_blank" rel="noopener">1.0.2h</a></p>
+<pre><code>./config  
+make &amp;&amp; make install
+openssl version      # 验证版本
+</code></pre><h3 id="pcre-–-正则依赖"><a href="#pcre-–-正则依赖" class="headerlink" title="pcre – 正则依赖"></a>pcre – 正则依赖</h3><p>目前最新版本是 <a href="http://sourceforge.net/projects/pcre/files/pcre/8.38/pcre-8.38.tar.gz" target="_blank" rel="noopener">8.38</a></p>
+<pre><code>./configure --enable-jit  
+make &amp;&amp; make isntall
+pcre-config --version      # 验证版本
+</code></pre><h3 id="zlib-–-压缩依赖"><a href="#zlib-–-压缩依赖" class="headerlink" title="zlib – 压缩依赖"></a>zlib – 压缩依赖</h3><p>最新版本是 <a href="http://zlib.net/zlib-1.2.8.tar.gz" target="_blank" rel="noopener">1.2.8</a>，13 年更新</p>
+<pre><code>./configure  
+make &amp;&amp; make install
+</code></pre><p>如果没有达到目的，还可以</p>
+<pre><code>apt-get install zlib1g zlib1g-dev
+</code></pre><h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><h3 id="ssdeep"><a href="#ssdeep" class="headerlink" title="ssdeep"></a>ssdeep</h3><p>暂时用不到，已改成 lua_ssdeep</p>
+<h3 id="clamav"><a href="#clamav" class="headerlink" title="clamav"></a>clamav</h3><pre><code>apt-get install clamav
+</code></pre><h3 id="lua-gd"><a href="#lua-gd" class="headerlink" title="lua_gd"></a>lua_gd</h3><h4 id="gd"><a href="#gd" class="headerlink" title="gd"></a>gd</h4><p>手动下载 <a href="https://bitbucket.org/libgd/gd-libgd/downloads" target="_blank" rel="noopener">libgd-2.1.1</a></p>
+<p>ps:尝试apt-get install libgd3 但编译时提示找不到gd.h</p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><h4 id="jpeg"><a href="#jpeg" class="headerlink" title="jpeg"></a>jpeg</h4><p>下载最新的 <a href="http://www.ijg.org/files/" target="_blank" rel="noopener">jpegsrc.v9b.tar.gz</a></p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><p>这里直接 apt-get install libjpeg-dev</p>
+<h4 id="lpng-amp-freetype"><a href="#lpng-amp-freetype" class="headerlink" title="lpng  &amp; freetype"></a>lpng  &amp; freetype</h4><p>这里下载 <a href="http://jaist.dl.sourceforge.net/project/libpng/" target="_blank" rel="noopener">libpng16/1.6.16/libpng-1.6.16.tar.gz</a></p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><p>这里下载 <a href="http://ftp.twaren.net/Unix/NonGNU/freetype/" target="_blank" rel="noopener">freetype-2.5.5.tar.gz</a></p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><p>或者直接 apt-get install libfreetype6-dev 会自动安装依赖 libpng12-dev</p>
+<h4 id="libtiff"><a href="#libtiff" class="headerlink" title="libtiff"></a>libtiff</h4><pre><code>apt-get install libtiff5-dev
+</code></pre><p>实测 lua_gd 处理 tiff 图片无效，因此不需安装</p>
+<h4 id="libgif"><a href="#libgif" class="headerlink" title="libgif"></a>libgif</h4><pre><code>apt-get install libgif-dev
+</code></pre><p>gd 对 gif 处理并不友好，因此需要处理 gif 图片，推荐 imagick</p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><pre><code>apt-get install libvpx-dev
+apt-get install libxpm-dev
+apt-get install libfontconfig1-dev
+
+我这里都用不到，就不安装了
+</code></pre><h2 id="libinjection"><a href="#libinjection" class="headerlink" title="libinjection"></a>libinjection</h2><p>编译 libinjection 需要 swig 支持</p>
+<pre><code>apt-get install swig
+</code></pre><h2 id="modsecurity"><a href="#modsecurity" class="headerlink" title="modsecurity"></a>modsecurity</h2><h3 id="apxs"><a href="#apxs" class="headerlink" title="apxs"></a>apxs</h3><pre><code>apt-get install apache2-dev (apxs)
+</code></pre><h3 id="pcre"><a href="#pcre" class="headerlink" title="pcre"></a>pcre</h3><p>同上</p>
+<h3 id="apr"><a href="#apr" class="headerlink" title="apr"></a>apr</h3><p>下载 <a href="http://apr.apache.org/download.cgi" target="_blank" rel="noopener">apr</a> 与 <a href="http://apr.apache.org/download.cgi" target="_blank" rel="noopener">apr-util</a></p>
+<h4 id="apr-1-5-2"><a href="#apr-1-5-2" class="headerlink" title="apr-1.5.2"></a>apr-1.5.2</h4><pre><code> ./configure   
+make &amp;&amp; make install
+</code></pre><h4 id="apr-util-1-5-4"><a href="#apr-util-1-5-4" class="headerlink" title="apr-util-1.5.4"></a>apr-util-1.5.4</h4><pre><code>./configure --with-apr=/soft/apr-1.5.2 
+make &amp;&amp; make install
+</code></pre><h3 id="autogen-sh-依赖"><a href="#autogen-sh-依赖" class="headerlink" title="./autogen.sh 依赖"></a>./autogen.sh 依赖</h3><p> libtoolize autoreconf autoheader automake autoconf 均为 not found</p>
+<h4 id="libtool"><a href="#libtool" class="headerlink" title="libtool"></a>libtool</h4><p>本次下载 <a href="ftp://ftp.gnu.org/gnu/libtool/" target="_blank" rel="noopener">libtool-2.4.6.tar.gz</a></p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><h4 id="automake"><a href="#automake" class="headerlink" title="automake"></a>automake</h4><p>本次下载 <a href="ftp://ftp.gnu.org/gnu/automake/" target="_blank" rel="noopener">automake-1.9.tar.gz</a></p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><h4 id="autoconf"><a href="#autoconf" class="headerlink" title="autoconf"></a>autoconf</h4><p>包含 autoheader、autoreconf 与 autom4te 等</p>
+<p>本次下载 <a href="http://ftp.gnu.org/gnu/autoconf/" target="_blank" rel="noopener">autoconf-2.69.tar.gz</a></p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><h4 id="yajl"><a href="#yajl" class="headerlink" title="yajl"></a>yajl</h4><p>本次下载 <a href="http://lloyd.github.io/yajl/" target="_blank" rel="noopener">yajl-2.1.0.tar.gz</a></p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><p>依赖 cmake</p>
+<p>本次下载 <a href="https://cmake.org/download/" target="_blank" rel="noopener">cmake-3.6.0-rc2.tar.gz</a></p>
+<pre><code>./configure
+make &amp;＆ make install
+</code></pre><h4 id="lua5-1"><a href="#lua5-1" class="headerlink" title="lua5.1"></a>lua5.1</h4><p>当前最新版本 5.3.3，本次下载 <a href="http://www.lua.org/ftp/" target="_blank" rel="noopener">5.1</a></p>
+<pre><code>make linux &amp;&amp; make install
+</code></pre><p>若提示找不到 readline 头文件</p>
+<pre><code>apt-get install libreadline6 libreadline6-dev
+</code></pre><p>若提示找不到-lncurses</p>
+<pre><code>apt-get install libncurses5 libncurses5-dev
+</code></pre><p>ps:若需要重编 lua，要先 make clean</p>
+<h4 id="libxml2"><a href="#libxml2" class="headerlink" title="libxml2"></a>libxml2</h4><pre><code>apt-get install libxml2 libxml2-dev
+</code></pre><p>ps: ./autogen.sh 时，提示 PKG_PROG_PKG_CONFIG 找不到</p>
+<p>在确认 pkg-config 安装，且有 pkg.m4 后意识到系统有两套 automake</p>
+<p>终端输入aclocal –print-ac-dir</p>
+<p>得到 /usr/share/aclocal</p>
+<p>但是 libtool.m4 却在 /usr/local/share/aclocal</p>
+<p>如果无法去掉“非标准的”automake，只需</p>
+<pre><code>ACLOCAL_PATH=/usr/share/aclocal ./autogen.sh
+</code></pre><p>或者 </p>
+<pre><code>export ACLOCAL_PATH=/usr/share/aclocal
+./autogen.sh
+</code></pre><p>但需要的文件可能分别在两个路径下，</p>
+<p>因此我先将 /usr/local/share/aclocal/ 下文件拷贝到 /usr/share/aclocal 下</p>
+<p><a href="http://www.gnu.org/software/automake/manual/html_node/Macro-Search-Path.html#Macro-Search-Path" target="_blank" rel="noopener">ACLOCAL参考文档</a></p>
+<h4 id="编译-modsecurity"><a href="#编译-modsecurity" class="headerlink" title="编译 modsecurity"></a>编译 modsecurity</h4><p>最新版本 <a href="https://github.com/SpiderLabs/ModSecurity/tree/nginx_refactoring" target="_blank" rel="noopener">2.9.1</a></p>
+<pre><code>./configure --with-apxs=/usr/bin/apxs  --with-pcre=/usr/local/bin/pcre-config --enable-pcre-match-limit=1500 --enable-pcre-match-limit-recursion=1500 --enable-pcre-study  --enable-twaf-var  --enable-pcre-jit  --enable-lua-cache --enable-standalone-module  --with-apr=/usr/local/apr  --with-lua --with-lua=/usr/local/lua​  with-apu=/usr/bin/apu-1-config --disable-mlogc
+</code></pre><h2 id="openresty-tools"><a href="#openresty-tools" class="headerlink" title="openresty tools"></a>openresty tools</h2><h3 id="nginx-systemtap-toolkit-amp-stapxx"><a href="#nginx-systemtap-toolkit-amp-stapxx" class="headerlink" title="nginx-systemtap-toolkit &amp; stapxx"></a>nginx-systemtap-toolkit &amp; stapxx</h3><p><a href="https://github.com/openresty/openresty-systemtap-toolkit" target="_blank" rel="noopener">openresty-systemtap-toolkit</a><br><a href="https://github.com/openresty/stapxx" target="_blank" rel="noopener">stapxx</a></p>
+<h4 id="systemtap"><a href="#systemtap" class="headerlink" title="systemtap"></a>systemtap</h4><p>systemtap 要求版本在 2.1 以上,这里下载 <a href="https://sourceware.org/systemtap/ftp/releases/systemtap-2.6.tar.gz" target="_blank" rel="noopener">2.6</a> 版本</p>
+<p>systemtap <a href="http://openresty.org/en/build-systemtap.html" target="_blank" rel="noopener">安装详细</a>（包括依赖）</p>
+<ol>
+<li><p>kernel-debuginfo</p>
+<p><a href="https://packages.debian.org/jessie/amd64/linux-image-3.16.0-4-amd64-dbg/download" target="_blank" rel="noopener">源码安装</a><br>或：</p>
+<pre><code>apt-get install linux-image-$(uname -r)-dbg
+</code></pre></li>
+<li><p>kernel-devel</p>
+<pre><code>apt-get install linux-headers-$(uname -r)
+</code></pre></li>
+</ol>
+<h4 id="utrace"><a href="#utrace" class="headerlink" title="utrace"></a>utrace</h4><p>Linux kernels 版本低于 3.5，则需打 utrace patch</p>
+<h4 id="perl"><a href="#perl" class="headerlink" title="perl"></a>perl</h4><p>perl 要求版本在 5.6.1 以上</p>
+<h4 id="kernel-debuginfo-amp-kernel-devel"><a href="#kernel-debuginfo-amp-kernel-devel" class="headerlink" title="kernel-debuginfo &amp; kernel-devel"></a>kernel-debuginfo &amp; kernel-devel</h4><p>要对应 kernel 版本</p>
+<h3 id="FlameGraph"><a href="#FlameGraph" class="headerlink" title="FlameGraph"></a>FlameGraph</h3><p><a href="http://dtrace.org/blogs/brendan/2011/12/16/flame-graphs/" target="_blank" rel="noopener">flam-graphs</a> 或者 <a href="https://github.com/brendangregg/FlameGraph" target="_blank" rel="noopener">FlameGraph</a> 制作火焰图</p>
+<h2 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h2><p>目前最新版本为 <a href="http://redis.io/" target="_blank" rel="noopener">3.2.1</a></p>
+<pre><code>make
+./src/redis-server redis.conf
+</code></pre>	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/18.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">相关文章</div>
+				<div>评论</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
+		
+			<a href="/2da291ea/" title="nginx add dynamic module" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+		
+			<a href="/e44822c/" title="压缩与解压缩" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	<ul>
+		
+				<li>
+					<div>
+						<a href="/67477e5c/" title="删除非目录文件">
+							删除非目录文件
+						</a>
+						<p>
+							linux 下删除一个目录下所有的隐藏文件和非目录文件
+前言在 alpine 基础上编译 OpenWAF，想要达到最简，删除无用文件。
+亮点rm -rf `ls -Fa | grep &#39;^\.\w&#39;`   -- 删除隐...
+						</p>
+					</div>
+
+					<a href="/67477e5c/" title="删除非目录文件">				
+						<img src="/img/post-cover/16.jpg" class="relateImg" alt="删除非目录文件">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/946599cc/" title="在 alpine 上编译 openssl 遇到的问题">
+							在 alpine 上编译 openssl 遇到的问题
+						</a>
+						<p>
+							alpine 上编译 openssl (v1.1.1) 遇到 ucontext 报错
+前言今天在 alpine 基础上编译 openwaf，编到 openssl 时，报 ucontext 相关错误。
+ucontext 报错编译 ope...
+						</p>
+					</div>
+
+					<a href="/946599cc/" title="在 alpine 上编译 openssl 遇到的问题">				
+						<img src="/img/post-cover/15.jpg" class="relateImg" alt="在 alpine 上编译 openssl 遇到的问题">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/894068cc/" title="批量修改或添加文件后缀名">
+							批量修改或添加文件后缀名
+						</a>
+						<p>
+							前言常见的是对不同文件名进行文件后缀名修改。但今天遇到同一文件名的情况。
+常见windows 或 Linux
+命令： ren *.jpg *.bmp   # 将 jpg 后缀改为 bmp
+
+如：1.jpg 2.txt
+改后为：1.bm...
+						</p>
+					</div>
+
+					<a href="/894068cc/" title="批量修改或添加文件后缀名">				
+						<img src="/img/post-cover/9.jpg" class="relateImg" alt="批量修改或添加文件后缀名">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/5d178fa4/" title="hyperscan 安装">
+							hyperscan 安装
+						</a>
+						<p>
+							1. 前言本文在 Debian8 中安装 hyperscan 5.0.0内存至少 2 G，不然编译慢而且失败
+2. 依赖2.1 C/C++编译器hyperscan使用C++开发，且需要C99和C++11支持，目前支持的编译器有
+
+GC...
+						</p>
+					</div>
+
+					<a href="/5d178fa4/" title="hyperscan 安装">				
+						<img src="/img/post-cover/53.jpg" class="relateImg" alt="hyperscan 安装">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/95c473f7/" title="linux 查看系统开机时间">
+							linux 查看系统开机时间
+						</a>
+						<p>
+							有时候需要查看Linux系统运行了多久时间，此时需要知道上次开机启动时间；有时候由于断电或供电故障突然停机，需要查看Linux开机时间/重启时间；下面总结一些查看Linux开机关机时间的方法（非常全面）
+1. who 命令查看who ...
+						</p>
+					</div>
+
+					<a href="/95c473f7/" title="linux 查看系统开机时间">				
+						<img src="/img/post-cover/51.jpg" class="relateImg" alt="linux 查看系统开机时间">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/9d57ea5c/" title="GDB 多线程 （non-stop）">
+							GDB 多线程 （non-stop）
+						</a>
+						<p>
+							1. 背景这几天在扩展 ngx_lua 模块，但 gdb 定位时，提示：Thread debugging using libthread_db enabled。
+2. GDB non-stop 配置把以下3行添加到 ~/.gdbini...
+						</p>
+					</div>
+
+					<a href="/9d57ea5c/" title="GDB 多线程 （non-stop）">				
+						<img src="/img/post-cover/45.jpg" class="relateImg" alt="GDB 多线程 （non-stop）">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/3161e07b/" title="suricata 从 0 开始">
+							suricata 从 0 开始
+						</a>
+						<p>
+							背景OpenWAF 是在 openresty 基础上发布的，但安全不仅仅是针对 HTTP 协议的防护，而是全方位立体化的防护。因此，为了防护更多的协议，开始接触 suricata，用熟后，争取将 OpenWAF 集成到 suricat...
+						</p>
+					</div>
+
+					<a href="/3161e07b/" title="suricata 从 0 开始">				
+						<img src="/img/post-cover/43.jpg" class="relateImg" alt="suricata 从 0 开始">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/17150fb5/" title="clear: command not found 命令无法找到">
+							clear: command not found 命令无法找到
+						</a>
+						<p>
+							1. 安装 ncurses-binsudo apt-get install ncurses-bin
+此时尝试执行 ‘clear’ 命令，若失败，执行第二步（重新安装 ncurses-bin）
+2. 重新安装 ncurses-binsu...
+						</p>
+					</div>
+
+					<a href="/17150fb5/" title="clear: command not found 命令无法找到">				
+						<img src="/img/post-cover/44.jpg" class="relateImg" alt="clear: command not found 命令无法找到">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/13e9196b/" title="svn 游记">
+							svn 游记
+						</a>
+						<p>
+							前言公司之前用 svn 管理项目代码，我一直用的 windows 版本
+近期想要搭建知识库云平台，需要在 linux 上使用 svn 管理代码，因此做些笔记
+直接使用公司搭建好的 svn服务器
+1. 客户端安装yum install ...
+						</p>
+					</div>
+
+					<a href="/13e9196b/" title="svn 游记">				
+						<img src="/img/post-cover/41.jpg" class="relateImg" alt="svn 游记">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/2625aa29/" title="saltstack 从 0 开始">
+							saltstack 从 0 开始
+						</a>
+						<p>
+							1. 安装//salt-master安装（环境：OS-debian，IP-120.25.255.213）
+# apt-get install -t jessie-backports salt-master
+//salt-minion安...
+						</p>
+					</div>
+
+					<a href="/2625aa29/" title="saltstack 从 0 开始">				
+						<img src="/img/post-cover/40.jpg" class="relateImg" alt="saltstack 从 0 开始">
+					</a>
+				</li>											
+		
+		
+	</ul>
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+			
+			<!-- comment valine -->
+			<!-- show livere comment -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MjQ2MC8xOTAwNw==">
+	<script type="text/javascript">
+	   (function(d, s) {
+	       var j, e = d.getElementsByTagName(s)[0];
+ 	       if (typeof LivereTower === 'function') { return; }
+ 	       j = d.createElement(s);
+	       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+	       j.async = true;
+ 	       e.parentNode.insertBefore(j, e);
+	   })(document, 'script');
+	</script>
+	<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+		</div>	
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+
+	<script>
+		var appid = 'flQVrCRla4H5iIfSkVBHzKbn-gzGzoHsz',
+            appkey = 'KjVRLD07OiS38ChDcQ2QPfcs';	  
+        AnnieLeancloud(appid, appkey);         
+	</script>
+    
+
+
+ 
+
+<!-- show math formula -->
+
+
+
+<script>
+	//Refer to https://xinyo.org/archives/66226, thanks xinyo!
+	function codeCopy() {
+		var copyContainerId = 'copy-nav';
+						
+		$("pre").before(" <nav class=' " + copyContainerId + " '><i class='code-language'></i></nav> ");
+		
+		$('.' + copyContainerId).append("<i class='fa fa-clipboard copy-btn' aria-hidden='true'></i>");
+		
+		$('#article-content').find('pre').each( function () {
+			var language = $(this).children('code').attr('class').substr(9);//why 9? Need to check language?
+			$(this).prev().find('.code-language').text( language );	
+		});
+				
+		//为复制按钮添加click事件
+		$('.copy-btn').on("click", function() {
+			//初始化
+			$("textarea").remove("#targetId");
+			
+			//获取对应的代码
+			var codePre = $(this).parent().next(),
+				codeText = codePre[0].textContent,
+				target = document.createElement("textarea");
+			target.style.position = "absolute";
+			target.style.left = "-9999px";
+			target.style.top = "0";
+			target.id = "targetId";
+			codePre.append(target);
+			target.textContent = codeText;
+
+			//选中textarea内的代码
+			target.focus();
+			target.setSelectionRange(0, target.value.length);
+
+			// 复制选中的内容
+			document.execCommand("copy");
+			
+			//删除添加的节点
+			$("textarea").remove("#targetId");
+			
+			var thisCopied = $(this);
+			thisCopied.addClass('copy-status');	
+			setTimeout( function() {
+				thisCopied.removeClass('copy-status');
+			}, 2000)
+		});	
+	}
+	
+	if( $('.layout-post').length )	{
+		codeCopy();
+	}
+</script>
+
+
+<!-- TODO: There seems to be a bug when you close the post gallery! -->
+<link rel="stylesheet" href="/plugin/lightgallery/css/lightgallery.css">
+<script src="/plugin/lightgallery/js/jquery-1.11.0.min.js"></script>
+<script src="/plugin/lightgallery/js/lightgallery-all.min.js"></script>
+
+<script type="text/javascript">
+	var postTitle = $('.article-title a').text() ? $('.article-title a').text() : "No post title!";
+	$('.article-content img').each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		$(this).wrap('<div class="img-responsive" data-src="' + imgPath + '" data-responsive="' + imgPath + '" data-sub-html="<p>图片 ' + imgTitle + '</p><h4>文章' + postTitle + '</h4>"></div>');
+	});
+
+	$('.article-content').lightGallery({
+		mode: 'lg-slide',
+		selector: '.img-responsive',
+		share: false,
+		zoom: false,
+		download: false
+	});
+	//TODO：支持video
+</script>
+
+<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+		
+
+		<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		
+			<li>
+				<a href="https://github.com/miracleqi" title="Github" target="_blank">
+					<i class="fa fa-github"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="https://weibo.com/miracleqi25" title="Weibo" target="_blank">
+					<i class="fa fa-weibo"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="mailto:290557551@qq.com" title="Email" target="_blank">
+					<i class="fa fa-envelope-o"></i>
+				</a>
+			</li>
+		
+
+		
+			<li>
+				<a href="http://wpa.qq.com/msgrd?v=3&uin=290557551&site=qq&menu=yes" title="QQ" target="_blank">
+					<i class="fa fa-qq"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="http://github.com/" title="Twitter" target="_blank">
+					<i class="fa fa-twitter"></i>
+				</a>
+			</li>
+		
+	 
+</ul>
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2016 - 2019, content by MiracleQi-温柔魔君. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay. 		
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>		
+            <a href="http://shcainfo.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank">沪ICP备16011274号</a>
+		</p>
+	</div>		
+</footer>
+		
+    <!-- set '1' to show motto in all pages! -->
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+    <!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup">
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      ESC
+   </span>
+		<div class="local-search-header">
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			
+
+   
+	<div id="topN"></div>
+	
+    <script>
+        var appid = 'flQVrCRla4H5iIfSkVBHzKbn-gzGzoHsz',
+            appkey = 'KjVRLD07OiS38ChDcQ2QPfcs',
+            limitCount = 10;
+        if( $('#topN').length ){
+            AV.initialize(appid, appkey);
+            var Counter = AV.Object.extend("Counter");  
+            topNPost(Counter, limitCount);
+        }
+    </script>
+   
+
+		</div>
+	</div>
+</div>
+
+<script src="/js/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+    <script src="/js/love.js"></script>
+
+
+<!--back to top-->
+
+    
+	<div id="totop">
+  		<a href="javascript:;" name="TOTOP" class="fa fa-arrow-up"></a>
+	</div>
+	<div id="tobuttom">
+		<a href="javascript:;" name="TOBUTTOM" class="fa fa-arrow-down"></a>
+	</div>
+ 
+
+
+ 
+
+<script src="/js/vibrant.js"></script>
+<script src="/js/chinese.js"></script>
+<script src="/js/main.js"></script>
+	<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"superSample":2,"width":85,"height":170,"position":"left","hOffset":0,"vOffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2}});</script></body>
+	</html>
