@@ -1,0 +1,1342 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+	<!DOCTYPE html>
+	<html class="scrollbar">
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      深入研究 OpenWAF 之 nginx 配置 | 齐健的博客
+    
+  </title>
+  <meta name="author" content="MiracleQi-温柔魔君">
+  <meta name="keywords" content="openwaf,nginx,openresty,程序员,极客,开源,IT,Geek">
+  <meta name="description" content="温柔魔君">
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+    <!-- jquery -->
+	<script src="/js/jquery-2.1.1.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="110" data-random-src="/img/background/">
+	<div class="mask">
+		<div class="h-header">
+			<div id="logo-S">
+				
+					<a href="/">
+						<img src="/img/logo.png" alt="Logo">
+					</a>
+				
+			</div>
+			<!-- Navigation in header(id="navigation-S") -->
+			<div id="navigation-S">
+				<ul>
+					
+						<li class="menu-home">
+							<a href="/" class="menu-item-home">主页</a>
+						</li>
+					
+						<li class="menu-archive">
+							<a href="/archives" class="menu-item-archive">归档</a>
+						</li>
+					
+						<li class="menu-categories">
+							<a href="/categories" class="menu-item-categories">分类</a>
+						</li>
+					
+						<li class="menu-tags">
+							<a href="/tags" class="menu-item-tags">标签</a>
+						</li>
+					
+						<li class="menu-about">
+							<a href="/about" class="menu-item-about">关于</a>
+						</li>
+					
+						<li class="menu-gallery">
+							<a href="/gallery" class="menu-item-gallery">相册</a>
+						</li>
+					
+
+					
+						<li class="menu-search">
+							<a href="javascript:;" class="popup-trigger" title="Search">搜索</a>
+						</li>
+					
+				</ul>			
+			</div>				
+		</div>
+
+		<div class="h-body">	
+			<!-- motto -->
+			
+				<div id="page-motto">
+					<p class="motto">
+						
+					</p>
+				</div>
+			
+
+			<div id="navigation-H">
+				<!-- Page title -->
+				<p>
+					
+						当前文章&nbsp;:&nbsp;《深入研究 OpenWAF 之 nginx 配置》
+					
+				</p>
+				<!-- Progress bar -->
+				<div id="progress-bar"></div>
+
+				<!-- Progress percent -->
+				<div id="progress-percentage">
+					<h1>0.0%</h1>
+				</div>
+			</div>
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<ul>
+				<li>
+					<a><i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>切换背景</a>
+				</li>
+				<li>
+					<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down"></i>继续阅读</a>
+				</li>
+				<li>
+					<a href="https://github.com/Sariay/hexo-theme-Annie" target="_blank"><i class="fa fa-download"></i>克隆主题</a>
+				</li>
+			</ul>
+		</div>
+		
+		<!-- This is only a demo, please go to "https://time.is" to set your city time! -->
+<style type="text/css">
+	.header-date {
+		position: absolute;
+		left: 40px;
+		bottom: 30px;
+		writing-mode: tb-rl;
+		font-size: 36px;
+	}	
+	.header-date a {
+		border-bottom: none;
+	}
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			position: absolute;
+			left: 40px;
+			bottom: 30px;
+			writing-mode: tb-rl;
+			font-size: 20px;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow"></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+</div></header>
+
+<!-- Navigation in div(id="navigation-H") -->
+<a class="nav-trigger">
+	<span></span>
+</a>
+
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+			
+				<li class="menu-home">
+					<a href="/" class="menu-item-home">主页</a>
+				</li>
+			
+				<li class="menu-archive">
+					<a href="/archives" class="menu-item-archive">归档</a>
+				</li>
+			
+				<li class="menu-categories">
+					<a href="/categories" class="menu-item-categories">分类</a>
+				</li>
+			
+				<li class="menu-tags">
+					<a href="/tags" class="menu-item-tags">标签</a>
+				</li>
+			
+				<li class="menu-about">
+					<a href="/about" class="menu-item-about">关于</a>
+				</li>
+			
+				<li class="menu-gallery">
+					<a href="/gallery" class="menu-item-gallery">相册</a>
+				</li>
+			
+
+			
+				<li class="menu-search">
+					<a href="javascript:;" class="popup-trigger" title="Search">搜索</a>
+				</li>
+			
+		</ul>
+	</div>
+
+	<div class="nav-footer">
+		<ul>
+	
+		
+			<li>
+				<a href="https://github.com/miracleqi" title="Github" target="_blank">
+					<i class="fa fa-github"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="https://weibo.com/miracleqi25" title="Weibo" target="_blank">
+					<i class="fa fa-weibo"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="mailto:290557551@qq.com" title="Email" target="_blank">
+					<i class="fa fa-envelope-o"></i>
+				</a>
+			</li>
+		
+
+		
+			<li>
+				<a href="http://wpa.qq.com/msgrd?v=3&uin=290557551&site=qq&menu=yes" title="QQ" target="_blank">
+					<i class="fa fa-qq"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="http://github.com/" title="Twitter" target="_blank">
+					<i class="fa fa-twitter"></i>
+				</a>
+			</li>
+		
+	 
+</ul>
+	</div>
+</nav>
+
+		
+		<!--main-->
+		<main>
+			<div class="layout-post">
+	
+	
+	<div class="article-title">
+		
+	<a href="/loveu/492e69a4/" itemprop="url">
+		深入研究 OpenWAF 之 nginx 配置
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			
+	发布于
+	<a href="/loveu/492e69a4/" itemprop="url">
+		<time datetime="2017-04-18T19:23:00.000Z" itemprop="datePublished">
+	  		2017-04-19
+	  </time>
+	</a> 
+
+	/
+	更新于
+	<a href="/loveu/492e69a4/" itemprop="url">
+		<time datetime="2017-04-18T19:23:00.000Z" itemprop="dateUpdated">
+	  		2019-01-31
+	  </time>
+	</a> 	
+
+		</span>
+		/
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/nginx/" class=" ">
+			nginx
+		</a>
+	
+		<a href="/tags/OpenWAF/" class=" ">
+			OpenWAF
+		</a>
+	
+		<a href="/tags/OpenResty/" class=" ">
+			OpenResty
+		</a>
+	
+		
+		</span>
+		/
+		
+
+    <span class="leancloud_visitors" id="/loveu/492e69a4/_visitors" data-url="/loveu/492e69a4/" data-title="深入研究 OpenWAF 之 nginx 配置">
+        热度
+        <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
+    </span>
+    
+    /
+
+
+
+    <span class="leancloud_likes" id="/loveu/492e69a4/_likes" data-url="/loveu/492e69a4/" data-title="深入研究 OpenWAF 之 nginx 配置" rel="unlike">
+        喜欢
+        <i class="fa fa-heart"></i>
+        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+    </span>
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h1 id="名称"><a href="#名称" class="headerlink" title="名称"></a>名称</h1><p>此文档将详细描述 OpenWAF 的 nginx 配置文件 /etc/ngx_openwaf.conf 中每一项配置</p>
+<p>以及接入规则（access_rule）与 nginx 配置的关联</p>
+<h1 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h1><ul>
+<li><a href="#twaf_main">twaf_main</a><ul>
+<li><a href="#twaf_init">twaf_init</a></li>
+</ul>
+</li>
+<li><a href="#twaf_api">twaf_api</a></li>
+<li><a href="#twaf_server">twaf_server</a><ul>
+<li><a href="#twaf_access_rule">twaf_access_rule</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h1><pre class="line-numbers language-nginx"><code class="language-nginx"><span class="token keyword">http</span> <span class="token punctuation">{</span>
+    <span class="token keyword">include</span>            <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span>twaf_main<span class="token punctuation">.</span>conf<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true"># 加载策略配置，规则，功能模块</span>
+    <span class="token keyword">include</span>            <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span>twaf_api<span class="token punctuation">.</span>conf<span class="token punctuation">;</span>     <span class="token comment" spellcheck="true"># api，动态配置接入规则，动态配置规则，动态配置策略，查看统计信息等</span>
+
+    <span class="token keyword">upstream</span> test <span class="token punctuation">{</span>
+       <span class="token keyword">server</span> <span class="token number">0.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">#just an invalid address as a place holder</span>
+       balancer_by_lua_file <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>app<span class="token operator">/</span>twaf_balancer<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">server</span> <span class="token punctuation">{</span>
+        <span class="token keyword">listen</span> <span class="token number">443</span> <span class="token keyword">ssl</span><span class="token punctuation">;</span>
+        <span class="token keyword">server_name</span> _<span class="token punctuation">;</span>
+
+        <span class="token keyword">ssl_certificate</span> <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span><span class="token keyword">ssl</span><span class="token operator">/</span>nginx<span class="token punctuation">.</span>crt<span class="token punctuation">;</span>
+        <span class="token keyword">ssl_certificate_key</span> <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span><span class="token keyword">ssl</span><span class="token operator">/</span>nginx<span class="token punctuation">.</span>key<span class="token punctuation">;</span>
+        <span class="token keyword">ssl_protocols</span> TLSv1<span class="token number">.1</span> TLSv1<span class="token number">.2</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">include</span>                     <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span>twaf_server<span class="token punctuation">.</span>conf<span class="token punctuation">;</span>
+        ssl_certificate_by_lua_file <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>app<span class="token operator">/</span>twaf_ssl_cert<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+            <span class="token keyword">proxy_pass</span> <span class="token variable">$twaf_upstream_server</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">server</span> <span class="token punctuation">{</span>
+        <span class="token keyword">listen</span>       <span class="token number">80</span><span class="token punctuation">;</span>
+        <span class="token keyword">server_name</span>  _<span class="token punctuation">;</span>
+        <span class="token keyword">include</span>      <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span>twaf_server<span class="token punctuation">.</span>conf<span class="token punctuation">;</span>
+
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+            <span class="token keyword">proxy_pass</span> <span class="token variable">$twaf_upstream_server</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="twaf-main"><a href="#twaf-main" class="headerlink" title="twaf_main"></a>twaf_main</h2><pre class="line-numbers language-nginx"><code class="language-nginx"><span class="token comment" spellcheck="true">#twaf_main.conf 文件</span>
+
+<span class="token comment" spellcheck="true">#申请共享内存</span>
+lua_shared_dict twaf_shm                  50m<span class="token punctuation">;</span>
+lua_shared_dict twaf_limit_conn           5m<span class="token punctuation">;</span>
+lua_shared_dict twaf_reqstat              1m<span class="token punctuation">;</span>
+
+lua_package_path        <span class="token string">"/opt/OpenWAF/?.lua;;"</span><span class="token punctuation">;</span>            <span class="token comment" spellcheck="true">#指定 OpenWAF 安装路径</span>
+init_by_lua_file         <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>app<span class="token operator">/</span>twaf_init<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">#加载策略配置，加载特征规则，加载功能模块</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>若想添加新的共享内存，在 twaf_main.conf 中添加，如：lua_shared_dict  twaf_test  1m;  </p>
+<h3 id="twaf-init"><a href="#twaf-init" class="headerlink" title="twaf_init"></a>twaf_init</h3><pre class="line-numbers language-lua"><code class="language-lua"><span class="token comment" spellcheck="true">-- twaf_init.lua 文件</span>
+
+require <span class="token string">"resty.core"</span>
+
+<span class="token comment" spellcheck="true">--加载静态配置</span>
+<span class="token keyword">local</span> twaf_config_m <span class="token operator">=</span> require <span class="token string">"lib.twaf.twaf_conf"</span>
+<span class="token keyword">local</span> twaf_config <span class="token operator">=</span> twaf_config_m<span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+twaf_config<span class="token punctuation">:</span><span class="token function">load_default_config</span><span class="token punctuation">(</span><span class="token string">"/opt/OpenWAF/conf/twaf_default_conf.json"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">-- 加载缺省策略</span>
+twaf_config<span class="token punctuation">:</span><span class="token function">load_access_rule</span><span class="token punctuation">(</span><span class="token string">"/opt/OpenWAF/conf/twaf_access_rule.json"</span><span class="token punctuation">)</span>      <span class="token comment" spellcheck="true">-- 加载接入规则</span>
+twaf_config<span class="token punctuation">:</span><span class="token function">load_policy_config</span><span class="token punctuation">(</span><span class="token string">"/opt/OpenWAF/conf"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>twaf_policy_conf <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">-- 加载策略，想扩展策略，可在此加载新的策略</span>
+twaf_config<span class="token punctuation">:</span><span class="token function">load_rules</span><span class="token punctuation">(</span><span class="token punctuation">)</span>                                                     <span class="token comment" spellcheck="true">-- 加载规则</span>
+
+<span class="token comment" spellcheck="true">-- GeoIP ,想扩展城市级别GEOIP，可在此扩展</span>
+twaf_config<span class="token punctuation">:</span><span class="token function">load_geoip_country_ipv4</span><span class="token punctuation">(</span><span class="token string">"/opt/OpenWAF/lib/twaf/inc/knowledge_db/geo_country/GeoIP.dat"</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">-- 加载国家级别 GeoIPv4</span>
+twaf_config<span class="token punctuation">:</span><span class="token function">load_geoip_country_ipv6</span><span class="token punctuation">(</span><span class="token string">"/opt/OpenWAF/lib/twaf/inc/knowledge_db/geo_country/GeoIPv6.dat"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">-- 加载国家级别 GEOIPv6</span>
+
+<span class="token comment" spellcheck="true">-- 加载 OpenWAF 自带的统计模块</span>
+<span class="token keyword">local</span> twaf_reqstat_m <span class="token operator">=</span> require <span class="token string">"lib.twaf.twaf_reqstat"</span>
+twaf_reqstat <span class="token operator">=</span> twaf_reqstat_m<span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">(</span>twaf_config<span class="token punctuation">.</span>twaf_default_conf<span class="token punctuation">.</span>twaf_reqstat<span class="token punctuation">,</span> twaf_config<span class="token punctuation">.</span>twaf_policy<span class="token punctuation">.</span>policy_uuids<span class="token punctuation">)</span>
+
+<span class="token keyword">local</span> twaf_lib <span class="token operator">=</span> require <span class="token string">"lib.twaf.twaf_core"</span>
+twaf <span class="token operator">=</span> twaf_lib<span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">(</span>twaf_config<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">--加载各功能模块</span>
+<span class="token keyword">local</span> default_init_register <span class="token operator">=</span> twaf<span class="token punctuation">:</span><span class="token function">get_default_config_param</span><span class="token punctuation">(</span><span class="token string">"init_register"</span><span class="token punctuation">)</span>
+twaf<span class="token punctuation">:</span><span class="token function">register_modules</span><span class="token punctuation">(</span>default_init_register<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>添加新的策略，在 twaf_init.lua 中加载  </p>
+<pre class="line-numbers language-txt"><code class="language-txt">    1. 添加 /opt/OpenWAF/conf 目录下，policy1.json 和 policy2.json 策略  
+        twaf_config:load_policy_config("/opt/OpenWAF/conf", {policy1 = 1, policy2 = 1})  
+
+    2. 添加 /etc/a/policy1.json 策略和 /etc/b/policy2.json 策略  
+        twaf_config:load_policy_config("/etc/a", {policy1 = 1})  
+        twaf_config:load_policy_config("/etc/b", {policy2 = 1})  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="twaf-api"><a href="#twaf-api" class="headerlink" title="twaf_api"></a>twaf_api</h1><pre class="line-numbers language-nginx"><code class="language-nginx"><span class="token keyword">server</span> <span class="token punctuation">{</span>
+    <span class="token keyword">listen</span> <span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">61111</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">#监听地址</span>
+    <span class="token keyword">server_name</span> nosuchdomain<span class="token punctuation">;</span>
+    <span class="token keyword">access_log</span> off<span class="token punctuation">;</span>
+
+    <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+        <span class="token keyword">stub_status</span> on<span class="token punctuation">;</span>
+        <span class="token keyword">allow</span> <span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.0</span><span class="token operator">/</span><span class="token number">8</span><span class="token punctuation">;</span>
+        <span class="token keyword">deny</span> all<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">location</span> <span class="token operator">/</span>api <span class="token punctuation">{</span>
+        content_by_lua_file <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>app<span class="token operator">/</span>twaf_api<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">#api，动态配置接入规则，动态配置规则，动态配置策略，查看统计信息等</span>
+        <span class="token keyword">allow</span> <span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.0</span><span class="token operator">/</span><span class="token number">8</span><span class="token punctuation">;</span>
+        <span class="token keyword">deny</span> all<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如查看全局统计信息: ‘curl <a href="http://127.0.0.1:61111/api/stat&#39;" target="_blank" rel="noopener">http://127.0.0.1:61111/api/stat&#39;</a></p>
+<p>更多信息，请详看 <a href="https://github.com/titansec/openwaf_api" target="_blank" rel="noopener">twaf_api</a> 模块</p>
+<h1 id="twaf-server"><a href="#twaf-server" class="headerlink" title="twaf_server"></a>twaf_server</h1><pre class="line-numbers language-nginx"><code class="language-nginx"><span class="token comment" spellcheck="true">#twaf_server.conf</span>
+rewrite_by_lua_file       <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>app<span class="token operator">/</span>twaf_rewrite<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>         <span class="token comment" spellcheck="true"># rewrite 阶段有接入规则模块</span>
+access_by_lua_file        <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>app<span class="token operator">/</span>twaf_access<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>          <span class="token comment" spellcheck="true"># 处理请求头，请求体阶段，主要的安全防护功能都在 access 阶段处理</span>
+header_filter_by_lua_file <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>app<span class="token operator">/</span>twaf_header_filter<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>   <span class="token comment" spellcheck="true"># 处理响应头阶段</span>
+body_filter_by_lua_file   <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>app<span class="token operator">/</span>twaf_body_filter<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>     <span class="token comment" spellcheck="true"># 处理响应体阶段</span>
+log_by_lua_file           <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>app<span class="token operator">/</span>twaf_log<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>             <span class="token comment" spellcheck="true"># log 阶段有日志模块和统计模块</span>
+
+<span class="token keyword">set</span> <span class="token variable">$twaf_upstream_server</span> <span class="token string">""</span><span class="token punctuation">;</span>
+<span class="token keyword">set</span> <span class="token variable">$twaf_attack_info</span>     <span class="token string">""</span><span class="token punctuation">;</span>
+<span class="token keyword">set</span> <span class="token variable">$twaf_cache_flag</span>       <span class="token number">1</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="twaf-access-rule"><a href="#twaf-access-rule" class="headerlink" title="twaf_access_rule"></a>twaf_access_rule</h2><p>twaf_access_rule 涉及 ssl_certificate_by_lua ， rewrite_by_lua 和 balancer_by_lua 三个阶段</p>
+<pre><code>{
+    &quot;twaf_access_rule&quot;: [
+        &quot;rules&quot;: [                                 -- 注意先后顺序
+            {                                      
+                &quot;ngx_ssl&quot;: false,                  -- nginx 认证的开关
+                &quot;ngx_ssl_cert&quot;: &quot;path&quot;,            -- nginx 认证所需 PEM 证书地址
+                &quot;ngx_ssl_key&quot;: &quot;path&quot;,             -- nginx 认证所需 PEM 私钥地址
+                &quot;host&quot;: &quot;www.baidu.com&quot;,           -- 域名，正则匹配
+                &quot;path&quot;: &quot;/&quot;,                       -- 路径，正则匹配
+                &quot;port&quot;: 80,                        -- 端口，默认 80
+                &quot;server_ssl&quot;: false,               -- 后端服务器 ssl 开关
+                &quot;forward&quot;: &quot;server_5&quot;,             -- 后端服务器 upstream 名称
+                &quot;forward_addr&quot;: &quot;1.1.1.2&quot;,         -- 后端服务器ip地址
+                &quot;forward_port&quot;: &quot;8080&quot;,            -- 后端服务器端口号（缺省80）
+                &quot;uuid&quot;: &quot;access_567b067ff2060&quot;,    -- 用来标记此规则的 uuid，api 中会用到，要保证全局唯一
+                &quot;policy&quot;: &quot;policy_uuid&quot;            -- 安全策略 ID
+            }
+        ]
+    }
+}
+</code></pre><h3 id="ssl-certificate-by-lua"><a href="#ssl-certificate-by-lua" class="headerlink" title="ssl_certificate_by_lua"></a>ssl_certificate_by_lua</h3><p>ssl_certificate_by_lua 阶段用于 ssl 认证，涉及到 access_rule 配置的有 ngx_ssl，ngx_ssl_cert 和 ngx_ssl_key</p>
+<p>这部分配置可以节省 nginx 中 ssl 配置的重复性，如：</p>
+<pre class="line-numbers language-nginx"><code class="language-nginx">    <span class="token keyword">server</span> <span class="token punctuation">{</span>
+        <span class="token keyword">listen</span> <span class="token number">443</span> <span class="token keyword">ssl</span><span class="token punctuation">;</span>
+        <span class="token keyword">server_name</span> www<span class="token punctuation">.</span>abc<span class="token punctuation">.</span>com<span class="token punctuation">;</span>
+
+        <span class="token keyword">ssl_certificate</span> <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span><span class="token keyword">ssl</span><span class="token operator">/</span>abc<span class="token punctuation">.</span>crt<span class="token punctuation">;</span>
+        <span class="token keyword">ssl_certificate_key</span> <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span><span class="token keyword">ssl</span><span class="token operator">/</span>abc<span class="token punctuation">.</span>key<span class="token punctuation">;</span>
+        <span class="token keyword">ssl_protocols</span> TLSv1<span class="token number">.1</span> TLSv1<span class="token number">.2</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+            <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">server</span> <span class="token punctuation">{</span>
+        <span class="token keyword">listen</span> <span class="token number">443</span> <span class="token keyword">ssl</span><span class="token punctuation">;</span>
+        <span class="token keyword">server_name</span> www<span class="token punctuation">.</span>xyz<span class="token punctuation">.</span>com<span class="token punctuation">;</span>
+
+        <span class="token keyword">ssl_certificate</span> <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span><span class="token keyword">ssl</span><span class="token operator">/</span>xyz<span class="token punctuation">.</span>crt<span class="token punctuation">;</span>
+        <span class="token keyword">ssl_certificate_key</span> <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span><span class="token keyword">ssl</span><span class="token operator">/</span>xyz<span class="token punctuation">.</span>key<span class="token punctuation">;</span>
+        <span class="token keyword">ssl_protocols</span> TLSv1<span class="token number">.1</span> TLSv1<span class="token number">.2</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+            <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>原始 nginx 配置如上，那么加上 WAF 防护，且经过 access_rule 的优化后，可写为：</p>
+<pre class="line-numbers language-nginx"><code class="language-nginx">    <span class="token keyword">server</span> <span class="token punctuation">{</span>
+        <span class="token keyword">listen</span> <span class="token number">443</span> <span class="token keyword">ssl</span><span class="token punctuation">;</span>
+        <span class="token keyword">server_name</span> _<span class="token punctuation">;</span>
+
+        <span class="token keyword">ssl_certificate</span> <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span><span class="token keyword">ssl</span><span class="token operator">/</span>nginx<span class="token punctuation">.</span>crt<span class="token punctuation">;</span>
+        <span class="token keyword">ssl_certificate_key</span> <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span><span class="token keyword">ssl</span><span class="token operator">/</span>nginx<span class="token punctuation">.</span>key<span class="token punctuation">;</span>
+        <span class="token keyword">ssl_protocols</span> TLSv1<span class="token number">.1</span> TLSv1<span class="token number">.2</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">include</span>                     <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span>twaf_server<span class="token punctuation">.</span>conf<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">#添加 WAF 防护</span>
+        ssl_certificate_by_lua_file <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>app<span class="token operator">/</span>twaf_ssl_cert<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">#动态指定 SSL 证书</span>
+
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+            <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>此时只需在 access_rule 中指定 SSL 证书即可，如：</p>
+<pre><code>{
+    &quot;twaf_access_rule&quot;: [
+        &quot;rules&quot;: [
+            {                                      
+                &quot;ngx_ssl&quot;: true,
+                &quot;ngx_ssl_cert&quot;: &quot;opt/OpenWAF/conf/ssl/abc.crt&quot;,
+                &quot;ngx_ssl_key&quot;:  &quot;/opt/OpenWAF/conf/ssl/abc.key&quot;,
+                &quot;host&quot;: &quot;www.abc.com&quot;,
+                &quot;path&quot;: &quot;/&quot;,
+                &quot;port&quot;: 443,
+                ...
+            },
+            {                                      
+                &quot;ngx_ssl&quot;: true,
+                &quot;ngx_ssl_cert&quot;: &quot;opt/OpenWAF/conf/ssl/xyz.crt&quot;,
+                &quot;ngx_ssl_key&quot;:  &quot;/opt/OpenWAF/conf/ssl/xyz.key&quot;,
+                &quot;host&quot;: &quot;www.xyz.com&quot;,
+                &quot;path&quot;: &quot;/&quot;,
+                &quot;port&quot;: 443,
+                ...
+            }
+        ]
+    }
+}
+</code></pre><p>如此，多个 ssl 站点，也可用 access_rule 实现动态分配 SSL 证书，不需变更 nginx 配置</p>
+<h3 id="rewrite-by-lua"><a href="#rewrite-by-lua" class="headerlink" title="rewrite_by_lua"></a>rewrite_by_lua</h3><p>rewrite_by_lua 阶段，会依据请求头中的 host，port，uri 等信息，确认后端服务器地址及选用的策略</p>
+<p>下面详细讨论 nginx 配置是如何转到 access_rule 中配置的</p>
+<pre class="line-numbers language-nginx"><code class="language-nginx">
+    <span class="token keyword">upstream</span> aaa <span class="token punctuation">{</span>
+        <span class="token keyword">server</span> <span class="token number">1.1</span><span class="token punctuation">.</span><span class="token number">1.1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">server</span> <span class="token punctuation">{</span>
+        <span class="token keyword">listen</span>       <span class="token number">80</span><span class="token punctuation">;</span>
+        <span class="token keyword">server_name</span>  www<span class="token punctuation">.</span>aaa<span class="token punctuation">.</span>com<span class="token punctuation">;</span>
+
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+            <span class="token keyword">proxy_pass</span> <span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>aaa<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面 nginx 配置，加上 OpenWAF 防御后，对应 nginx 配置如下：</p>
+<pre class="line-numbers language-nginx"><code class="language-nginx">    <span class="token keyword">upstream</span> test <span class="token punctuation">{</span>
+       <span class="token keyword">server</span> <span class="token number">0.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">#just an invalid address as a place holder</span>
+       balancer_by_lua_file <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>app<span class="token operator">/</span>twaf_balancer<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">server</span> <span class="token punctuation">{</span>
+        <span class="token keyword">listen</span>       <span class="token number">80</span><span class="token punctuation">;</span>
+        <span class="token keyword">server_name</span>  _<span class="token punctuation">;</span>
+        <span class="token keyword">include</span>      <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span>twaf_server<span class="token punctuation">.</span>conf<span class="token punctuation">;</span>
+
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+            <span class="token keyword">proxy_pass</span> <span class="token variable">$twaf_upstream_server</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对应 access_rule 配置如下：</p>
+<pre><code>{
+    &quot;twaf_access_rule&quot;: [
+        &quot;rules&quot;: [
+            {
+                &quot;host&quot;: &quot;www.aaa.com&quot;,
+                &quot;path&quot;: &quot;/&quot;,
+                &quot;port&quot;: 80,
+                &quot;forward&quot;: &quot;test&quot;,
+                &quot;forward_addr&quot;: &quot;1.1.1.1&quot;,
+                &quot;forward_port&quot;: 80
+                ...
+            }
+        ]
+    }
+}
+</code></pre><p>其中 forward 是为 nginx 配置中的 $twaf_upstream_server 变量赋值<br>forward_addr 和 forward_port 只在 upstream 中使用 balancer_by_lua 才会生效，否则不需配置这两个值  </p>
+<p>前面 ssl_certificate_by_lua 的配置，节省了因 ssl 证书配置使得一个 ssl 站点对应一个 nginx 的 server 配置的重复性</p>
+<p>这部分 rewrite_by_lua 的配置同样可以节省 nginx 中配置的重复性，如：</p>
+<pre class="line-numbers language-nginx"><code class="language-nginx">
+    <span class="token keyword">upstream</span> aaa_1 <span class="token punctuation">{</span>
+        <span class="token keyword">server</span> <span class="token number">1.1</span><span class="token punctuation">.</span><span class="token number">1.1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    upstream_aaa_2 <span class="token punctuation">{</span>
+        <span class="token keyword">server</span> <span class="token number">1.1</span><span class="token punctuation">.</span><span class="token number">1.2</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">upstream</span> bbb <span class="token punctuation">{</span>
+        <span class="token keyword">server</span> <span class="token number">2.2</span><span class="token punctuation">.</span><span class="token number">2.2</span><span class="token punctuation">:</span><span class="token number">8000</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">server</span> <span class="token punctuation">{</span>
+        <span class="token keyword">listen</span>       <span class="token number">80</span><span class="token punctuation">;</span>
+        <span class="token keyword">server_name</span>  www<span class="token punctuation">.</span>aaa<span class="token punctuation">.</span>com<span class="token punctuation">;</span>
+
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+            <span class="token keyword">proxy_pass</span> <span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>aaa_1<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">location</span> <span class="token operator">/</span>a <span class="token punctuation">{</span>
+            <span class="token keyword">proxy_pass</span> <span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>aaa_2<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">server</span> <span class="token punctuation">{</span>
+        <span class="token keyword">listen</span>       <span class="token number">90</span><span class="token punctuation">;</span>
+        <span class="token keyword">server_name</span>  www<span class="token punctuation">.</span>bbb<span class="token punctuation">.</span>com<span class="token punctuation">;</span>
+
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+            <span class="token keyword">proxy_pass</span> <span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>bbb<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面 nginx 配置，加上 OpenWAF 防御后，对应 nginx 配置如下：</p>
+<pre class="line-numbers language-nginx"><code class="language-nginx">    <span class="token keyword">upstream</span> test <span class="token punctuation">{</span>
+       <span class="token keyword">server</span> <span class="token number">0.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">#just an invalid address as a place holder</span>
+       balancer_by_lua_file <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>app<span class="token operator">/</span>twaf_balancer<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">server</span> <span class="token punctuation">{</span>
+        <span class="token keyword">listen</span>       <span class="token number">80</span><span class="token punctuation">;</span>
+        <span class="token keyword">listen</span>       <span class="token number">90</span><span class="token punctuation">;</span>
+        <span class="token keyword">server_name</span>  _<span class="token punctuation">;</span>
+        <span class="token keyword">include</span>      <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span>twaf_server<span class="token punctuation">.</span>conf<span class="token punctuation">;</span>
+
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+            <span class="token keyword">proxy_pass</span> <span class="token variable">$twaf_upstream_server</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对应 access_rule 配置如下：</p>
+<pre><code>{
+    &quot;twaf_access_rule&quot;: [
+        &quot;rules&quot;: [
+            {
+                &quot;host&quot;: &quot;www.aaa.com&quot;,
+                &quot;path&quot;: &quot;/a&quot;,
+                &quot;port&quot;: 80,
+                &quot;forward&quot;: &quot;test&quot;,
+                &quot;forward_addr&quot;: &quot;1.1.1.2&quot;,
+                &quot;forward_port&quot;: 80
+                ...
+            },
+            {
+                &quot;host&quot;: &quot;www.aaa.com&quot;,
+                &quot;path&quot;: &quot;/&quot;,
+                &quot;port&quot;: 80,
+                &quot;forward&quot;: &quot;test&quot;,
+                &quot;forward_addr&quot;: &quot;1.1.1.1&quot;,
+                &quot;forward_port&quot;: 80
+                ...
+            },
+            {
+                &quot;host&quot;: &quot;www.bbb.com&quot;,
+                &quot;path&quot;: &quot;/&quot;,
+                &quot;port&quot;: 90,
+                &quot;forward&quot;: &quot;test&quot;,
+                &quot;forward_addr&quot;: &quot;2.2.2.2&quot;,
+                &quot;forward_port&quot;: 8000
+                ...
+            }
+        ]
+    }
+}
+</code></pre><p>从以上配置可以看出，access_rule 节省了因域名，监听端口，路径，upstream 等因素造成的配置复杂性</p>
+<p>而且，以后可通过 api，动态添加接入规则，不需中断业务，而修改 nginx 配置，可能会中断业务</p>
+<p>注意：在上例中，<a href="http://www.aaa.com" target="_blank" rel="noopener">www.aaa.com</a> 站点下，有 ‘/‘ 和 ‘/a’ 两个路径，access_rule 是数组，因此，要将有关 ‘/a’ 的配置放在 ‘/‘ 前</p>
+<p>本地资源配置:</p>
+<pre class="line-numbers language-nginx"><code class="language-nginx">    <span class="token keyword">upstream</span> test <span class="token punctuation">{</span>
+       <span class="token keyword">server</span> <span class="token number">0.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">#just an invalid address as a place holder</span>
+       balancer_by_lua_file <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>app<span class="token operator">/</span>twaf_balancer<span class="token punctuation">.</span>lua<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">server</span> <span class="token punctuation">{</span>
+        <span class="token keyword">listen</span>       <span class="token number">80</span><span class="token punctuation">;</span>
+        <span class="token keyword">server_name</span>  www<span class="token punctuation">.</span>aaa<span class="token punctuation">.</span>com<span class="token punctuation">;</span>
+        <span class="token keyword">include</span>      <span class="token operator">/</span>opt<span class="token operator">/</span>OpenWAF<span class="token operator">/</span>conf<span class="token operator">/</span>twaf_server<span class="token punctuation">.</span>conf<span class="token punctuation">;</span>
+
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+            <span class="token keyword">proxy_pass</span> <span class="token variable">$twaf_upstream_server</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">location</span> <span class="token operator">/</span>a <span class="token punctuation">{</span>      <span class="token comment" spellcheck="true">#本地资源</span>
+            <span class="token keyword">root</span> <span class="token operator">/</span>xxx<span class="token punctuation">;</span>
+            <span class="token keyword">index</span> xxx<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对应 access_rule 配置如下:</p>
+<pre><code>{
+    &quot;twaf_access_rule&quot;: [
+        &quot;rules&quot;: [
+            {
+                &quot;host&quot;: &quot;www.aaa.com&quot;,
+                &quot;path&quot;: &quot;/&quot;,
+                &quot;port&quot;: 80,
+                &quot;forward&quot;: &quot;test&quot;,
+                &quot;forward_addr&quot;: &quot;1.1.1.1&quot;,
+                &quot;forward_port&quot;: 80
+                ...
+            }
+        ]
+    }
+}
+</code></pre><p>这里可以看到，仅仅是配置了根目录的接入规则，并不需单独为 ‘/a’ 进行配置  </p>
+<p>因为访问 <a href="http://www.aaa.com/a" target="_blank" rel="noopener">www.aaa.com/a</a> 目录下资源，已经匹配中了这条接入规则，但对应的 nginx 配置中并没有 proxy_pass，<br>因此 forward ，forward_addr 和 forward_port 三个参数并不会生效</p>
+<p>当然如果你很任性，非要添加有关 ‘/a’ 目录的接入规则，则配置如下：</p>
+<pre><code>{
+    &quot;twaf_access_rule&quot;: [
+        &quot;rules&quot;: [
+            {
+                &quot;host&quot;: &quot;www.aaa.com&quot;,
+                &quot;path&quot;: &quot;/a&quot;,
+                &quot;port&quot;: 80,
+                ...
+            },
+            {
+                &quot;host&quot;: &quot;www.aaa.com&quot;,
+                &quot;path&quot;: &quot;/&quot;,
+                &quot;port&quot;: 80,
+                &quot;forward&quot;: &quot;test&quot;,
+                &quot;forward_addr&quot;: &quot;1.1.1.1&quot;,
+                &quot;forward_port&quot;: 80
+                ...
+            }
+        ]
+    }
+}
+</code></pre><p>从上面配置看出，因为 forward ，forward_addr 和 forward_port 三个参数并不会生效，所以无需配置</p>
+<p>access_rule 中还剩最后两个参数，uuid 和 policy<br>uuid:   用来标记接入规则的 uuid，api 中会用到，要保证全局唯一<br>policy: 指定策略名称，OpenWAF 自带策略有 twaf_default_conf 和 twaf_policy_conf，若不配置 policy，缺省使用 twaf_default_conf 策略  </p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/6.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">相关文章</div>
+				<div>评论</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
+		
+			<a href="/loveu/5e1aabf9/" title="本地连接 网络状态 详细信息为空" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+		
+			<a href="/loveu/55b33e1a/" title="轻松玩转 OpenWAF 之入门篇" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	<ul>
+		
+				<li>
+					<div>
+						<a href="/loveu/2cc62d9/" title="OpenWAF 使用手册">
+							OpenWAF 使用手册
+						</a>
+						<p>
+							NameOpenWAF
+第一个全方位开源的Web应用防护系统（WAF），更全面的防护功能，更多样的防护策略
+Table of Contents
+Name
+Version
+Synopsis
+Description
+Installatio...
+						</p>
+					</div>
+
+					<a href="/loveu/2cc62d9/" title="OpenWAF 使用手册">				
+						<img src="/img/post-cover/3.jpg" class="relateImg" alt="OpenWAF 使用手册">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/loveu/3863d344/" title="轻松玩转 OpenWAF 之 ELK">
+							轻松玩转 OpenWAF 之 ELK
+						</a>
+						<p>
+							名称ELK 是比较火的开源日志分析系统
+本节主要介绍，ELK 的 docker 部署及与 OpenWAF 的结合
+Table of Contents
+ELK简介
+安装
+Elasticsearch
+Logstash
+Kibana
+
+
+O...
+						</p>
+					</div>
+
+					<a href="/loveu/3863d344/" title="轻松玩转 OpenWAF 之 ELK">				
+						<img src="/img/post-cover/7.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之 ELK">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/loveu/3417a9f2/" title="轻松玩转 OpenWAF 之安装篇">
+							轻松玩转 OpenWAF 之安装篇
+						</a>
+						<p>
+							名称OpenWAF 支持源码安装和 Docker 安装
+学习、开发、需求变动大、有一定维护能力，建议源码安装仅使用 OpenWAF 进行防护，建议 Docker 安装
+Table of Contents
+源码安装
+Debian&amp...
+						</p>
+					</div>
+
+					<a href="/loveu/3417a9f2/" title="轻松玩转 OpenWAF 之安装篇">				
+						<img src="/img/post-cover/4.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之安装篇">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/loveu/55b33e1a/" title="轻松玩转 OpenWAF 之入门篇">
+							轻松玩转 OpenWAF 之入门篇
+						</a>
+						<p>
+							名称OpenWAF快速入门，即从安装到上线测试的一个快速体验流程，包括安装，发布应用，查看日志，上线测试
+Table of Contents
+安装
+发布应用
+日志
+规则
+
+安装请看 OpenWAF 安装文档
+发布应用
+简介  
+接入规...
+						</p>
+					</div>
+
+					<a href="/loveu/55b33e1a/" title="轻松玩转 OpenWAF 之入门篇">				
+						<img src="/img/post-cover/5.jpg" class="relateImg" alt="轻松玩转 OpenWAF 之入门篇">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/loveu/412923f0/" title="test nginx lua">
+							test nginx lua
+						</a>
+						<p>
+							
+安装test nginx
+git clone https://github.com/openresty/test-nginx.git
+cd test-nginx
+perl Makefile.PL
+make &amp;&amp; ma...
+						</p>
+					</div>
+
+					<a href="/loveu/412923f0/" title="test nginx lua">				
+						<img src="/img/post-cover/37.jpg" class="relateImg" alt="test nginx lua">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/loveu/364bb86a/" title="ngx.re.match 正则表达式长度限制">
+							ngx.re.match 正则表达式长度限制
+						</a>
+						<p>
+							captures, err = ngx.re.match(subject, regex, options?, ctx?, res_table?)
+今天用 ngx.re.match，结果返回nil，查看err发现，regex正则表达式过...
+						</p>
+					</div>
+
+					<a href="/loveu/364bb86a/" title="ngx.re.match 正则表达式长度限制">				
+						<img src="/img/post-cover/35.jpg" class="relateImg" alt="ngx.re.match 正则表达式长度限制">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/loveu/b4a729b6/" title="nginx http2.0">
+							nginx http2.0
+						</a>
+						<p>
+							nginx 有关 http2.0 的配置
+背景今天在 openresty 测试 http2.0
+编译参数首先需要编译时指定 v2 模块，--with-http_v2_module
+配置
+listen 指定 http2
+
+ssl_pro...
+						</p>
+					</div>
+
+					<a href="/loveu/b4a729b6/" title="nginx http2.0">				
+						<img src="/img/post-cover/25.jpg" class="relateImg" alt="nginx http2.0">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/loveu/8316d62a/" title="utrace 安装">
+							utrace 安装
+						</a>
+						<p>
+							debian 上安装 utrace
+背景今天安装 nginx-systemtap-toolkit 时需要安装 utrace （内核版本为 debian3.2，无内嵌的 utrace）
+安装下载 https://github.com/u...
+						</p>
+					</div>
+
+					<a href="/loveu/8316d62a/" title="utrace 安装">				
+						<img src="/img/post-cover/22.jpg" class="relateImg" alt="utrace 安装">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/loveu/2da291ea/" title="nginx add dynamic module">
+							nginx add dynamic module
+						</a>
+						<p>
+							nginx 动态添加模块
+前言1.9.11 版本前的 nginx 增加一个第三方模块，需要重新编译源代码，所有的模块都是用静态链接的形式组织起来的。而 Tengine 可以实现运行时动态加载模块，而不用每次都要重新编译Tengine。...
+						</p>
+					</div>
+
+					<a href="/loveu/2da291ea/" title="nginx add dynamic module">				
+						<img src="/img/post-cover/19.jpg" class="relateImg" alt="nginx add dynamic module">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/loveu/81d62413/" title="openresty 各组件依赖">
+							openresty 各组件依赖
+						</a>
+						<p>
+							openresty 各组件(modsecurity、zlib、openssl、pcre、lua、gd、tools等)安装。
+openresty目前最新版本 1.9.15.1 支持动态加载模块
+nginx 依赖openssl – ssl...
+						</p>
+					</div>
+
+					<a href="/loveu/81d62413/" title="openresty 各组件依赖">				
+						<img src="/img/post-cover/18.jpg" class="relateImg" alt="openresty 各组件依赖">
+					</a>
+				</li>											
+		
+		
+	</ul>
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+			
+			<!-- comment valine -->
+			<!-- show livere comment -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MjQ2MC8xOTAwNw==">
+	<script type="text/javascript">
+	   (function(d, s) {
+	       var j, e = d.getElementsByTagName(s)[0];
+ 	       if (typeof LivereTower === 'function') { return; }
+ 	       j = d.createElement(s);
+	       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+	       j.async = true;
+ 	       e.parentNode.insertBefore(j, e);
+	   })(document, 'script');
+	</script>
+	<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+		</div>	
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+
+	<script>
+		var appid = 'flQVrCRla4H5iIfSkVBHzKbn-gzGzoHsz',
+            appkey = 'KjVRLD07OiS38ChDcQ2QPfcs';	  
+        AnnieLeancloud(appid, appkey);         
+	</script>
+    
+
+
+ 
+
+<!-- show math formula -->
+
+
+
+<script>
+	//Refer to https://xinyo.org/archives/66226, thanks xinyo!
+	function codeCopy() {
+		var copyContainerId = 'copy-nav';
+						
+		$("pre").before(" <nav class=' " + copyContainerId + " '><i class='code-language'></i></nav> ");
+		
+		$('.' + copyContainerId).append("<i class='fa fa-clipboard copy-btn' aria-hidden='true'></i>");
+		
+		$('#article-content').find('pre').each( function () {
+			var language = $(this).children('code').attr('class').substr(9);//why 9? Need to check language?
+			$(this).prev().find('.code-language').text( language );	
+		});
+				
+		//为复制按钮添加click事件
+		$('.copy-btn').on("click", function() {
+			//初始化
+			$("textarea").remove("#targetId");
+			
+			//获取对应的代码
+			var codePre = $(this).parent().next(),
+				codeText = codePre[0].textContent,
+				target = document.createElement("textarea");
+			target.style.position = "absolute";
+			target.style.left = "-9999px";
+			target.style.top = "0";
+			target.id = "targetId";
+			codePre.append(target);
+			target.textContent = codeText;
+
+			//选中textarea内的代码
+			target.focus();
+			target.setSelectionRange(0, target.value.length);
+
+			// 复制选中的内容
+			document.execCommand("copy");
+			
+			//删除添加的节点
+			$("textarea").remove("#targetId");
+			
+			var thisCopied = $(this);
+			thisCopied.addClass('copy-status');	
+			setTimeout( function() {
+				thisCopied.removeClass('copy-status');
+			}, 2000)
+		});	
+	}
+	
+	if( $('.layout-post').length )	{
+		codeCopy();
+	}
+</script>
+
+
+<!-- TODO: There seems to be a bug when you close the post gallery! -->
+<link rel="stylesheet" href="/plugin/lightgallery/css/lightgallery.css">
+<script src="/plugin/lightgallery/js/jquery-1.11.0.min.js"></script>
+<script src="/plugin/lightgallery/js/lightgallery-all.min.js"></script>
+
+<script type="text/javascript">
+	var postTitle = $('.article-title a').text() ? $('.article-title a').text() : "No post title!";
+	$('.article-content img').each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		$(this).wrap('<div class="img-responsive" data-src="' + imgPath + '" data-responsive="' + imgPath + '" data-sub-html="<p>图片 ' + imgTitle + '</p><h4>文章' + postTitle + '</h4>"></div>');
+	});
+
+	$('.article-content').lightGallery({
+		mode: 'lg-slide',
+		selector: '.img-responsive',
+		share: false,
+		zoom: false,
+		download: false
+	});
+	//TODO：支持video
+</script>
+
+<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+		
+
+		<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		
+			<li>
+				<a href="https://github.com/miracleqi" title="Github" target="_blank">
+					<i class="fa fa-github"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="https://weibo.com/miracleqi25" title="Weibo" target="_blank">
+					<i class="fa fa-weibo"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="mailto:290557551@qq.com" title="Email" target="_blank">
+					<i class="fa fa-envelope-o"></i>
+				</a>
+			</li>
+		
+
+		
+			<li>
+				<a href="http://wpa.qq.com/msgrd?v=3&uin=290557551&site=qq&menu=yes" title="QQ" target="_blank">
+					<i class="fa fa-qq"></i>
+				</a>
+			</li>
+		
+		
+			<li>
+				<a href="http://github.com/" title="Twitter" target="_blank">
+					<i class="fa fa-twitter"></i>
+				</a>
+			</li>
+		
+	 
+</ul>
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2016 - 2019, content by MiracleQi-温柔魔君. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay. 		
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>		
+            <a href="http://shcainfo.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank">沪ICP备16011274号</a>
+		</p>
+	</div>		
+</footer>
+		
+    <!-- set '1' to show motto in all pages! -->
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+    <!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup">
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      ESC
+   </span>
+		<div class="local-search-header">
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			
+
+   
+	<div id="topN"></div>
+	
+    <script>
+        var appid = 'flQVrCRla4H5iIfSkVBHzKbn-gzGzoHsz',
+            appkey = 'KjVRLD07OiS38ChDcQ2QPfcs',
+            limitCount = 10;
+        if( $('#topN').length ){
+            AV.initialize(appid, appkey);
+            var Counter = AV.Object.extend("Counter");  
+            topNPost(Counter, limitCount);
+        }
+    </script>
+   
+
+		</div>
+	</div>
+</div>
+
+<script src="/js/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+    <script src="/js/love.js"></script>
+
+
+<!--back to top-->
+
+    
+	<div id="totop">
+  		<a href="javascript:;" name="TOTOP" class="fa fa-arrow-up"></a>
+	</div>
+	<div id="tobuttom">
+		<a href="javascript:;" name="TOBUTTOM" class="fa fa-arrow-down"></a>
+	</div>
+ 
+
+
+ 
+
+<script src="/js/vibrant.js"></script>
+<script src="/js/chinese.js"></script>
+<script src="/js/main.js"></script>
+	<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"superSample":2,"width":85,"height":170,"position":"left","hOffset":0,"vOffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2}});</script></body>
+	</html>
