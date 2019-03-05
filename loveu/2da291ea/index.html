@@ -118,16 +118,16 @@
 		
 		<!-- others: such as time... -->			
 		<div class="h-footer">
-			<ul>
+			<ul> <!--
 				<li>
 					<a><i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>切换背景</a>
-				</li>
+				</li> -->
 				<li>
 					<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down"></i>继续阅读</a>
-				</li>
+				</li> <!--
 				<li>
 					<a href="https://github.com/Sariay/hexo-theme-Annie" target="_blank"><i class="fa fa-download"></i>克隆主题</a>
-				</li>
+				</li> -->
 			</ul>
 		</div>
 		
@@ -296,12 +296,12 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/openresty/" class=" ">
-			openresty
-		</a>
-	
 		<a href="/tags/nginx/" class=" ">
 			nginx
+		</a>
+	
+		<a href="/tags/openresty/" class=" ">
+			openresty
 		</a>
 	
 		
@@ -434,6 +434,25 @@ fi
 		
 				<li>
 					<div>
+						<a href="/loveu/492e69a4/" title="深入研究 OpenWAF 之 nginx 配置">
+							深入研究 OpenWAF 之 nginx 配置
+						</a>
+						<p>
+							名称此文档将详细描述 OpenWAF 的 nginx 配置文件 /etc/ngx_openwaf.conf 中每一项配置
+以及接入规则（access_rule）与 nginx 配置的关联
+Table of Contents
+twaf_...
+						</p>
+					</div>
+
+					<a href="/loveu/492e69a4/" title="深入研究 OpenWAF 之 nginx 配置">				
+						<img src="/img/post-cover/6.jpg" class="relateImg" alt="深入研究 OpenWAF 之 nginx 配置">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
 						<a href="/loveu/412923f0/" title="test nginx lua">
 							test nginx lua
 						</a>
@@ -449,61 +468,6 @@ make &amp;&amp; ma...
 
 					<a href="/loveu/412923f0/" title="test nginx lua">				
 						<img src="/img/post-cover/37.jpg" class="relateImg" alt="test nginx lua">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/loveu/41d88256/" title="lua 的 string 函数引发的血案">
-							lua 的 string 函数引发的血案
-						</a>
-						<p>
-							背景用 lua 的 string.gmatch 封装了一个字符串分割函数 string_split(str, sep)文件上传时，解析请求体，有时解析正常，有时卡住十几秒，并不报错，但解析失败
-分析原因代码如下：
-function s...
-						</p>
-					</div>
-
-					<a href="/loveu/41d88256/" title="lua 的 string 函数引发的血案">				
-						<img src="/img/post-cover/20.jpg" class="relateImg" alt="lua 的 string 函数引发的血案">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/loveu/81d62413/" title="openresty 各组件依赖">
-							openresty 各组件依赖
-						</a>
-						<p>
-							openresty 各组件(modsecurity、zlib、openssl、pcre、lua、gd、tools等)安装。
-openresty目前最新版本 1.9.15.1 支持动态加载模块
-nginx 依赖openssl – ssl...
-						</p>
-					</div>
-
-					<a href="/loveu/81d62413/" title="openresty 各组件依赖">				
-						<img src="/img/post-cover/18.jpg" class="relateImg" alt="openresty 各组件依赖">
-					</a>
-				</li>											
-		
-		
-				<li>
-					<div>
-						<a href="/loveu/492e69a4/" title="深入研究 OpenWAF 之 nginx 配置">
-							深入研究 OpenWAF 之 nginx 配置
-						</a>
-						<p>
-							名称此文档将详细描述 OpenWAF 的 nginx 配置文件 /etc/ngx_openwaf.conf 中每一项配置
-以及接入规则（access_rule）与 nginx 配置的关联
-Table of Contents
-twaf_...
-						</p>
-					</div>
-
-					<a href="/loveu/492e69a4/" title="深入研究 OpenWAF 之 nginx 配置">				
-						<img src="/img/post-cover/6.jpg" class="relateImg" alt="深入研究 OpenWAF 之 nginx 配置">
 					</a>
 				</li>											
 		
@@ -561,6 +525,42 @@ ssl_pro...
 
 					<a href="/loveu/8316d62a/" title="utrace 安装">				
 						<img src="/img/post-cover/22.jpg" class="relateImg" alt="utrace 安装">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/loveu/81d62413/" title="openresty 各组件依赖">
+							openresty 各组件依赖
+						</a>
+						<p>
+							openresty 各组件(modsecurity、zlib、openssl、pcre、lua、gd、tools等)安装。
+openresty目前最新版本 1.9.15.1 支持动态加载模块
+nginx 依赖openssl – ssl...
+						</p>
+					</div>
+
+					<a href="/loveu/81d62413/" title="openresty 各组件依赖">				
+						<img src="/img/post-cover/18.jpg" class="relateImg" alt="openresty 各组件依赖">
+					</a>
+				</li>											
+		
+		
+				<li>
+					<div>
+						<a href="/loveu/41d88256/" title="lua 的 string 函数引发的血案">
+							lua 的 string 函数引发的血案
+						</a>
+						<p>
+							背景用 lua 的 string.gmatch 封装了一个字符串分割函数 string_split(str, sep)文件上传时，解析请求体，有时解析正常，有时卡住十几秒，并不报错，但解析失败
+分析原因代码如下：
+function s...
+						</p>
+					</div>
+
+					<a href="/loveu/41d88256/" title="lua 的 string 函数引发的血案">				
+						<img src="/img/post-cover/20.jpg" class="relateImg" alt="lua 的 string 函数引发的血案">
 					</a>
 				</li>											
 		
